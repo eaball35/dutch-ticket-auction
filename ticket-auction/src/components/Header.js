@@ -22,19 +22,21 @@ class Header extends Component {
       if (this.props.loggedIn) {
         return (
           <section>
-            <Link to='/new-ticket/2'> Start Selling</Link>  |  
-            <Link to='/seller-stats/2'> Seller Stats</Link>  |  
-            <Link to='/myaccount/2'>  My Untitled Account </Link>
+            <strong>
+              <Link to='/new-ticket/2'> Start Selling</Link>  |  
+              <Link to='/seller-stats/2'> Seller Stats</Link>  |  
+              <Link to='/myaccount/2'>  My Untitled Account </Link>
+            </strong>
             <Link 
               to='/' 
               onClick={this.props.logInCallback} 
-              className="btn btn-secondary"> Sign Out 
+              className="btn btn-secondary sign-out-btn"> Sign Out 
             </Link>
           </section>
         )
       } else {
         return (
-          <section>
+          <section className='guest-right-links'>
             <Link 
               to='/sign-in' 
               onClick={this.props.logInCallback} 
@@ -51,7 +53,7 @@ class Header extends Component {
 
     return (
       <section >
-        <section className='d-flex justify-content-between'>
+        <section className='d-flex justify-content-between top-header'>
           <div className='left-welcome'>{leftWelcomeMessage()}</div>
           <div className='right-links'>{rightLinks()}</div>
         </section>

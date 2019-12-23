@@ -5,6 +5,18 @@
   font-size: 2em
 }
 
-.right-links {
-  margin-top: 1em
+.top-header {
+  margin-top: .6em
+}
+
+.sign-in-btn {
+  margin-right: .5em;
+}
+
+.guest-right-links a {
+  color: white
+}
+
+.sign-out-btn {
+  margin-left: 1rem;
 }
