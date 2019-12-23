@@ -1,0 +1,9 @@
+.nav-header {
+  display: flex;
+  border: solid red 2px;
+  justify-content: space-between
+}
+
+.left-welcome, .right-links {
+  max-width: 50%;
+}

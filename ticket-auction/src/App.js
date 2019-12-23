@@ -12,6 +12,10 @@ const User = ({match}) => {
   return (<h1>User {match.params.userId}</h1>)
 }
 
+const Seller = ({match}) => {
+  return (<h1>Seller {match.params.sellerId}</h1>)
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +27,9 @@ class App extends Component {
   }
 
   logInUser = () => {
-
+    this.setState({
+      loggedIn: !this.state.loggedIn
+    })
   }
 
   render() {
@@ -33,14 +39,14 @@ class App extends Component {
           <Header 
             loggedIn={this.state.loggedIn}
             currentUserId={this.state.currentUserId}
+            logInCallback={this.logInUser}
           />
         </div>
 
         <Route path ='/' exact strict>
           <h1>Home</h1>
         </Route>
-        <Route 
-          path ='/ticket/:ticketnum' 
+        <Route path ='/ticket/:ticketnum' 
           exact strict 
           component={Ticket}
         />
@@ -51,13 +57,19 @@ class App extends Component {
         <Route path ='/register' exact strict>
           <h1>Register</h1>
         </Route>
-
         <Route 
           path ='/myaccount/:userId' 
           exact strict
           component={User}
         />
-        
+        <Route path ='/new-ticket/:sellerId' 
+          exact strict
+          component={Seller}
+        />
+        <Route path ='/seller-stats/:sellerId' 
+          exact strict
+          component={Seller}
+        />
       </Router>
     );
 }
