@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Link, NavLink } from 'react-router-dom';
 import Route from 'react-router-dom/Route'
 import Header from './components/Header'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Ticket = ({match}) => {
   return (<h1>Ticket {match.params.ticketnum}</h1>)
@@ -26,7 +27,7 @@ class App extends Component {
     };
   }
 
-  logInUser = () => {
+  updateLoginUser = () => {
     this.setState({
       loggedIn: !this.state.loggedIn
     })
@@ -39,9 +40,8 @@ class App extends Component {
           <Header 
             loggedIn={this.state.loggedIn}
             currentUserId={this.state.currentUserId}
-            logInCallback={this.logInUser}
+            logInCallback={this.updateLoginUser}
           />
-        </div>
 
         <Route path ='/' exact strict>
           <h1>Home</h1>
@@ -70,7 +70,9 @@ class App extends Component {
           exact strict
           component={Seller}
         />
+        </div>
       </Router>
+      
     );
 }
 }
