@@ -4,10 +4,7 @@ import { BrowserRouter as Router, Link, NavLink } from 'react-router-dom';
 import Route from 'react-router-dom/Route'
 import Header from './components/Header'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-const Ticket = ({match}) => {
-  return (<h1>Ticket {match.params.ticketnum}</h1>)
-}
+import Ticket from './components/TicketPage'
 
 const User = ({match}) => {
   return (<h1>User {match.params.userId}</h1>)
