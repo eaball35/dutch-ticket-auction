@@ -23,7 +23,7 @@ class Header extends Component {
         return (
           <section>
             <strong>
-              <Link to='/new-ticket/2'> Start Selling</Link>  |  
+              <Link to='/new-ticket'> Start Selling</Link>  |  
               <Link to='/seller-stats/2'> Seller Stats</Link>  |  
               <Link to='/myaccount/2'>  My Untitled Account </Link>
             </strong>
