@@ -1,44 +1,6 @@
 import React, { Component } from 'react';
 import Ticket from './Ticket'
 
-const exampleTicket = {
-  createdAt: '3 days ago',
-  updatedAt: 'December 26, 2019 04:18:00',
-  userId: 1234,
-  eventDetails: {
-    artist: 'Cliche Artist',
-    event: 'The Capstone Tour 2020',
-    imgUrls: ['https://posterhouse.org/wp-content/uploads/2019/08/H0849-L71392902.jpg'],
-    location: 'Hipster Ballroom',
-    city: 'Seattle',
-    state: 'WA',
-    date: 'Mon - Jan 01, 2020',
-    startTime: '8:00',
-    endTime: null,
-    details:'Event Details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-  },
-  ticketDetails: {
-    quantity: 2,
-    grouping: 'together',
-    details: 'Ticket Details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-  },
-  auctionDetails: {
-    start: {
-      totalPrice: 259.99,
-      date: 'Mon - Jan 01, 2020',
-      time: '8:00'
-    },
-    end: {
-      totalPrice: 17.99,
-      date: 'Mon - Jan 05, 2020',
-      time: '8:00'
-    },
-    overview: 'Auction Overview: Lorem ipsum dolor sit amet, consectetur adipiscing elit, dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    details: 'Auction Details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-  }
-}
-
-
 class NewTicket extends Component {
   constructor(props) {
     super(props);
@@ -117,8 +79,6 @@ class NewTicket extends Component {
     this.setState({newTicket})
   }
   
-  
-  
   onInputChange = (event) => {
     const updatedState = {};
 
@@ -130,93 +90,39 @@ class NewTicket extends Component {
       updatedState, () => {
       this.updateNewTicket();
     });
-
-
-    
   }
 
   onSubmitTicket = () => {
-
+    this.updateNewTicket();
   }
   
   
   render() {
+    const eventStates = ["artist", "event", "eventLocation", "eventCity", "eventState", "eventDate", "eventStartTime", "eventEndTime", "eventDetails"]
+    const eventLabels = ["Artist", "Event", "Location", "City", "State", "Date", "Start Time", "End Time", "Details"]
+    const ticketStates = ["ticketQuantity", "ticketGrouping", "ticketDetails"]
+    const ticketLabels = ["Quantity", "Grouping", "Details"]
+    const auctionStates = ["auctionStartTotalPrice", "auctionStartDate", "auctionStartTime", "auctionEndTotalPrice", "auctionEndDate", "auctionEndTime", "auctionOverview", "auctionDetails"]
+    const auctionLabels = ["Total Price", "Start Date", "Start Time", "Total Price", "End Date", "End Time", "Overview", "Details"]
+    
+    const inputs = (states, labels, index = -1) => states.map((state) => {
+        index++;
+        return <div>
+                <label htmlFor={state}> {labels[index]}: </label>
+                <input
+                  name={state}
+                  onChange={this.onInputChange}
+                  value={this.state.name}
+                />
+              </div>;
+    })
+
     return (
       <section>
         <form onSubmit={this.onSubmitTicket}>
-          <div>
-            <label htmlFor="artist"> Artist: </label>
-            <input
-              name="artist"
-              onChange={this.onInputChange}
-              value={this.state.name}
-            />
-          </div>
-          <div>
-            <label htmlFor="event"> Event: </label>
-            <input
-              name="event"
-              onChange={this.onInputChange}
-              value={this.state.name}
-            />
-          </div>
-          <div>
-            <label htmlFor="eventLocation"> Location: </label>
-            <input
-              name="eventLocation"
-              onChange={this.onInputChange}
-              value={this.state.name}
-            />
-          </div>
-          <div>
-            <label htmlFor="city"> City: </label>
-            <input
-              name="eventCity"
-              onChange={this.onInputChange}
-              value={this.state.name}
-            />
-          </div>
-          <div>
-            <label htmlFor="eventState"> State: </label>
-            <input
-              name="eventState"
-              onChange={this.onInputChange}
-              value={this.state.name}
-            />
-          </div>
-          <div>
-            <label htmlFor="eventDate"> Date: </label>
-            <input
-              name="eventDate"
-              onChange={this.onInputChange}
-              value={this.state.name}
-            />
-          </div>
-          <div>
-            <label htmlFor="eventStartTime"> Start Time: </label>
-            <input
-              name="eventStartTime"
-              onChange={this.onInputChange}
-              value={this.state.name}
-            />
-          </div>
-          <div>
-            <label htmlFor="eventEndTime"> End Time: </label>
-            <input
-              name="eventEndTime"
-              onChange={this.onInputChange}
-              value={this.state.name}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="eventDetails"> Details: </label>
-            <input
-              name="eventDetails"
-              onChange={this.onInputChange}
-              value={this.state.name}
-            />
-          </div>
+          {inputs(eventStates, eventLabels)}
+          {inputs(ticketStates, ticketLabels)}
+          {inputs(auctionStates, auctionLabels)}
         </form>
 
         <Ticket ticket={this.state.newTicket} example={true}/>
