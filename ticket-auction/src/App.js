@@ -8,44 +8,6 @@ import Ticket from './components/Ticket'
 import NewTicket from './components/NewTicket';
 import axios from 'axios';
 
-const exampleTicket = {
-  createdAt: '3 days ago',
-  updatedAt: 'December 26, 2019 04:18:00',
-  userId: 1234,
-  eventDetails: {
-    artist: 'Cliche Artist',
-    event: 'The Capstone Tour 2020',
-    imgUrls: ['https://posterhouse.org/wp-content/uploads/2019/08/H0849-L71392902.jpg'],
-    location: 'Hipster Ballroom',
-    city: 'Seattle',
-    state: 'WA',
-    date: 'Mon - Jan 01, 2020',
-    startTime: '8:00',
-    endTime: null,
-    details:'Event Details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-  },
-  ticketDetails: {
-    quantity: 2,
-    grouping: 'together',
-    details: 'Ticket Details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-  },
-  auctionDetails: {
-    start: {
-      totalPrice: 259.99,
-      date: 'Mon - Jan 01, 2020',
-      time: '8:00'
-    },
-    end: {
-      totalPrice: 17.99,
-      date: 'Mon - Jan 05, 2020',
-      time: '8:00'
-    },
-    overview: 'Auction Overview: Lorem ipsum dolor sit amet, consectetur adipiscing elit, dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    details: 'Auction Details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-  }
-}
-
-
 const User = ({match}) => {
   return (<h1>User {match.params.userId}</h1>)
 }
@@ -86,17 +48,31 @@ class App extends Component {
     })
   }
 
-  render() {
-    
-    const testArtist = () => {
-    if (this.state.tickets) {
-      return this.state.tickets[0].artist;
-    } else {
-      return "None"
-    }
+  exampleTicket = {
+    id: 12345,
+    createdAt: '2020-01-02T19:59:44.570+0000',
+    userId: 123,
+    artist: "Example Artist",
+    event: "Example Event",
+    eventImgUrls: ["https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"],
+    eventLocation: "Fun Concert Hall",
+    eventCity: "Chicago",
+    eventState: "IL",
+    eventStart: '2020-01-02T19:59:44.570+0000"',
+    eventEnd: '2020-01-02T19:59:44.570+0000',
+    eventDetails: "Event Details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    ticketQuantity: 2,
+    ticketGrouping: "together",
+    ticketDetails: "Ticket Details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    auctionStartTotalPrice: 250.99,
+    auctionStart: '2020-01-02T19:59:44.570+0000',
+    auctionEndTotalPrice: 5.29,
+    auctionEnd: '2020-01-02T19:59:44.570+0000"',
+    auctionOverview: "Ticket Overview: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    auctionDetails: "Auction Details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   }
-    
-    
+
+  render() {
     return (
       <Router>
         <div className="App">
@@ -108,15 +84,16 @@ class App extends Component {
 
         <Route path ='/' exact strict>
           <h1>Home</h1>
-          <Link to='/ticket/123'>ticket123</Link>
-          {testArtist()}
+          <Link to='/tickets/1'>Ticket1</Link>
+          <Link to='/tickets/2'>Ticket2</Link>
+          <Link to='/tickets/3'>Ticket3</Link>
         </Route>
-        <Route path ='/ticket/:ticketnum' 
+        <Route path ='/tickets/:ticketnum' 
           exact strict 
-          render={(props) => <Ticket ticket={exampleTicket} example={false}{...props} /> }
+          render={(props) => <Ticket ticket={this.exampleTicket} example={false}{...props} /> }
         />
         <Route path ='/new-ticket' exact strict>
-          <NewTicket exampleTicket={exampleTicket}/>
+          <NewTicket exampleTicket={this.exampleTicket}/>
         </Route>
         <Route path ='/sign-in' exact strict>
           <h1>Sign In</h1>

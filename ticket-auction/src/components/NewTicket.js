@@ -7,32 +7,28 @@ class NewTicket extends Component {
 
     this.state = {
       createdAt: this.props.exampleTicket.createdAt,
-      updatedAt: this.props.exampleTicket.updatedAt,
       userId: this.props.exampleTicket.userId,
       
-      artist: this.props.exampleTicket.eventDetails.artist,
-      event: this.props.exampleTicket.eventDetails.event,
-      eventImgUrls: this.props.exampleTicket.eventDetails.imgUrls,
-      eventLocation: this.props.exampleTicket.eventDetails.location,
-      eventCity: this.props.exampleTicket.eventDetails.city,
-      eventState: this.props.exampleTicket.eventDetails.state,
-      eventDate: this.props.exampleTicket.eventDetails.date,
-      eventStartTime: this.props.exampleTicket.eventDetails.startTime,
-      eventEndTime: this.props.exampleTicket.eventDetails.endTime,
-      eventDetails: this.props.exampleTicket.eventDetails.details,
+      artist: this.props.exampleTicket.artist,
+      event: this.props.exampleTicket.event,
+      eventImgUrls: this.props.exampleTicket.eventImgUrls,
+      eventLocation: this.props.exampleTicket.eventLocation,
+      eventCity: this.props.exampleTicket.eventCity,
+      eventState: this.props.exampleTicket.eventState,
+      eventStart: this.props.exampleTicket.eventStart,
+      eventEnd: this.props.exampleTicket.eventEnd,
+      eventDetails: this.props.exampleTicket.eventDetails,
       
-      ticketQuantity: this.props.exampleTicket.ticketDetails.quantity,
-      ticketGrouping: this.props.exampleTicket.ticketDetails.grouping,
-      ticketDetails: this.props.exampleTicket.ticketDetails.details,
+      ticketQuantity: this.props.exampleTicket.ticketQuantity,
+      ticketGrouping: this.props.exampleTicket.ticketGrouping,
+      ticketDetails: this.props.exampleTicket.ticketDetails,
       
-      auctionStartTotalPrice: this.props.exampleTicket.auctionDetails.start.totalPrice,
-      auctionStartDate: this.props.exampleTicket.auctionDetails.start.date,
-      auctionStartTime: this.props.exampleTicket.auctionDetails.start.time,
-      auctionEndTotalPrice: this.props.exampleTicket.auctionDetails.end.totalPrice,
-      auctionEndDate: this.props.exampleTicket.auctionDetails.end.date,
-      auctionEndTime: this.props.exampleTicket.auctionDetails.end.time,
-      auctionOverview: this.props.exampleTicket.auctionDetails.overview,
-      auctionDetails: this.props.exampleTicket.auctionDetails.details,
+      auctionStartTotalPrice: this.props.exampleTicket.AuctionStartTotalPrice,
+      auctionStart: this.props.exampleTicket.auctionStart,
+      auctionEndTotalPrice: this.props.exampleTicket.auctionEndTotalPrice,
+      auctionEnd: this.props.exampleTicket.auctionEnd,
+      auctionOverview: this.props.exampleTicket.auctionOverview,
+      auctionDetails: this.props.exampleTicket.auctionDetails,
 
       newTicket: this.props.exampleTicket,
     };
@@ -40,42 +36,30 @@ class NewTicket extends Component {
 
   updateNewTicket = () => {
     const newTicket = {
-      createdAt: this.state.createdAt,
-      updatedAt: this.state.updatedAt,
-      userId: this.state.userId,
-      eventDetails: {
-        artist: this.state.artist,
-        event: this.state.event,
-        img_urls: this.state.img_urls,
-        location: this.state.eventLocation,
-        city: this.state.eventCity,
-        state: this.state.eventState,
-        date: this.state.eventDate,
-        startTime: this.state.eventStartTime,
-        endTime: this.state.eventEndTime,
-        details: this.state.eventDetails
-      },
-      ticketDetails: {
-        quantity: this.state.ticketQuantity,
-        grouping: this.state.ticketGrouping,
-        details: this.state.ticketDetails
-      },
-      auctionDetails: {
-        start: {
-          totalPrice: this.state.auctionStartTotalPrice,
-          date: this.state.auctionStartDate,
-          time: this.state.auctionStartTime,
-        },
-        end: {
-          totalPrice: this.state.auctionEndTotalPrice,
-          date: this.state.auctionEndDate,
-          time: this.state.auctionEndTime,
-        },
-        overview: this.state.auctionOverview,
-        details: this.state.auctionDetails
-      }
+      createdAt: this.state.exampleTicket.createdAt,
+      userId: this.state.exampleTicket.userId,
+      
+      artist: this.state.exampleTicket.artist,
+      event: this.state.exampleTicket.event,
+      eventImgUrls: this.state.exampleTicket.eventImgUrls,
+      eventLocation: this.state.exampleTicket.eventLocation,
+      eventCity: this.state.exampleTicket.eventCity,
+      eventState: this.state.exampleTicket.eventState,
+      eventStart: this.state.exampleTicket.eventStart,
+      eventEnd: this.state.exampleTicket.eventEnd,
+      eventDetails: this.state.exampleTicket.eventDetails,
+      
+      ticketQuantity: this.state.exampleTicket.ticketQuantity,
+      ticketGrouping: this.state.exampleTicket.ticketGrouping,
+      ticketDetails: this.state.exampleTicket.ticketDetails,
+      
+      auctionStartTotalPrice: this.state.exampleTicket.AuctionStartTotalPrice,
+      auctionStart: this.state.exampleTicket.auctionStart,
+      auctionEndTotalPrice: this.state.exampleTicket.auctionEndTotalPrice,
+      auctionEnd: this.state.exampleTicket.auctionEnd,
+      auctionOverview: this.state.exampleTicket.auctionOverview,
+      auctionDetails: this.state.exampleTicket.auctionDetails,
     }
-
     this.setState({newTicket})
   }
   
