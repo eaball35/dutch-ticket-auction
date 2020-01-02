@@ -54,11 +54,11 @@ class App extends Component {
     userId: 123,
     artist: "Example Artist",
     event: "Example Event",
-    eventImgUrls: ["https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"],
+    eventImgUrls: "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
     eventLocation: "Fun Concert Hall",
     eventCity: "Chicago",
     eventState: "IL",
-    eventStart: '2020-01-02T19:59:44.570+0000"',
+    eventStart: '2020-01-02T19:59:44.570+0000',
     eventEnd: '2020-01-02T19:59:44.570+0000',
     eventDetails: "Event Details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     ticketQuantity: 2,
@@ -67,7 +67,7 @@ class App extends Component {
     auctionStartTotalPrice: 250.99,
     auctionStart: '2020-01-02T19:59:44.570+0000',
     auctionEndTotalPrice: 5.29,
-    auctionEnd: '2020-01-02T19:59:44.570+0000"',
+    auctionEnd: '2020-01-02T19:59:44.570+0000',
     auctionOverview: "Ticket Overview: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     auctionDetails: "Auction Details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   }
