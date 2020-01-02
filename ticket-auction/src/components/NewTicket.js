@@ -33,35 +33,6 @@ class NewTicket extends Component {
       newTicket: this.props.exampleTicket,
     };
   }
-
-  updateNewTicket = () => {
-    const newTicket = {
-      createdAt: this.state.exampleTicket.createdAt,
-      userId: this.state.exampleTicket.userId,
-      
-      artist: this.state.exampleTicket.artist,
-      event: this.state.exampleTicket.event,
-      eventImgUrls: this.state.exampleTicket.eventImgUrls,
-      eventLocation: this.state.exampleTicket.eventLocation,
-      eventCity: this.state.exampleTicket.eventCity,
-      eventState: this.state.exampleTicket.eventState,
-      eventStart: this.state.exampleTicket.eventStart,
-      eventEnd: this.state.exampleTicket.eventEnd,
-      eventDetails: this.state.exampleTicket.eventDetails,
-      
-      ticketQuantity: this.state.exampleTicket.ticketQuantity,
-      ticketGrouping: this.state.exampleTicket.ticketGrouping,
-      ticketDetails: this.state.exampleTicket.ticketDetails,
-      
-      auctionStartTotalPrice: this.state.exampleTicket.AuctionStartTotalPrice,
-      auctionStart: this.state.exampleTicket.auctionStart,
-      auctionEndTotalPrice: this.state.exampleTicket.auctionEndTotalPrice,
-      auctionEnd: this.state.exampleTicket.auctionEnd,
-      auctionOverview: this.state.exampleTicket.auctionOverview,
-      auctionDetails: this.state.exampleTicket.auctionDetails,
-    }
-    this.setState({newTicket})
-  }
   
   onInputChange = (event) => {
     const updatedState = {};
@@ -70,10 +41,12 @@ class NewTicket extends Component {
     const value = event.target.value;
 
     updatedState[field] = value;
-    this.setState(
-      updatedState, () => {
-      this.updateNewTicket();
-    });
+    
+    // eslint-disable-next-line react/no-direct-mutation-state
+    this.state.newTicket[field] = value;
+    updatedState['newTicket'] = this.state.newTicket;
+    
+    this.setState(updatedState);
   }
 
   onSubmitTicket = () => {
