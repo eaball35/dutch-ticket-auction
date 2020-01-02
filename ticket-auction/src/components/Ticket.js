@@ -46,7 +46,6 @@ class Ticket extends Component {
     return (
       <section>
         <section>
-          {console.log(this.props.ticket)}
           {ticketNum()}
           <img src={eventDetails.imgUrls} alt={eventDetails.event} className='event-img'/>
           <h1>{eventDetails.artist} - {eventDetails.event}</h1>

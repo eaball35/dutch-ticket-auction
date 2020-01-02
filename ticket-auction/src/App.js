@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Link, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 import Route from 'react-router-dom/Route'
 import Header from './components/Header'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Ticket from './components/Ticket'
 import NewTicket from './components/NewTicket';
+import axios from 'axios';
 
 const exampleTicket = {
   createdAt: '3 days ago',
@@ -44,6 +45,7 @@ const exampleTicket = {
   }
 }
 
+
 const User = ({match}) => {
   return (<h1>User {match.params.userId}</h1>)
 }
@@ -59,7 +61,23 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       currentUserId: 0,
+      tickets: null,
+      errors: "",
     };
+  }
+
+  componentDidMount = () => {
+    this.fetchTickets();
+  }
+
+  fetchTickets() {
+    axios.get('http://localhost:8080/tickets')
+      .then((response) => {
+        this.setState({tickets: response.data})
+      })
+      .catch((error) => {
+        this.setState({tickets: error})
+      });
   }
 
   updateLoginUser = () => {
@@ -69,6 +87,16 @@ class App extends Component {
   }
 
   render() {
+    
+    const testArtist = () => {
+    if (this.state.tickets) {
+      return this.state.tickets[0].artist;
+    } else {
+      return "None"
+    }
+  }
+    
+    
     return (
       <Router>
         <div className="App">
@@ -81,6 +109,7 @@ class App extends Component {
         <Route path ='/' exact strict>
           <h1>Home</h1>
           <Link to='/ticket/123'>ticket123</Link>
+          {testArtist()}
         </Route>
         <Route path ='/ticket/:ticketnum' 
           exact strict 

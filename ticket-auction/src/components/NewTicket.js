@@ -93,9 +93,12 @@ class NewTicket extends Component {
   }
 
   onSubmitTicket = () => {
-    this.updateNewTicket();
+    
   }
-  
+
+  tabClick = () => {
+
+  }
   
   render() {
     const eventStates = ["artist", "event", "eventLocation", "eventCity", "eventState", "eventDate", "eventStartTime", "eventEndTime", "eventDetails"]
@@ -120,10 +123,16 @@ class NewTicket extends Component {
     return (
       <section>
         <form onSubmit={this.onSubmitTicket}>
+        
+          <button onClick={() => {this.tabClick('event')}}>Event</button>
           {inputs(eventStates, eventLabels)}
+          
+          <button onClick={() => {this.tabClick('ticket')}}>Ticket</button>
           {inputs(ticketStates, ticketLabels)}
+          
+          <button onClick={() => {this.tabClick('auction')}}>Auction</button>
           {inputs(auctionStates, auctionLabels)}
-        </form>
+        </form>      
 
         <Ticket ticket={this.state.newTicket} example={true}/>
       </section>

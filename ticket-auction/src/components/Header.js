@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Link, NavLink } from 'react-router-dom';
 import Search from './Search'
 import './Header.css'
@@ -66,8 +65,5 @@ class Header extends Component {
     )
   };
 }
-
-Header.propTypes = {
-};
 
 export default Header;
