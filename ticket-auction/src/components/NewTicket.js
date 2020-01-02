@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Ticket from './Ticket'
+import axios from 'axios';
 
 class NewTicket extends Component {
   constructor(props) {
@@ -7,93 +8,80 @@ class NewTicket extends Component {
 
     this.state = {
       createdAt: this.props.exampleTicket.createdAt,
-      updatedAt: this.props.exampleTicket.updatedAt,
       userId: this.props.exampleTicket.userId,
       
-      artist: this.props.exampleTicket.eventDetails.artist,
-      event: this.props.exampleTicket.eventDetails.event,
-      eventImgUrls: this.props.exampleTicket.eventDetails.imgUrls,
-      eventLocation: this.props.exampleTicket.eventDetails.location,
-      eventCity: this.props.exampleTicket.eventDetails.city,
-      eventState: this.props.exampleTicket.eventDetails.state,
-      eventDate: this.props.exampleTicket.eventDetails.date,
-      eventStartTime: this.props.exampleTicket.eventDetails.startTime,
-      eventEndTime: this.props.exampleTicket.eventDetails.endTime,
-      eventDetails: this.props.exampleTicket.eventDetails.details,
+      artist: this.props.exampleTicket.artist,
+      event: this.props.exampleTicket.event,
+      eventImgUrls: this.props.exampleTicket.eventImgUrls,
+      eventLocation: this.props.exampleTicket.eventLocation,
+      eventCity: this.props.exampleTicket.eventCity,
+      eventState: this.props.exampleTicket.eventState,
+      eventStart: this.props.exampleTicket.eventStart,
+      eventEnd: this.props.exampleTicket.eventEnd,
+      eventDetails: this.props.exampleTicket.eventDetails,
       
-      ticketQuantity: this.props.exampleTicket.ticketDetails.quantity,
-      ticketGrouping: this.props.exampleTicket.ticketDetails.grouping,
-      ticketDetails: this.props.exampleTicket.ticketDetails.details,
+      ticketQuantity: this.props.exampleTicket.ticketQuantity,
+      ticketGrouping: this.props.exampleTicket.ticketGrouping,
+      ticketDetails: this.props.exampleTicket.ticketDetails,
       
-      auctionStartTotalPrice: this.props.exampleTicket.auctionDetails.start.totalPrice,
-      auctionStartDate: this.props.exampleTicket.auctionDetails.start.date,
-      auctionStartTime: this.props.exampleTicket.auctionDetails.start.time,
-      auctionEndTotalPrice: this.props.exampleTicket.auctionDetails.end.totalPrice,
-      auctionEndDate: this.props.exampleTicket.auctionDetails.end.date,
-      auctionEndTime: this.props.exampleTicket.auctionDetails.end.time,
-      auctionOverview: this.props.exampleTicket.auctionDetails.overview,
-      auctionDetails: this.props.exampleTicket.auctionDetails.details,
+      auctionStartTotalPrice: this.props.exampleTicket.auctionStartTotalPrice,
+      auctionStart: this.props.exampleTicket.auctionStart,
+      auctionEndTotalPrice: this.props.exampleTicket.auctionEndTotalPrice,
+      auctionEnd: this.props.exampleTicket.auctionEnd,
+      auctionOverview: this.props.exampleTicket.auctionOverview,
+      auctionDetails: this.props.exampleTicket.auctionDetails,
 
       newTicket: this.props.exampleTicket,
     };
   }
-
-  updateNewTicket = () => {
-    const newTicket = {
-      createdAt: this.state.createdAt,
-      updatedAt: this.state.updatedAt,
-      userId: this.state.userId,
-      eventDetails: {
-        artist: this.state.artist,
-        event: this.state.event,
-        img_urls: this.state.img_urls,
-        location: this.state.eventLocation,
-        city: this.state.eventCity,
-        state: this.state.eventState,
-        date: this.state.eventDate,
-        startTime: this.state.eventStartTime,
-        endTime: this.state.eventEndTime,
-        details: this.state.eventDetails
-      },
-      ticketDetails: {
-        quantity: this.state.ticketQuantity,
-        grouping: this.state.ticketGrouping,
-        details: this.state.ticketDetails
-      },
-      auctionDetails: {
-        start: {
-          totalPrice: this.state.auctionStartTotalPrice,
-          date: this.state.auctionStartDate,
-          time: this.state.auctionStartTime,
-        },
-        end: {
-          totalPrice: this.state.auctionEndTotalPrice,
-          date: this.state.auctionEndDate,
-          time: this.state.auctionEndTime,
-        },
-        overview: this.state.auctionOverview,
-        details: this.state.auctionDetails
-      }
-    }
-
-    this.setState({newTicket})
-  }
   
   onInputChange = (event) => {
     const updatedState = {};
-
     const field = event.target.name;
     const value = event.target.value;
 
     updatedState[field] = value;
-    this.setState(
-      updatedState, () => {
-      this.updateNewTicket();
-    });
+    
+    // eslint-disable-next-line react/no-direct-mutation-state
+    this.state.newTicket[field] = value;
+    updatedState['newTicket'] = this.state.newTicket;
+    
+    this.setState(updatedState);
   }
 
-  onSubmitTicket = () => {
-    
+  onSubmitTicket = (event) => {
+    event.preventDefault();
+    const params = {
+      "userId": this.state.userId,
+      "artist": this.state.artist,
+      "event": this.state.event,
+      "eventImgUrls": this.state.eventImgUrls,
+      "eventLocation": this.state.eventLocation,
+      "eventCity": this.state.eventCity,
+      "eventState": this.state.eventState,
+      "eventStart": this.state.eventStart,
+      "eventEnd": this.state.eventEnd,
+      "eventDetails": this.state.eventDetails,
+      "ticketQuantity": this.state.ticketQuantity,
+      "ticketGrouping": this.state.ticketGrouping,
+      "ticketDetails": this.state.ticketDetails,
+      "auctionStartTotalPrice": this.state.auctionStartTotalPrice,
+      "auctionStart": this.state.auctionStart,
+      "auctionEndTotalPrice": this.state.auctionEndTotalPrice,
+      "auctionEnd": this.state.auctionEnd,
+      "auctionOverview": this.state.auctionOverview,
+      "auctionDetails": this.state.auctionDetails
+    }
+
+    console.log(params)
+
+    axios.post(`http://localhost:8080/tickets`, params)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   tabClick = () => {
@@ -132,6 +120,10 @@ class NewTicket extends Component {
           
           <button onClick={() => {this.tabClick('auction')}}>Auction</button>
           {inputs(auctionStates, auctionLabels)}
+        
+          <div>
+            <input type="submit" value="Submit"/>
+          </div>
         </form>      
 
         <Ticket ticket={this.state.newTicket} example={true}/>

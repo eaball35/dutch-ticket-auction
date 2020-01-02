@@ -1,13 +1,32 @@
 import React, { Component } from 'react';
 import './Ticket.css';
+import axios from 'axios';
 
 class Ticket extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      detailsTab: 'auction'
+      detailsTab: 'auction',
+      ticket: this.props.ticket,
+      error: ''
     };
+  }
+
+  componentDidMount = () => {
+    if(!this.props.example) {
+      this.fetchTicket();
+    }
+  }
+
+  fetchTicket() {
+    axios.get(`http://localhost:8080/tickets/${this.props.match.params.ticketnum}`)
+      .then((response) => {
+        this.setState({ticket: response.data})
+      })
+      .catch((error) => {
+        this.setState({error: error})
+      });
   }
 
   tabClick = (tab) => {
@@ -22,37 +41,33 @@ class Ticket extends Component {
 
   chooseDetails = () => {
     if (this.state.detailsTab === 'auction') {
-      return (this.props.ticket.auctionDetails.details)
+      return (this.state.ticket.auctionDetails)
     } else if (this.state.detailsTab === 'ticket') {
-      return (this.props.ticket.ticketDetails.details)
+      return (this.state.ticket.ticketDetails)
     } else if (this.state.detailsTab === 'event') {
-      return (this.props.ticket.eventDetails.details)
+      return (this.state.ticket.eventDetails)
     }
   }
 
   render() {
-    const eventDetails = this.props.ticket.eventDetails
-    const ticketDetails = this.props.ticket.ticketDetails
-    const auctionDetails = this.props.ticket.auctionDetails
-    
-    
     const ticketNum = () => {
       if (!this.props.example) {
         const tNum = this.props.match.params.ticketnum
         return (<h6>Ticket #: {tNum}</h6>)
       }
     }
+    const listingDetails = this.state.ticket;
 
     return (
       <section>
         <section>
           {ticketNum()}
-          <img src={eventDetails.imgUrls} alt={eventDetails.event} className='event-img'/>
-          <h1>{eventDetails.artist} - {eventDetails.event}</h1>
-          <h4>{eventDetails.date}  |  {ticketDetails.quantity} {ticketDetails.grouping} </h4>
-          <h2>@ {eventDetails.location}  |  {eventDetails.city}, {eventDetails.state} </h2>
-          <h4>Listed {this.props.ticket.createdAt} for ${auctionDetails.start.totalPrice/ticketDetails.quantity} <span>ea</span></h4>
-          <p>{auctionDetails.overview}</p>
+          <img src={listingDetails.eventImgUrls} alt={listingDetails.event} className='event-img'/>
+          <h1>{listingDetails.artist} - {listingDetails.event}</h1>
+          <h4>{listingDetails.eventStart}  |  {listingDetails.ticketQuantity} {listingDetails.ticketGrouping} </h4>
+          <h2>@ {listingDetails.eventLocation}  |  {listingDetails.eventCity}, {listingDetails.eventState} </h2>
+          <h4>Listed {listingDetails.createdAt} for ${listingDetails.auctionStartTotalPrice/listingDetails.ticketQuantity} <span>ea</span></h4>
+          <p>{listingDetails.auctionOverview}</p>
         </section>
 
         <section>
