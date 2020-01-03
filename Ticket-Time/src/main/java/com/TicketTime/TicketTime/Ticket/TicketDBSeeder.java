@@ -62,11 +62,34 @@ public class TicketDBSeeder implements CommandLineRunner {
                 "Auction Details here more stuff"
         );
 
-////        delete all
-//        this.ticketRepository.deleteAll();
+        Ticket greenTicket = new Ticket("3",
+                2,
+                "Example Artist",
+                "TicketTime Event",
+                "https://kazr-fm.sagacom.com/wp-content/blogs.dir/12/files/2018/05/Concert.jpg",
+                "Event Palace",
+                "New York",
+                "NY",
+                new Date(),
+                new Date(),
+                "Event Details here & Stuff.Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.",
+                3,
+                "together",
+                "Ticket Details Here & Stuff & ThingsLorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.",
+                120.00,
+                new Date(),
+                2.2,
+                new Date() ,
+                "Auction Overview here WOOO.Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs.",
+                "Auction Details here more stuff. Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs."
+        );
+
+//        delete all
+        this.ticketRepository.deleteAll();
 
 //        add to db
         this.ticketRepository.save(orangeTicket);
         this.ticketRepository.save(blueTicket);
+        this.ticketRepository.save(greenTicket);
     }
 }

@@ -44,36 +44,4 @@ public class TicketController {
         Optional<Ticket> ticket = this.ticketRepository.findById(id);
         return ticket;
     }
-
-//    @GetMapping("/tickets/{id}")
-//    public Ticket getTicket(@PathVariable int id) {
-//        Ticket ticket = service.findOne(id);
-//
-//        if (ticket == null) {
-//            throw new TicketNotFoundException("id: " + id);
-//        }
-//        return ticket;
-//    }
-
-//    @DeleteMapping("/tickets/{id}")
-//    public void deleteTicket(@PathVariable int id) {
-//        Ticket ticket = service.deleteById(id);
-//
-//        if (ticket == null) {
-//            throw new TicketNotFoundException("id: " + id);
-//        }
-//    }
-//
-//    @PostMapping("/tickets")
-//    public ResponseEntity<Object> createTicket(@Valid @RequestBody Ticket ticket) {
-//        Ticket savedTicket = service.save(ticket);
-//
-//        URI location = ServletUriComponentsBuilder.
-//                fromCurrentRequest().
-//                path("/{id}").
-//                buildAndExpand(savedTicket.getId()).toUri();
-//
-//        return ResponseEntity.created(location).build();
-//    }
-
 }
