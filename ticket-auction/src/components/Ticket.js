@@ -9,7 +9,7 @@ class Ticket extends Component {
     this.state = {
       detailsTab: 'auction',
       ticket: this.props.ticket,
-      error: ''
+      errorDetails: ''
     };
   }
 
