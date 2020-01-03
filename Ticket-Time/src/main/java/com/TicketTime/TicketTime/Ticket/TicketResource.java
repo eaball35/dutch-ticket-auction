@@ -30,8 +30,18 @@ public class TicketResource {
         return ticket;
     }
 
+    @DeleteMapping("/tickets/{id}")
+    public void deleteTicket(@PathVariable int id) {
+        Ticket ticket = service.deleteById(id);
+
+        if (ticket == null) {
+            throw new TicketNotFoundException("id: " + id);
+        }
+    }
+
+
     @PostMapping("/tickets")
-    public ResponseEntity<Object> createUser(@RequestBody Ticket ticket) {
+    public ResponseEntity<Object> createTicket(@RequestBody Ticket ticket) {
         Ticket savedTicket = service.save(ticket);
 
         URI location = ServletUriComponentsBuilder.

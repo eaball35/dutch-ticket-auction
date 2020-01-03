@@ -9,7 +9,7 @@ class Ticket extends Component {
     this.state = {
       detailsTab: 'auction',
       ticket: this.props.ticket,
-      errorDetails: ''
+      errorDetails: null,
     };
   }
 
@@ -25,7 +25,7 @@ class Ticket extends Component {
         this.setState({ticket: response.data})
       })
       .catch((error) => {
-        this.setState({error: error})
+        this.setState({errorDetails: error.response.data})
       });
   }
 
@@ -58,9 +58,17 @@ class Ticket extends Component {
     }
     const listingDetails = this.state.ticket;
 
+
+    const errorMessages = () => {
+      if (this.state.errorDetails) {
+        return <p className="alert alert-danger" role="alert" >Error: {this.state.errorDetails.error} - {this.state.errorDetails.message} </p>
+      }
+    }
+
     return (
       <section>
         <section>
+          {errorMessages()}
           {ticketNum()}
           <img src={listingDetails.eventImgUrls} alt={listingDetails.event} className='event-img'/>
           <h1>{listingDetails.artist} - {listingDetails.event}</h1>

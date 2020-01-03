@@ -3,6 +3,7 @@ package com.TicketTime.TicketTime.Ticket;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Date;
 
@@ -34,6 +35,18 @@ public class TicketService {
     public  Ticket findOne(int id) {
         for (Ticket ticket : tickets) {
             if (ticket.getId() == id) {
+                return ticket;
+            }
+        }
+        return null;
+    }
+
+    public  Ticket deleteById(int id) {
+        Iterator<Ticket> iterator = tickets.iterator();
+        while (iterator.hasNext()) {
+            Ticket ticket = iterator.next();
+            if (ticket.getId() == id) {
+                iterator.remove();
                 return ticket;
             }
         }
