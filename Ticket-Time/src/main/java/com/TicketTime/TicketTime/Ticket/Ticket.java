@@ -1,5 +1,7 @@
 package com.TicketTime.TicketTime.Ticket;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.IndexDirection;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Size;
@@ -9,6 +11,8 @@ import java.util.Date;
 public class Ticket {
     @Id
     private String id;
+
+    @Indexed(direction = IndexDirection.ASCENDING)
     private Date createdAt;
     private final Integer userId;
 

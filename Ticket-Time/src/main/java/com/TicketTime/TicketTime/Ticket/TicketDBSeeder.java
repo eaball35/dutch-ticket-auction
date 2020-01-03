@@ -84,9 +84,6 @@ public class TicketDBSeeder implements CommandLineRunner {
                 "Auction Details here more stuff. Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs."
         );
 
-//        delete all
-        this.ticketRepository.deleteAll();
-
 //        add to db
         this.ticketRepository.save(orangeTicket);
         this.ticketRepository.save(blueTicket);

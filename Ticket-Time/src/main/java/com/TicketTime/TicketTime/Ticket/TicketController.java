@@ -51,4 +51,10 @@ public class TicketController {
         return tickets;
     }
 
+    @GetMapping("/city/{eventCity}")
+    public List<Ticket> getByCity(@PathVariable("eventCity") String eventCity) {
+        List<Ticket> tickets = this.ticketRepository.findByEventCity(eventCity);
+        return tickets;
+    }
+
 }
