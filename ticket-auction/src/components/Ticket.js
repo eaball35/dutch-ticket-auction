@@ -29,6 +29,16 @@ class Ticket extends Component {
       });
   }
 
+  deleteTicket = () => {
+    axios.delete(`http://localhost:8080/tickets/${this.state.ticket.id}`)
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        this.setState({errorDetails: error.response.data})
+      });
+  }
+
   tabClick = (tab) => {
     if (tab === 'auction') {
       this.setState({detailsTab: 'auction'});
@@ -58,6 +68,12 @@ class Ticket extends Component {
     }
     const listingDetails = this.state.ticket;
 
+    const deleteButton = () => {
+      if (!this.props.example) {
+        return (<button className='btn btn-primary' onClick={this.deleteTicket}>Delete</button>)
+      }
+    }
+
 
     const errorMessages = () => {
       if (this.state.errorDetails) {
@@ -69,6 +85,7 @@ class Ticket extends Component {
       <section>
         <section>
           {errorMessages()}
+          {deleteButton()}
           {ticketNum()}
           <img src={listingDetails.eventImgUrls} alt={listingDetails.event} className='event-img'/>
           <h1>{listingDetails.artist} - {listingDetails.event}</h1>

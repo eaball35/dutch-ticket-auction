@@ -1,4 +1,5 @@
 package com.TicketTime.TicketTime.Ticket;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 

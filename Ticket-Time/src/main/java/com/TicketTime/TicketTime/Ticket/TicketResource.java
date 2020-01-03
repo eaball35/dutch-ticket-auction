@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.net.URI;
 
@@ -14,6 +15,7 @@ public class TicketResource {
 
     @Autowired
     private TicketService service;
+    private TicketRepository ticketRepository;
 
     @GetMapping("/tickets")
     public List<Ticket> retrieveAllUsers() {
@@ -39,9 +41,8 @@ public class TicketResource {
         }
     }
 
-
     @PostMapping("/tickets")
-    public ResponseEntity<Object> createTicket(@RequestBody Ticket ticket) {
+    public ResponseEntity<Object> createTicket(@Valid @RequestBody Ticket ticket) {
         Ticket savedTicket = service.save(ticket);
 
         URI location = ServletUriComponentsBuilder.
