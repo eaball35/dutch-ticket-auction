@@ -44,4 +44,11 @@ public class TicketController {
         Optional<Ticket> ticket = this.ticketRepository.findById(id);
         return ticket;
     }
+
+    @GetMapping("/state/{eventState}")
+    public List<Ticket> getByState(@PathVariable("eventState") String eventState) {
+        List<Ticket> tickets = this.ticketRepository.findByEventState(eventState);
+        return tickets;
+    }
+
 }
