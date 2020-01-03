@@ -25,7 +25,7 @@ class Ticket extends Component {
         this.setState({ticket: response.data})
       })
       .catch((error) => {
-        this.setState({errorDetails: error.response.data})
+        this.setState({errorDetails: error.response})
       });
   }
 
