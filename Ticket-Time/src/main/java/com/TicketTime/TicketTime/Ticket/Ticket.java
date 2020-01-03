@@ -1,11 +1,15 @@
 package com.TicketTime.TicketTime.Ticket;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-
+@Document
 public class Ticket {
-    private Integer id;
-    private final Date createdAt;
+    @Id
+    private String id;
+    private Date createdAt;
     private final Integer userId;
 
     private final String artist;
@@ -29,7 +33,7 @@ public class Ticket {
     private final String auctionOverview;
     private final String auctionDetails;
 
-    public Ticket(Integer id, Integer userId, String artist, String event, String eventImgUrls, String eventLocation, String eventCity, String eventState, Date eventStart, Date eventEnd, String eventDetails, Integer ticketQuantity, String ticketGrouping, String ticketDetails, Double auctionStartTotalPrice, Date auctionStart, Double auctionEndTotalPrice, Date auctionEnd, String auctionOverview, String auctionDetails) {
+    public Ticket(String id, Integer userId, String artist, String event, String eventImgUrls, String eventLocation, String eventCity, String eventState, Date eventStart, Date eventEnd, String eventDetails, Integer ticketQuantity, String ticketGrouping, String ticketDetails, Double auctionStartTotalPrice, Date auctionStart, Double auctionEndTotalPrice, Date auctionEnd, String auctionOverview, String auctionDetails) {
         this.id = id;
         this.createdAt = new Date();
         this.userId = userId;
@@ -60,12 +64,17 @@ public class Ticket {
         return createdAt;
     }
 
-    public Integer getId() {
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Integer getUserId() {

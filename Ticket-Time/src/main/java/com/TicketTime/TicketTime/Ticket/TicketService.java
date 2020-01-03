@@ -13,7 +13,7 @@ public class TicketService {
     private static int ticketCount = 1;
 
     static {
-        tickets.add(new Ticket(1, 1, "Cool Artist", "Example Event", "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+        tickets.add(new Ticket("1", 1, "Cool Artist", "Example Event", "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
                 "Concert Hall", "Chicago","IL", new Date(),
                 new Date(), "Event Details here", 2, "together", "Ticket Details Here",
                 250.00, new Date(), 5.2, new Date() ,"Auction Overview here",
@@ -26,7 +26,7 @@ public class TicketService {
 
     public Ticket save(Ticket ticket) {
        if (ticket.getId() == null) {
-           ticket.setId(++ticketCount);
+           ticket.setId(Integer.toString(++ticketCount));
        }
        tickets.add(ticket);
        return ticket;
@@ -34,7 +34,7 @@ public class TicketService {
 
     public  Ticket findOne(int id) {
         for (Ticket ticket : tickets) {
-            if (ticket.getId() == id) {
+            if (ticket.getId().equals(id)) {
                 return ticket;
             }
         }
@@ -45,7 +45,7 @@ public class TicketService {
         Iterator<Ticket> iterator = tickets.iterator();
         while (iterator.hasNext()) {
             Ticket ticket = iterator.next();
-            if (ticket.getId() == id) {
+            if (ticket.getId().equals(id)) {
                 iterator.remove();
                 return ticket;
             }
