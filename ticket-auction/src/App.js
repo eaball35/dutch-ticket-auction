@@ -91,6 +91,7 @@ class App extends Component {
           <Link to='/tickets/1'>Ticket1</Link>
           <Link to='/tickets/2'>Ticket2</Link>
           <Link to='/tickets/3'>Ticket3</Link>
+          {console.log(this.state.tickets)}
           <TicketList tickets={this.state.tickets}/>
         </Route>
         <Route path ='/tickets/:ticketnum' 
