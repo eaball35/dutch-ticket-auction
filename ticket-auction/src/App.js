@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Ticket from './components/Ticket'
 import NewTicket from './components/NewTicket';
 import axios from 'axios';
+import TicketList from './components/TicketList';
 
 const User = ({match}) => {
   return (<h1>User {match.params.userId}</h1>)
@@ -23,7 +24,7 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       currentUserId: 0,
-      tickets: null,
+      tickets: undefined,
       errors: "",
     };
   }
@@ -33,7 +34,7 @@ class App extends Component {
   }
 
   fetchTickets() {
-    axios.get('http://localhost:8080/tickets')
+    axios.get('http://localhost:8080/tickets/all')
       .then((response) => {
         this.setState({tickets: response.data})
       })
@@ -72,7 +73,10 @@ class App extends Component {
     auctionDetails: "Auction Details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   }
 
+
+
   render() {
+
     return (
       <Router>
         <div className="App">
@@ -87,6 +91,7 @@ class App extends Component {
           <Link to='/tickets/1'>Ticket1</Link>
           <Link to='/tickets/2'>Ticket2</Link>
           <Link to='/tickets/3'>Ticket3</Link>
+          <TicketList tickets={this.state.tickets}/>
         </Route>
         <Route path ='/tickets/:ticketnum' 
           exact strict 
