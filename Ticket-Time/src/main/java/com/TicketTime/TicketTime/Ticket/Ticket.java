@@ -2,6 +2,7 @@ package com.TicketTime.TicketTime.Ticket;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -10,27 +11,49 @@ public class Ticket {
     @Id
     private String id;
     private Date createdAt;
+
+    @NotBlank
     private final Integer userId;
 
     private final String artist;
+    @NotBlank
     private final String event;
+
+    @NotBlank
     private final String eventImgUrls;
+
     private final String eventLocation;
+
+    @NotBlank
     private final String eventCity;
+
+    @NotBlank
     private final String eventState;
+
+    @NotBlank
     private final Date eventStart;
+
+    @NotBlank
     private final Date eventEnd;
     private final String eventDetails;
 
+    @NotBlank
     private final Integer ticketQuantity;
+    @NotBlank
     private final String ticketGrouping;
     private final String ticketDetails;
 
+    @NotBlank
     private final Double auctionStartTotalPrice;
+    @NotBlank
     private final Date auctionStart;
+    @NotBlank
     private final Double auctionEndTotalPrice;
+    @NotBlank
     private final Date auctionEnd;
+    @NotBlank
     private final String auctionOverview;
+    @NotBlank
     private final String auctionDetails;
 
     public Ticket(String id, Integer userId, String artist, String event, String eventImgUrls, String eventLocation, String eventCity, String eventState, Date eventStart, Date eventEnd, String eventDetails, Integer ticketQuantity, String ticketGrouping, String ticketDetails, Double auctionStartTotalPrice, Date auctionStart, Double auctionEndTotalPrice, Date auctionEnd, String auctionOverview, String auctionDetails) {

@@ -18,30 +18,36 @@ public class TicketController {
 
     @GetMapping("/all")
     public List<Ticket> getAll() {
-        System.out.println(ticketRepository);
         return ticketRepository.findAll();
     }
 
 //    Instert just insterts data
     @PutMapping
-    public void insert(@RequestBody Ticket ticket) {
-        this.ticketRepository.insert(ticket);
+    public String insert(@RequestBody Ticket ticket) {
+        Ticket newTicket = this.ticketRepository.insert(ticket);
+        return newTicket.getId();
     }
 
 //    Save can perform insert or update
     @PostMapping
-    public void update(@RequestBody Ticket ticket) {
-        this.ticketRepository.save(ticket);
+    public String update(@RequestBody Ticket ticket) {
+        Ticket newTicket = this.ticketRepository.save(ticket);
+        return newTicket.getId();
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id) {
+        getById(id);
         this.ticketRepository.deleteById(id);
     }
+
 
     @GetMapping("/{id}")
     public Optional<Ticket> getById(@PathVariable("id") String id) {
         Optional<Ticket> ticket = this.ticketRepository.findById(id);
+        if (ticket.isEmpty()) {
+            throw new TicketNotFoundException("Ticket Not Found");
+        }
         return ticket;
     }
 }
