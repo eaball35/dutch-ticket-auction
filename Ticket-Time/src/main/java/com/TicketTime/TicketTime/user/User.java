@@ -15,8 +15,6 @@ public class User {
     private Date createdAt = new Date();
     private Date updatedAt = new Date();
     private Date providerId = null;
-    private ArrayList<TicketListing> ticketListings;
-    private ArrayList<Order> orders;
 
     @NotBlank
     private final String firstName;
@@ -55,14 +53,6 @@ public class User {
 
     public Date getProviderId() {
         return providerId;
-    }
-
-    public ArrayList<TicketListing> getTicketListings() {
-        return ticketListings;
-    }
-
-    public ArrayList<Order> getOrders() {
-        return orders;
     }
 
     public String getFirstName() {
@@ -113,13 +103,6 @@ public class User {
         this.providerId = providerId;
     }
 
-    public void setTicketListings(ArrayList<TicketListing> ticketListings) {
-        this.ticketListings = ticketListings;
-    }
-
-    public void setOrders(ArrayList<Order> orders) {
-        this.orders = orders;
-    }
 
     @Override
     public String toString() {
@@ -128,8 +111,6 @@ public class User {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", providerId=" + providerId +
-                ", ticketListings=" + ticketListings +
-                ", orders=" + orders +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

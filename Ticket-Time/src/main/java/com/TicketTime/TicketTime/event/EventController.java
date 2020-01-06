@@ -17,9 +17,19 @@ public class EventController {
         this.eventRepository = eventRepository;
     }
 
+//    CRUD Actions
     @GetMapping("/all")
     public List<Event> getAll() {
         return eventRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Event> getById(@PathVariable("id") String id) {
+        Optional<Event> event = this.eventRepository.findById(id);
+        if (event.isEmpty()) {
+            throw new NotFoundException("Event Not Found");
+        }
+        return event;
     }
 
     @PutMapping
@@ -40,13 +50,10 @@ public class EventController {
         this.eventRepository.deleteById(id);
     }
 
-    @GetMapping("/{id}")
-    public Optional<Event> getById(@PathVariable("id") String id) {
-        Optional<Event> event = this.eventRepository.findById(id);
-        if (event.isEmpty()) {
-            throw new NotFoundException("Event Not Found");
-        }
-        return event;
+//    Filter Actions
+    @GetMapping("/venue/{id}")
+    public List<Event> getEventsByVenue(@PathVariable String id) {
+        return eventRepository.findByVenue(id);
     }
 }
 

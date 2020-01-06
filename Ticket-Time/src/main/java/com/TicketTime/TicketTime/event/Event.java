@@ -1,6 +1,5 @@
 package com.TicketTime.TicketTime.event;
 import com.TicketTime.TicketTime.category.Category;
-import com.TicketTime.TicketTime.ticketListing.TicketListing;
 import com.TicketTime.TicketTime.venue.Venue;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,7 +19,6 @@ public class Event {
     private ArrayList<Category> categories;
     @NotBlank
     private final Venue venue;
-    private ArrayList<TicketListing> ticketListings;
 
     private final String eventfulId;
     @NotBlank
@@ -66,10 +64,6 @@ public class Event {
 
     public Venue getVenue() {
         return venue;
-    }
-
-    public ArrayList<TicketListing> getTicketListings() {
-        return ticketListings;
     }
 
     public String getEventfulId() {
@@ -120,8 +114,23 @@ public class Event {
         this.categories = categories;
     }
 
-    public void setTicketListings(ArrayList<TicketListing> ticketListings) {
-        this.ticketListings = ticketListings;
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id='" + id + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", categories=" + categories +
+                ", venue=" + venue +
+                ", eventfulId='" + eventfulId + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", start=" + start +
+                ", end=" + end +
+                ", imageUrls=" + imageUrls +
+                ", allDay=" + allDay +
+                ", eventDetails='" + eventDetails + '\'' +
+                '}';
     }
 }
 

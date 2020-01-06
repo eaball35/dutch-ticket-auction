@@ -13,9 +13,8 @@ public class Venue {
     private String id;
     private Date createdAt = new Date();
     private Date updatedAt = new Date();
-    private ArrayList<Event> event;
+    private String eventfulId;
 
-    private final String eventfulId;
     @NotBlank
     private final String title;
     private final String description;
@@ -41,6 +40,7 @@ public class Venue {
         this.venueDetails = venueDetails;
     }
 
+
     public String getId() {
         return id;
     }
@@ -51,10 +51,6 @@ public class Venue {
 
     public Date getUpdatedAt() {
         return updatedAt;
-    }
-
-    public ArrayList<Event> getEvent() {
-        return event;
     }
 
     public String getEventfulId() {
@@ -105,17 +101,12 @@ public class Venue {
         this.updatedAt = updatedAt;
     }
 
-    public void setEvent(ArrayList<Event> event) {
-        this.event = event;
-    }
-
     @Override
     public String toString() {
         return "Venue{" +
                 "id='" + id + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
-                ", event=" + event +
                 ", eventfulId='" + eventfulId + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +

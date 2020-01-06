@@ -1,5 +1,7 @@
 package com.TicketTime.TicketTime.ticketListing;
+import com.TicketTime.TicketTime.event.Event;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -8,6 +10,16 @@ import java.util.Optional;
 @Repository
 public interface TicketListingRepository extends MongoRepository<TicketListing, String> {
     Optional<TicketListing> findById(String id);
-//    List<TicketListing> findByEventState(String eventState);
-//    List<TicketListing> findByEventCity(String eventCity);
+
+    @Query("{'Event.Venue.state':?0}")
+    List<TicketListing> findByState(String State);
+
+    @Query("{'Event.Venue.city':?0}")
+    List<TicketListing> findByCity(String City);
+
+    @Query("{'Event.id':?0}")
+    List<TicketListing> findByEvent(String id);
+
+    @Query("{'User.id':?0}")
+    List<TicketListing> findByUser(String id);
 }

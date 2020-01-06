@@ -1,4 +1,89 @@
 package com.TicketTime.TicketTime.order;
 
+import com.TicketTime.TicketTime.ticketListing.TicketListing;
+import com.TicketTime.TicketTime.user.User;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Date;
+
+@Document
 public class Order {
+    @Id
+    private String id;
+    private Date createdAt = new Date();
+    private Date updatedAt = new Date();
+    private final User user;
+    private final TicketListing ticketListing;
+    private final Double strikePrice;
+    private final Double totalCost;
+    private final String ccDetails;
+
+    public Order(User user, TicketListing ticketListing, Double strikePrice, Double totalCost, String ccDetails) {
+        this.user = user;
+        this.ticketListing = ticketListing;
+        this.strikePrice = strikePrice;
+        this.totalCost = totalCost;
+        this.ccDetails = ccDetails;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public TicketListing getTicketListing() {
+        return ticketListing;
+    }
+
+    public Double getStrikePrice() {
+        return strikePrice;
+    }
+
+    public Double getTotalCost() {
+        return totalCost;
+    }
+
+    public String getCcDetails() {
+        return ccDetails;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id='" + id + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", user=" + user +
+                ", ticketListing=" + ticketListing +
+                ", strikePrice=" + strikePrice +
+                ", totalCost=" + totalCost +
+                ", ccDetails='" + ccDetails + '\'' +
+                '}';
+    }
 }
+
+

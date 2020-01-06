@@ -33,13 +33,13 @@ public class TicketListing {
     @NotBlank
     private final Double startTotalPrice;
     @NotBlank
-    private final Double EndTotalPrice;
+    private final Double endTotalPrice;
     @NotBlank
     private final String auctionDetails;
     @NotBlank
     private final String overview;
 
-    public TicketListing(@NotBlank User user, Event event, @NotBlank Integer ticketQuantity, @NotBlank String ticketGrouping, @NotBlank Date auctionStart, @NotBlank Date auctionEnd, @NotBlank Double startTotalPrice, @NotBlank Double endTotalPrice, @NotBlank String auctionDetails, @NotBlank String overview) {
+    public TicketListing(@NotBlank User user, @NotBlank Event event, @NotBlank Integer ticketQuantity, @NotBlank String ticketGrouping, @NotBlank Date auctionStart, @NotBlank Date auctionEnd, @NotBlank Double startTotalPrice, @NotBlank Double endTotalPrice, @NotBlank String auctionDetails, @NotBlank String overview) {
         this.user = user;
         this.event = event;
         this.ticketQuantity = ticketQuantity;
@@ -47,7 +47,7 @@ public class TicketListing {
         this.auctionStart = auctionStart;
         this.auctionEnd = auctionEnd;
         this.startTotalPrice = startTotalPrice;
-        EndTotalPrice = endTotalPrice;
+        this.endTotalPrice = endTotalPrice;
         this.auctionDetails = auctionDetails;
         this.overview = overview;
     }
@@ -97,7 +97,7 @@ public class TicketListing {
     }
 
     public Double getEndTotalPrice() {
-        return EndTotalPrice;
+        return endTotalPrice;
     }
 
     public String getAuctionDetails() {
@@ -138,7 +138,7 @@ public class TicketListing {
                 ", auctionStart=" + auctionStart +
                 ", auctionEnd=" + auctionEnd +
                 ", startTotalPrice=" + startTotalPrice +
-                ", EndTotalPrice=" + EndTotalPrice +
+                ", endTotalPrice=" + endTotalPrice +
                 ", auctionDetails='" + auctionDetails + '\'' +
                 ", overview='" + overview + '\'' +
                 '}';

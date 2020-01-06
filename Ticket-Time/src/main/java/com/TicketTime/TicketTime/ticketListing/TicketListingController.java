@@ -17,19 +17,20 @@ public class TicketListingController {
         this.ticketListingRepository = ticketListingRepository;
     }
 
+//    Basic CRUD Actions
     @GetMapping("/all")
     public List<TicketListing> getAll() {
         return ticketListingRepository.findAll();
     }
 
-//    Instert just insterts data
+//    Insert just inserts data
     @PutMapping
     public String insert(@RequestBody TicketListing ticketListing) {
         TicketListing newTicketListing = this.ticketListingRepository.insert(ticketListing);
         return newTicketListing.getId();
     }
 
-//    Save can perform insert or update
+//    Save performs insert and update
     @PostMapping
     public String update(@RequestBody TicketListing ticketListing) {
         TicketListing newTicketListing = this.ticketListingRepository.save(ticketListing);
@@ -42,7 +43,6 @@ public class TicketListingController {
         this.ticketListingRepository.deleteById(id);
     }
 
-
     @GetMapping("/{id}")
     public Optional<TicketListing> getById(@PathVariable("id") String id) {
         Optional<TicketListing> ticket = this.ticketListingRepository.findById(id);
@@ -52,13 +52,28 @@ public class TicketListingController {
         return ticket;
     }
 
-//    @GetMapping("/state/{state}")
-//    public List<TicketListing> getTicketsByState(@PathVariable String state) {
-//        return this.ticketListingRepository.findByEventState(state);
-//    }
-//
-//    @GetMapping("/city/{city}")
-//    public List<TicketListing> getTicketsByCity(@PathVariable String city) {
-//        return this.ticketListingRepository.findByEventCity(city);
-//    }
+//    Filtering Actions
+//    Get all tickets by event id
+    @GetMapping("/event/{id}")
+    public List<TicketListing> getTicketListingsByEvent(@PathVariable String id) {
+        return ticketListingRepository.findByEvent(id);
+    }
+
+//    Get all tickets by user id
+    @GetMapping("/user/{id}")
+    public List<TicketListing> getTicketListingsByUser(@PathVariable String id) {
+        return ticketListingRepository.findByUser(id);
+    }
+
+//    Get all tickets by state
+    @GetMapping("/state/{state}")
+    public List<TicketListing> getTicketsByState(@PathVariable String state) {
+        return this.ticketListingRepository.findByState(state);
+    }
+
+//    Get all tickets by city
+    @GetMapping("/city/{city}")
+    public List<TicketListing> getTicketsByCity(@PathVariable String city) {
+        return this.ticketListingRepository.findByCity(city);
+    }
 }
