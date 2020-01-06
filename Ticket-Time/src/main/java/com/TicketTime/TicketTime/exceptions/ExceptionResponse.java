@@ -1,4 +1,4 @@
-package com.TicketTime.TicketTime.Exceptions;
+package com.TicketTime.TicketTime.exceptions;
 
 import java.util.Date;
 

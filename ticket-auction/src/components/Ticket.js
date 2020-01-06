@@ -58,7 +58,6 @@ class Ticket extends Component {
       return (this.state.ticket.eventDetails)
     }
   }
-
   render() {
     const ticketNum = () => {
       if (!this.props.example) {
@@ -81,9 +80,7 @@ class Ticket extends Component {
       }
     }
 
-
-
-
+  
     return (
       <section>
         <section>

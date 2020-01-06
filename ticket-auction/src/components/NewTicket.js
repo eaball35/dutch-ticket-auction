@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Ticket from './Ticket'
 import axios from 'axios';
+import DateTimePicker from 'react-datetime-picker';
 
 class NewTicket extends Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class NewTicket extends Component {
 
     this.state = {
       createdAt: this.props.exampleTicket.createdAt,
-      userId: this.props.exampleTicket.userId,
+      userId: this.props.currentUserId,
       
       artist: this.props.exampleTicket.artist,
       event: this.props.exampleTicket.event,
@@ -37,6 +38,7 @@ class NewTicket extends Component {
   
   onInputChange = (event) => {
     const updatedState = {};
+    console.log(event)
     const field = event.target.name;
     const value = event.target.value;
 
@@ -73,8 +75,6 @@ class NewTicket extends Component {
       "auctionDetails": this.state.auctionDetails
     }
 
-    console.log(params)
-
     axios.post(`http://localhost:8080/tickets`, params)
       .then((response) => {
         console.log(response);
@@ -89,24 +89,60 @@ class NewTicket extends Component {
   }
   
   render() {
-    const eventStates = ["artist", "event", "eventLocation", "eventCity", "eventState", "eventDate", "eventStartTime", "eventEndTime", "eventDetails"]
-    const eventLabels = ["Artist", "Event", "Location", "City", "State", "Date", "Start Time", "End Time", "Details"]
+    const eventStates = ["artist", "event", "eventLocation", "eventCity", "eventState", "eventStart", "eventEnd", "eventDetails"]
+    const eventLabels = ["Artist", "Event", "Location", "City", "State", "Event Start", "Event End", "Event Details"]
     const ticketStates = ["ticketQuantity", "ticketGrouping", "ticketDetails"]
     const ticketLabels = ["Quantity", "Grouping", "Details"]
-    const auctionStates = ["auctionStartTotalPrice", "auctionStartDate", "auctionStartTime", "auctionEndTotalPrice", "auctionEndDate", "auctionEndTime", "auctionOverview", "auctionDetails"]
-    const auctionLabels = ["Total Price", "Start Date", "Start Time", "Total Price", "End Date", "End Time", "Overview", "Details"]
+    const auctionStates = ["auctionStartTotalPrice", "auctionEndTotalPrice", "auctionStart", "auctionEnd", "auctionOverview", "auctionDetails"]
+    const auctionLabels = ["Start Total Price", "End Total Price", "Auction Start", "Auction End", "Auction Overview", "Auction Details"]
+
     
     const inputs = (states, labels, index = -1) => states.map((state) => {
         index++;
-        return <div>
+        if (state === "ticketGrouping") {
+          return( 
+          <div>
+            <label htmlFor={state}> {labels[index]}: </label>
+            <select name={state} onChange={this.onInputChange}value={this.state.emoji}>
+              {inputOptions(["together", "general admission"])}
+            </select>
+          </div>)
+        } else if (state === "eventState") {
+          return( 
+            <div>
+              <label htmlFor={state}> {labels[index]}: </label>
+              <select name={state} onChange={this.onInputChange}value={this.state.emoji}>
+                {inputOptions([
+                  " ", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "MD", "MA", "MI", "MN", "MS", "MO", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", ])}
+              </select>
+            </div>)
+        } else if (state === "eventStart" || state === "eventEnd" || state === "auctionStart" || state == "auctionEnd") {
+          return (
+              <div>
                 <label htmlFor={state}> {labels[index]}: </label>
-                <input
+                <DateTimePicker
                   name={state}
                   onChange={this.onInputChange}
                   value={this.state.name}
                 />
-              </div>;
+              </div>
+          )} else {
+          return (
+            <div>
+              <label htmlFor={state}> {labels[index]}: </label>
+              <input
+                name={state}
+                onChange={this.onInputChange}
+                value={this.state.name}
+              />
+            </div>
+          )}
     })
+
+    const inputOptions = (list) => list.map((item, i) => {
+      return <option value={item} key={i}>{item}</option>
+    });
+  
 
     return (
       <section>

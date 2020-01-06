@@ -1,6 +1,5 @@
-package com.TicketTime.TicketTime.Exceptions;
+package com.TicketTime.TicketTime.exceptions;
 
-import com.TicketTime.TicketTime.Ticket.TicketNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,9 +21,9 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
         return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(TicketNotFoundException.class)
-    public final ResponseEntity<Object> handleTicketNotFoundException(Exception ex, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "not found", ex.getMessage(), request.getDescription(false), 404);
+    @ExceptionHandler(NotFoundException.class)
+    public final ResponseEntity<Object> handleNotFoundException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Not Found", ex.getMessage(), request.getDescription(false), 404);
 
         return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
     }

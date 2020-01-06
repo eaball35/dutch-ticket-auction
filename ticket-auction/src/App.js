@@ -39,7 +39,7 @@ class App extends Component {
         this.setState({tickets: response.data})
       })
       .catch((error) => {
-        this.setState({tickets: error})
+        this.setState({errrors: error})
       });
   }
 
@@ -73,6 +73,9 @@ class App extends Component {
     auctionDetails: "Auction Details: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   }
 
+  buyNow = (ticket) => {
+    console.log(ticket);
+  }
 
 
   render() {
@@ -96,10 +99,10 @@ class App extends Component {
         </Route>
         <Route path ='/tickets/:ticketnum' 
           exact strict 
-          render={(props) => <Ticket ticket={this.exampleTicket} example={false}{...props} /> }
+          render={(props) => <Ticket ticket={this.exampleTicket} example={false}buyNow={this.buyNow}{...props} /> }
         />
         <Route path ='/new-ticket' exact strict>
-          <NewTicket exampleTicket={this.exampleTicket}/>
+          <NewTicket exampleTicket={this.exampleTicket} currentUserId = {this.state.currentUserId}/>
         </Route>
         <Route path ='/sign-in' exact strict>
           <h1>Sign In</h1>
@@ -120,6 +123,9 @@ class App extends Component {
           exact strict
           component={Seller}
         />
+        <Route path ='/checkout' exact strict>
+          <h1>Checkout</h1>
+        </Route>
         </div>
       </Router>
       
