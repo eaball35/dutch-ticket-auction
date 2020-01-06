@@ -51,10 +51,18 @@ public class EventController {
     }
 
 //    Filter Actions
+//    Get all events by venue id
     @GetMapping("/venue/{id}")
     public List<Event> getEventsByVenue(@PathVariable String id) {
         return eventRepository.findByVenue(id);
     }
+
+//    Get all events by category id
+    @GetMapping("/category/{id}")
+    public List<Event> getEventsByCategory(@PathVariable String id) {
+        return eventRepository.findByCategories(id);
+    }
+
 }
 
 

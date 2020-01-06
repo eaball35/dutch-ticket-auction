@@ -22,4 +22,7 @@ public interface TicketListingRepository extends MongoRepository<TicketListing, 
 
     @Query("{'User.id':?0}")
     List<TicketListing> findByUser(String id);
+
+    @Query("{'Event.Categories.id':?0}")
+    List<TicketListing> findByEventCategories(String id);
 }

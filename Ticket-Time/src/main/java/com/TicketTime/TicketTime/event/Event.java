@@ -34,7 +34,8 @@ public class Event {
     private final Boolean allDay;
     private final String eventDetails;
 
-    public Event(Venue venue, String eventfulId, String title, String description, Date start, Date end, ArrayList<String> imageUrls, Boolean allDay, String eventDetails) {
+    public Event(ArrayList<Category> categories,Venue venue, String eventfulId, String title, String description, Date start, Date end, ArrayList<String> imageUrls, Boolean allDay, String eventDetails) {
+        this.categories = categories;
         this.venue = venue;
         this.eventfulId = eventfulId;
         this.title = title;

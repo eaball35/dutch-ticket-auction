@@ -1,5 +1,6 @@
 package com.TicketTime.TicketTime.ticketListing;
 
+import com.TicketTime.TicketTime.event.Event;
 import com.TicketTime.TicketTime.exceptions.NotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,5 +76,11 @@ public class TicketListingController {
     @GetMapping("/city/{city}")
     public List<TicketListing> getTicketsByCity(@PathVariable String city) {
         return this.ticketListingRepository.findByCity(city);
+    }
+
+//    Get all tickets by category
+    @GetMapping("/category/{id}")
+    public List<TicketListing> getTicketsByCategory(@PathVariable String id) {
+        return this.ticketListingRepository.findByEventCategories(id);
     }
 }
