@@ -4,6 +4,8 @@ import com.TicketTime.TicketTime.category.Category;
 import com.TicketTime.TicketTime.category.CategoryRepository;
 import com.TicketTime.TicketTime.event.Event;
 import com.TicketTime.TicketTime.event.EventRepository;
+import com.TicketTime.TicketTime.order.Order;
+import com.TicketTime.TicketTime.order.OrderRepository;
 import com.TicketTime.TicketTime.ticketListing.TicketListing;
 import com.TicketTime.TicketTime.ticketListing.TicketListingRepository;
 import com.TicketTime.TicketTime.user.User;
@@ -25,14 +27,16 @@ public class DBSeeder implements CommandLineRunner {
     private VenueRepository venueRepository;
     private EventRepository eventRepository;
     private CategoryRepository categoryRepository;
+    private OrderRepository orderRepository;
 
 
-    public DBSeeder(TicketListingRepository ticketListingRepository, UserRepository userRepository, VenueRepository venueRepository, EventRepository eventRepository, CategoryRepository categoryRepository) {
+    public DBSeeder(TicketListingRepository ticketListingRepository, UserRepository userRepository, VenueRepository venueRepository, EventRepository eventRepository, CategoryRepository categoryRepository, OrderRepository orderRepository) {
         this.ticketListingRepository = ticketListingRepository;
         this.userRepository = userRepository;
         this.venueRepository = venueRepository;
         this.eventRepository = eventRepository;
         this.categoryRepository = categoryRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -72,7 +76,7 @@ public class DBSeeder implements CommandLineRunner {
         this.eventRepository.save(beethoven);
         this.eventRepository.save(seahakws);
 
-        TicketListing orangeTicketListing = new TicketListing(emily,beyonce,4,"general admission",new Date(), new Date(), 400.50, 25.2, "Auction Details", "Overview");
+        TicketListing orangeTicketListing = new TicketListing(emily, beyonce,4,"general admission",new Date(), new Date(), 400.50, 25.2, "Auction Details", "Overview");
         TicketListing blueTicketListing = new TicketListing(brian, beethoven, 2, "together", new Date(), new Date(), 250.25, 10.25, "Auction Details", "Overview");
         TicketListing redTicketListing = new TicketListing(brian, beyonce, 1, "single", new Date(), new Date(), 100.25, 2.00, "Auction Details", "Overview");
         TicketListing greenTicketListing = new TicketListing(ada, seahakws, 3, "together", new Date(), new Date(), 300.00, 30.00, "Auction Details", "Overview");
@@ -81,5 +85,15 @@ public class DBSeeder implements CommandLineRunner {
         this.ticketListingRepository.save(redTicketListing);
         this.ticketListingRepository.save(blueTicketListing);
         this.ticketListingRepository.save(greenTicketListing);
+
+
+        Order orangeOrder = new Order(brian, orangeTicketListing,42.25,48.87,"ccDetails");
+        Order blueOrder = new Order(emily, blueTicketListing,52.45,55.99,"ccDetails");
+        Order greenOrder = new Order(brian, greenTicketListing,10.45,15.99,"ccDetails");
+
+        this.orderRepository.deleteAll();
+        this.orderRepository.save(orangeOrder);
+        this.orderRepository.save(blueOrder);
+        this.orderRepository.save(greenOrder);
     }
 }
