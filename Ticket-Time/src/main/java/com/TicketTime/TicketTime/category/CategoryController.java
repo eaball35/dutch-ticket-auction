@@ -50,6 +50,15 @@ public class CategoryController {
         this.categoryRepository.deleteById(id);
     }
 
+    @GetMapping("type/{type}")
+    public List<Category> getByType(@PathVariable("type") String type) {
+        List<Category> categories = this.categoryRepository.findByType(type);
+        if (categories.isEmpty()) {
+            throw new NotFoundException("Categories Not Found");
+        }
+        return categories;
+    }
+
 }
 
 

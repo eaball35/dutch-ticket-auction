@@ -1,17 +1,17 @@
 package com.TicketTime.TicketTime.ticketListing;
 
-import com.TicketTime.TicketTime.event.Event;
 import com.TicketTime.TicketTime.exceptions.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @CrossOrigin(origins = { "http://localhost:3000"})
 @RestController
 @RequestMapping("/tickets")
 public class TicketListingController {
 
+    @Autowired
     private TicketListingRepository ticketListingRepository;
 
     public TicketListingController(TicketListingRepository ticketListingRepository) {
@@ -27,6 +27,7 @@ public class TicketListingController {
 //    Insert just inserts data
     @PutMapping
     public String insert(@RequestBody TicketListing ticketListing) {
+        ticketListing.setUpdatedAt(new Date());
         TicketListing newTicketListing = this.ticketListingRepository.insert(ticketListing);
         return newTicketListing.getId();
     }
@@ -34,6 +35,7 @@ public class TicketListingController {
 //    Save performs insert and update
     @PostMapping
     public String update(@RequestBody TicketListing ticketListing) {
+        ticketListing.setUpdatedAt(new Date());
         TicketListing newTicketListing = this.ticketListingRepository.save(ticketListing);
         return newTicketListing.getId();
     }
@@ -83,4 +85,12 @@ public class TicketListingController {
     public List<TicketListing> getTicketsByCategory(@PathVariable String id) {
         return this.ticketListingRepository.findByEventCategories(id);
     }
+
+    @GetMapping("/price/{id}")
+    public HashMap<String, Object> getCurrentPrice(@PathVariable String id) {
+        Optional<TicketListing> getTicket = this.ticketListingRepository.findById(id);
+        TicketListing ticket = getTicket.get();
+        return ticket.calculatePrice();
+    }
+
 }

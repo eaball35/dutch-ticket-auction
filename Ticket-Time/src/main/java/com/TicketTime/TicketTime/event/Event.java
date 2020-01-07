@@ -23,6 +23,7 @@ public class Event {
     private final String eventfulId;
     @NotBlank
     private final String title;
+    private final String artist;
     @NotBlank
     private final String description;
     @NotBlank
@@ -34,11 +35,12 @@ public class Event {
     private final Boolean allDay;
     private final String eventDetails;
 
-    public Event(ArrayList<Category> categories,Venue venue, String eventfulId, String title, String description, Date start, Date end, ArrayList<String> imageUrls, Boolean allDay, String eventDetails) {
+    public Event(ArrayList<Category> categories,Venue venue, String eventfulId, String title, String artist, String description, Date start, Date end, ArrayList<String> imageUrls, Boolean allDay, String eventDetails) {
         this.categories = categories;
         this.venue = venue;
         this.eventfulId = eventfulId;
         this.title = title;
+        this.artist = artist;
         this.description = description;
         this.start = start;
         this.end = end;
@@ -73,6 +75,10 @@ public class Event {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getArtist() {
+        return artist;
     }
 
     public String getDescription() {
@@ -124,6 +130,7 @@ public class Event {
                 ", categories=" + categories +
                 ", venue=" + venue +
                 ", eventfulId='" + eventfulId + '\'' +
+                ", title='" + artist + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", start=" + start +

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Ticket.css';
+import '../../css/Ticket.css';
 import axios from 'axios';
 
 class Ticket extends Component {
@@ -9,13 +9,16 @@ class Ticket extends Component {
     this.state = {
       detailsTab: 'auction',
       ticket: this.props.ticket,
-      errorDetails: null,
+      error: null,
+      currentPrice: null,
+      lastUpdated: null
     };
   }
 
   componentDidMount = () => {
     if(!this.props.example) {
       this.fetchTicket();
+      this.fetchCurrentPrice();
     }
   }
 
@@ -23,6 +26,19 @@ class Ticket extends Component {
     axios.get(`http://localhost:8080/tickets/${this.props.match.params.ticketnum}`)
       .then((response) => {
         this.setState({ticket: response.data})
+      })
+      .catch((error) => {
+        this.setState({errorDetails: error.response})
+      });
+  }
+
+  fetchCurrentPrice() {
+    axios.get(`http://localhost:8080/tickets/price/${this.state.ticket.id}`)
+      .then((response) => {
+        this.setState({
+          currentPrice: response.data.currentPrice,
+          lastUpdated: response.data.strikeTime
+        })
       })
       .catch((error) => {
         this.setState({errorDetails: error.response})
@@ -42,8 +58,8 @@ class Ticket extends Component {
   tabClick = (tab) => {
     if (tab === 'auction') {
       this.setState({detailsTab: 'auction'});
-    } else if (tab === 'ticket') {
-      this.setState({detailsTab: 'ticket'});
+    } else if (tab === 'venue') {
+      this.setState({detailsTab: 'venue'});
     } else if (tab === 'event') {
       this.setState({detailsTab: 'event'});
     };
@@ -52,17 +68,17 @@ class Ticket extends Component {
   chooseDetails = () => {
     if (this.state.detailsTab === 'auction') {
       return (this.state.ticket.auctionDetails)
-    } else if (this.state.detailsTab === 'ticket') {
-      return (this.state.ticket.ticketDetails)
+    } else if (this.state.detailsTab === 'venue') {
+      return (this.state.ticket.event.venue.venueDetails)
     } else if (this.state.detailsTab === 'event') {
-      return (this.state.ticket.eventDetails)
+      return (this.state.ticket.event.eventDetails)
     }
   }
   render() {
     const ticketNum = () => {
       if (!this.props.example) {
         const tNum = this.props.match.params.ticketnum
-        return (<h6>Ticket #: {tNum}</h6>)
+        return (<h6>Ticket ID {tNum}</h6>)
       }
     }
     const listingDetails = this.state.ticket;
@@ -87,25 +103,25 @@ class Ticket extends Component {
           {errorMessages()}
           {deleteButton()}
           {ticketNum()}
-          <img src={listingDetails.eventImgUrls} alt={listingDetails.event} className='event-img'/>
-          <h1>{listingDetails.artist} - {listingDetails.event}</h1>
-          <h4>{listingDetails.eventStart}  |  {listingDetails.ticketQuantity} {listingDetails.ticketGrouping} </h4>
-          <h2>@ {listingDetails.eventLocation}  |  {listingDetails.eventCity}, {listingDetails.eventState} </h2>
-          <h4>Listed {listingDetails.createdAt} for ${listingDetails.auctionStartTotalPrice/listingDetails.ticketQuantity} <span>ea</span></h4>
-          <p>{listingDetails.auctionOverview}</p>
+          <img src={listingDetails.event.imageUrls} alt={listingDetails.event.title} className='event-img'/>
+          <h1>{listingDetails.event.artist} - {listingDetails.event.title}</h1>
+          <h4>{listingDetails.event.start}  |  {listingDetails.ticketQuantity} {listingDetails.ticketGrouping} </h4>
+          <h2>@ {listingDetails.event.venue.title}  |  {listingDetails.event.venue.city}, {listingDetails.event.venue.state} </h2>
+          <h4>Listed {listingDetails.createdAt} for ${listingDetails.startTotalPrice/listingDetails.ticketQuantity} <span>ea</span></h4>
+          <p>{listingDetails.overview}</p>
         </section>
 
         <section>
           <h4>Current Price</h4>
           <h6>$109.99 <span>ea</span></h6>
-          <p>last updated 2 min ago</p>
+          <p>last updated {this.state.lastUpdated}</p>
           <button className='btn btn-secondary'>Buy Now</button>
         </section>
 
         <section>
           <button onClick={() => {this.tabClick('auction')}}>Auction</button>
-          <button onClick={() => {this.tabClick('ticket')}}>Ticket</button>
           <button onClick={() => {this.tabClick('event')}}>Event</button>
+          <button onClick={() => {this.tabClick('venue')}}>Venue</button>
           
           <section>
             {this.chooseDetails()}

@@ -6,6 +6,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
 @Document
 public class TicketListing {
@@ -122,6 +125,21 @@ public class TicketListing {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public HashMap<String, Object> calculatePrice() {
+        double totalTimeUnits = this.auctionEnd.getTime() - this.auctionStart.getTime();
+        Long currentTime = new Date(System.currentTimeMillis()).getTime();
+        double passedTimeUnits = this.auctionEnd.getTime() - currentTime;
+        double leftTimeUnits = totalTimeUnits - passedTimeUnits;
+        double pricePerUnit = (this.startTotalPrice - this.endTotalPrice) / totalTimeUnits;
+        Double currentPrice = leftTimeUnits * pricePerUnit;
+
+        HashMap<String, Object> returnTable = new HashMap<>();
+        returnTable.put("strikeTime", currentTime);
+        returnTable.put("currentPrice", currentPrice);
+
+        return returnTable;
     }
 
     @Override

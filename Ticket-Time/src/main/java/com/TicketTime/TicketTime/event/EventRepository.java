@@ -14,6 +14,12 @@ public interface EventRepository extends MongoRepository <Event, String> {
     @Query("{'Venue.id':?0}")
     List<Event> findByVenue(String id);
 
-    @Query("{'Categories.id':?0}")
-    List<Event> findByCategories(String id);
+    @Query("{'Categories.type':?0 , 'Categories.genre':?1}")
+    List<Event> findByCategoriesByTypeAndGenre(String Type, String genre);
+
+    @Query("{'Categories.type':?0}")
+    List<Event> findByCategoriesType(String type);
+
+    @Query("{'Venue.city':?0}")
+    List<Event> findByVenueCity(String city);
 }

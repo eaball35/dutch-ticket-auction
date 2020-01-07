@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Document
@@ -19,9 +20,13 @@ public class Category {
     private final String type;
     private final String genre;
 
-    public Category(@NotBlank String type, String genre) {
+    @NotBlank
+    private final ArrayList<String> imageUrls;
+
+    public Category(@NotBlank String type, String genre, ArrayList<String> imageUrls) {
         this.type = type;
         this.genre = genre;
+        this.imageUrls = imageUrls;
     }
 
     public String getId() {
@@ -44,6 +49,10 @@ public class Category {
         return genre;
     }
 
+    public ArrayList<String> getImageUrls() {
+        return imageUrls;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -64,6 +73,7 @@ public class Category {
                 ", updatedAt=" + updatedAt +
                 ", type='" + type + '\'' +
                 ", genre='" + genre + '\'' +
+                ", imageUrls=" + imageUrls +
                 '}';
     }
 }

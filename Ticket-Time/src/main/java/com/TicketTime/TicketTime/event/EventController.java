@@ -57,12 +57,22 @@ public class EventController {
         return eventRepository.findByVenue(id);
     }
 
-//    Get all events by category id
-    @GetMapping("/category/{id}")
-    public List<Event> getEventsByCategory(@PathVariable String id) {
-        return eventRepository.findByCategories(id);
+    //   Get all events by category genre
+    @GetMapping("/category/{type}/{genre}")
+    public List<Event> getEventsByCategoryGenre(@PathVariable String type, @PathVariable String genre) {
+        return eventRepository.findByCategoriesByTypeAndGenre(type, genre);
     }
 
+//    Get all events by category type
+    @GetMapping("/category/{type}")
+    public List<Event> getEventsByCategoryType(@PathVariable String type) {
+        return eventRepository.findByCategoriesType(type);
+    }
+
+    @GetMapping("/city/{city}")
+    public List<Event> getEventsByCity(@PathVariable String city) {
+        return eventRepository.findByVenueCity(city);
+    }
 }
 
 
