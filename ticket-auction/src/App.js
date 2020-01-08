@@ -12,7 +12,6 @@ import List from './components/main/List';
 import { Button } from 'react-bootstrap';
 import CategoryNav from './components/nav/CategoryNav';
 
-
 const User = ({match}) => {
   return (<h1>User {match.params.userId}</h1>)
 }

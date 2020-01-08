@@ -5,6 +5,11 @@ import CategoryCard from '../categories/CategoryCard';
 import CityCard from '../locations/CityCard';
 import axios from 'axios';
 import '../../css/List.css'
+import SPRING_SECURITY from '../../config_keys.js'
+
+const base_url = 'http://localhost:8080'
+const username = `${SPRING_SECURITY.username}`
+const password = `${SPRING_SECURITY.password}`
 
 class List extends Component {    
   constructor(props) {
@@ -16,13 +21,16 @@ class List extends Component {
   }
 
   componentDidMount = () => {
-    const url = `http://localhost:8080/${this.props.url}`
+    const url = `${base_url}${this.props.url}`
     this.fetchCollection(url);
   }
 
   fetchCollection(url) {
-    axios.get(url)
-      .then((response) => {
+    axios.get( url,  
+      { headers: 
+          { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
+      }
+    ).then((response) => {
         this.setState({collection: response.data})
       })
       .catch((error) => {
@@ -53,7 +61,10 @@ class List extends Component {
       }
     } else {
       return (
-        <div className="alert alert-warning">One moment, pulling listings for you now...</div>
+        <section>
+          <div className="alert alert-warning">One moment, pulling listings for you now...</div>
+          <p>{username}</p>
+        </section>
       )
     }
     return (
