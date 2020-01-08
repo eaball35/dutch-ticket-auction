@@ -163,7 +163,7 @@ class App extends Component {
             render={
               (props) => 
                 <section>
-                  <List url = {`events/category/${props.match.params.type}`} cardType="event"  {...props}/> 
+                  <List url = {`/events/category/${props.match.params.type}`} cardType="event"  {...props}/> 
                 </section>
             }
           />
@@ -174,7 +174,7 @@ class App extends Component {
             render={
               (props) => 
               <section>
-                <List url = {`events/category/${props.match.params.type}/${props.match.params.genre}`} cardType="event" {...props}/> 
+                <List url = {`/events/category/${props.match.params.type}/${props.match.params.genre}`} cardType="event" {...props}/> 
               </section>
             }
           />

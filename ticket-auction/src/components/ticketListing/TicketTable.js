@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import SPRING_SECURITY from '../../config_keys.js'
+
+const base_url = 'http://localhost:8080'
+const username = `${SPRING_SECURITY.username}`
+const password = `${SPRING_SECURITY.password}`
 
 class TicketTable extends Component {
   constructor(props) {
@@ -14,12 +19,16 @@ class TicketTable extends Component {
 
   componentDidMount = () => {
     if (this.props.url) {
-      this.fetchTickets();
+      const url = `${base_url}${this.props.url}`
+      const headers = { 
+        headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
+      }
+      this.fetchTickets(url, headers);
     }
   }
 
-  fetchTickets() {
-    axios.get(`http://localhost:8080${this.props.url}`)
+  fetchTickets(url, headers) {
+    axios.get(url, headers)
       .then((response) => {
         this.setState({tickets: response.data})
       })

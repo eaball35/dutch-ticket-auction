@@ -22,15 +22,14 @@ class List extends Component {
 
   componentDidMount = () => {
     const url = `${base_url}${this.props.url}`
-    this.fetchCollection(url);
+    const headers = { 
+      headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
+    }
+    this.fetchCollection(url, headers);
   }
 
-  fetchCollection(url) {
-    axios.get( url,  
-      { headers: 
-          { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
-      }
-    ).then((response) => {
+  fetchCollection(url, headers) {
+    axios.get( url, headers).then((response) => {
         this.setState({collection: response.data})
       })
       .catch((error) => {

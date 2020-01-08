@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import '../../css/Ticket.css';
 import axios from 'axios';
+import SPRING_SECURITY from '../../config_keys.js'
+
+const base_url = 'http://localhost:8080'
+const username = `${SPRING_SECURITY.username}`
+const password = `${SPRING_SECURITY.password}`
 
 class Ticket extends Component {
   constructor(props) {
@@ -17,13 +22,19 @@ class Ticket extends Component {
 
   componentDidMount = () => {
     if (!this.props.example) {
-      this.fetchTicket();
-      this.fetchCurrentPrice(); 
+      const ticketUrl = `${base_url}/tickets/${this.props.match.params.id}` 
+      const priceUrl = `${base_url}/price/${this.props.match.params.id}`
+      const headers = { 
+        headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
+      }
+
+      this.fetchTicket(ticketUrl, headers);
+      this.fetchCurrentPrice(priceUrl, headers); 
     }
   }
 
-  fetchTicket() {
-    axios.get(`http://localhost:8080/tickets/${this.props.match.params.id}`)
+  fetchTicket(url, headers) {
+    axios.get(url, headers)
       .then((response) => {
         this.setState({ticket: response.data})
       })
@@ -32,8 +43,8 @@ class Ticket extends Component {
       });
   }
 
-  fetchCurrentPrice() {
-    axios.get(`http://localhost:8080/price/${this.props.match.params.id}`)
+  fetchCurrentPrice(url, headers) {
+    axios.get(url, headers)
       .then((response) => {
         const lastUpdated = new Date()
         this.setState({

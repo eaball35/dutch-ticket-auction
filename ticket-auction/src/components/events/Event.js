@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import TicketTable from '../ticketListing/TicketTable';
 // import '../../css/Event.css';
+import SPRING_SECURITY from '../../config_keys.js'
+
+const base_url = 'http://localhost:8080'
+const username = `${SPRING_SECURITY.username}`
+const password = `${SPRING_SECURITY.password}`
 
 class Event extends Component {
   constructor(props) {
@@ -14,17 +19,21 @@ class Event extends Component {
   }
 
   componentDidMount = () => {
-      this.fetchEvent();
+    const url = `${base_url}/events/${this.props.match.params.id}`  
+    this.fetchEvent(url);
   }
 
-  fetchEvent = () => {
-    axios.get(`http://localhost:8080/events/${this.props.match.params.id}`)
-      .then((response) => {
-        this.setState({event: response.data})
-      })
-      .catch((error) => {
-        this.setState({error: error.response})
-      });
+  fetchEvent = (url) => {
+    axios.get(url,
+      { headers: 
+        { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
+      }
+    ).then((response) => {
+      this.setState({event: response.data})
+    })
+    .catch((error) => {
+      this.setState({error: error.response})
+    });
   }
 
 
