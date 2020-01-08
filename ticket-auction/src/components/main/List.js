@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TicketCard from '../ticketListing/TicketCard';
 import EventCard from '../events/EventCard';
 import CategoryCard from '../categories/CategoryCard';
+import LocationCard from '../locations/LocationCard';
 import axios from 'axios';
 import '../../css/List.css'
 
@@ -44,6 +45,10 @@ class List extends Component {
       } else if (this.props.cardType === "category") {
         collection = this.state.collection.map((category, i) => {
           return (<CategoryCard category={category} key={i}/>)
+        });
+      } else if (this.props.cardType === "location") {
+        collection = this.state.collection.map((location, i) => {
+          return (<LocationCard location={location} key={i}/>)
         });
       }
     }

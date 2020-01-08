@@ -10,7 +10,6 @@ const TicketCard = (props) => {
         <h2> Event - {props.ticket.event.title} </h2>
         <img src={props.ticket.event.imageUrls[0]} alt={props.ticket.event.title} className="ticketCard-icon-img"/>
         <Link to={`/tickets/${props.ticket.id}`}>Ticket Id - {props.ticket.id} </Link>
-        <p>------</p>
       </div>
     </section>
   )

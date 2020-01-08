@@ -8,22 +8,22 @@ class Ticket extends Component {
 
     this.state = {
       detailsTab: 'auction',
-      ticket: this.props.ticket,
-      error: null,
-      currentPrice: null,
-      lastUpdated: null
+      ticket: undefined,
+      error: "",
+      currentPrice: undefined,
+      lastUpdated: null,
     };
   }
 
   componentDidMount = () => {
-    if(!this.props.example) {
+    if (!this.props.example) {
       this.fetchTicket();
-      this.fetchCurrentPrice();
+      this.fetchCurrentPrice(); 
     }
   }
 
   fetchTicket() {
-    axios.get(`http://localhost:8080/tickets/${this.props.match.params.ticketnum}`)
+    axios.get(`http://localhost:8080/tickets/${this.props.match.params.id}`)
       .then((response) => {
         this.setState({ticket: response.data})
       })
@@ -33,25 +33,16 @@ class Ticket extends Component {
   }
 
   fetchCurrentPrice() {
-    axios.get(`http://localhost:8080/tickets/price/${this.state.ticket.id}`)
+    axios.get(`http://localhost:8080/tickets/price/${this.props.match.params.id}`)
       .then((response) => {
+        const lastUpdated = new Date()
         this.setState({
           currentPrice: response.data.currentPrice,
-          lastUpdated: response.data.strikeTime
+          lastUpdated: lastUpdated.toString()
         })
       })
       .catch((error) => {
         this.setState({errorDetails: error.response})
-      });
-  }
-
-  deleteTicket = () => {
-    axios.delete(`http://localhost:8080/tickets/${this.state.ticket.id}`)
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
-        this.setState({errorDetails: error.response.data})
       });
   }
 
@@ -77,57 +68,59 @@ class Ticket extends Component {
   render() {
     const ticketNum = () => {
       if (!this.props.example) {
-        const tNum = this.props.match.params.ticketnum
+        const tNum = this.props.match.params.id
         return (<h6>Ticket ID {tNum}</h6>)
       }
     }
     const listingDetails = this.state.ticket;
 
-    const deleteButton = () => {
-      if (!this.props.example) {
-        return (<button className='btn btn-primary' onClick={this.deleteTicket}>Delete</button>)
-      }
-    }
+    const showTicket = () => {
+      if (this.state.ticket !== undefined) {
+        return (
+          <section>
+            <section>
+              {ticketNum()}
+              <img src={listingDetails.event.imageUrls} alt={listingDetails.event.title} className='event-img'/>
+              
+              <h1>{listingDetails.event.artist} - {listingDetails.event.title}</h1>
+              
+              <h4>{listingDetails.event.start}  |  {listingDetails.ticketQuantity} {listingDetails.ticketGrouping} </h4>
+              
+              <h2>@ {listingDetails.event.venue.title}  |  {listingDetails.event.venue.location.city}, {listingDetails.event.venue.location.state} </h2>
+              
+              <h4>Listed {listingDetails.createdAt} for ${listingDetails.startTotalPrice/listingDetails.ticketQuantity} <span>ea</span></h4>
+              
+              <p>{listingDetails.overview}</p>
+            </section>
 
+            <section>
+              <h4>Current Price</h4>
+              <h2> ${this.state.currentPrice/listingDetails.ticketQuantity} <span>ea</span></h2>
+              <p>last updated {this.state.lastUpdated}</p>
+              <button className='btn btn-secondary'>Buy Now</button>
+            </section>
 
-    const errorMessages = () => {
-      if (this.state.errorDetails) {
-        return <p className="alert alert-danger" role="alert" >Error: {this.state.errorDetails.error} - {this.state.errorDetails.message} </p>
+            <section>
+              <button onClick={() => {this.tabClick('auction')}}>Auction</button>
+              <button onClick={() => {this.tabClick('event')}}>Event</button>
+              <button onClick={() => {this.tabClick('venue')}}>Venue</button>
+              
+              <section>
+                {this.chooseDetails()}
+              </section>
+            </section>
+          </section>
+        );
+      } else {
+        return "";
       }
     }
 
   
     return (
       <section>
-        <section>
-          {errorMessages()}
-          {deleteButton()}
-          {ticketNum()}
-          <img src={listingDetails.event.imageUrls} alt={listingDetails.event.title} className='event-img'/>
-          <h1>{listingDetails.event.artist} - {listingDetails.event.title}</h1>
-          <h4>{listingDetails.event.start}  |  {listingDetails.ticketQuantity} {listingDetails.ticketGrouping} </h4>
-          <h2>@ {listingDetails.event.venue.title}  |  {listingDetails.event.venue.city}, {listingDetails.event.venue.state} </h2>
-          <h4>Listed {listingDetails.createdAt} for ${listingDetails.startTotalPrice/listingDetails.ticketQuantity} <span>ea</span></h4>
-          <p>{listingDetails.overview}</p>
-        </section>
-
-        <section>
-          <h4>Current Price</h4>
-          <h6>$109.99 <span>ea</span></h6>
-          <p>last updated {this.state.lastUpdated}</p>
-          <button className='btn btn-secondary'>Buy Now</button>
-        </section>
-
-        <section>
-          <button onClick={() => {this.tabClick('auction')}}>Auction</button>
-          <button onClick={() => {this.tabClick('event')}}>Event</button>
-          <button onClick={() => {this.tabClick('venue')}}>Venue</button>
-          
-          <section>
-            {this.chooseDetails()}
-          </section>
-        </section>
-        
+        {showTicket()}
+        {console.log(this.props)}
       </section>
     )
   }

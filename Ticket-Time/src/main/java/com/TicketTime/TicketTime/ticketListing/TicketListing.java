@@ -7,8 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
 
 @Document
 public class TicketListing {

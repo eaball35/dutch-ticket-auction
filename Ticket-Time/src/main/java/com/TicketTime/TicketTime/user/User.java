@@ -1,11 +1,9 @@
 package com.TicketTime.TicketTime.user;
-import com.TicketTime.TicketTime.ticketListing.TicketListing;
-import org.springframework.core.annotation.Order;
+import com.TicketTime.TicketTime.location.Location;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
 import java.util.Date;
 
 @Document
@@ -22,21 +20,13 @@ public class User {
     private final String lastName;
     @NotBlank
     private final String email;
-    private final String address1;
-    private final String address2;
-    private final String city;
-    private final String state;
-    private final String zipCode;
+    private final Location address;
 
-    public User(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String email, String address1, String address2, String city, String state, String zipCode) {
+    public User(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String email, Location address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.address1 = address1;
-        this.address2 = address2;
-        this.city = city;
-        this.state = state;
-        this.zipCode = zipCode;
+        this.address = address;
     }
 
     public String getId() {
@@ -67,24 +57,8 @@ public class User {
         return email;
     }
 
-    public String getAddress1() {
-        return address1;
-    }
-
-    public String getAddress2() {
-        return address2;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public String getZipCode() {
-        return zipCode;
+    public Location getAddress() {
+        return address;
     }
 
     public void setId(String id) {
@@ -114,11 +88,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", address1='" + address1 + '\'' +
-                ", address2='" + address2 + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zipCode='" + zipCode + '\'' +
+                ", address=" + address +
                 '}';
     }
 }

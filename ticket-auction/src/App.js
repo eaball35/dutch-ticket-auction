@@ -5,6 +5,7 @@ import Route from 'react-router-dom/Route'
 import Header from './components/nav/Header'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Ticket from './components/ticketListing/Ticket'
+import Event from './components/events/Event'
 import NewTicket from './components/ticketListing/NewTicket';
 import axios from 'axios';
 import List from './components/main/List';
@@ -47,21 +48,8 @@ class App extends Component {
             logInCallback={this.updateLoginUser}
           />
           <CategoryNav/>
-
-          <Route path ='/' exact strict>
-            <h1>Home</h1>
-            <List field={"tickets"} cardType="ticket" />
-          </Route>
           
-          <Route path ='/tickets/:ticketnum' 
-            exact strict 
-            render={(props) => <Ticket ticket={exampleTicket} example={false} {...props} /> }
-          />
-          
-          <Route path ='/new-ticket' exact strict>
-            <NewTicket exampleTicket={exampleTicket} currentUserId = {this.state.currentUserId}/>
-          </Route>
-          
+  {/* Login/Login Pages */}
           <Route path ='/sign-in' exact strict>
             <h1>Sign In</h1>
           </Route>
@@ -70,6 +58,7 @@ class App extends Component {
             <h1>Register</h1>
           </Route>
           
+  {/* User/Account Pages */}
           <Route 
             path ='/myaccount/:userId' 
             exact strict
@@ -91,14 +80,20 @@ class App extends Component {
             component={Seller}
           />
 
-          <Route path ='events/category/:type/:genre'
-            exact strict
-            render={(props) => <List 
-              url = {`events/category/${props.match.params.type}/${props.match.params.genre}`} cardType="event"/> }
-          />
-
+  {/* Checkout Pages */}
           <Route path ='/checkout' exact strict>
             <h1>Checkout</h1>
+          </Route>
+
+  {/* Create Pages */}
+          <Route path ='/new-ticket' exact strict>
+            <NewTicket exampleTicket={exampleTicket} currentUserId = {this.state.currentUserId}/>
+          </Route>
+
+  {/* Nav Link Pages */}
+          <Route path ='/' exact strict>
+            <h1>Home</h1>
+            <List url="/tickets/all" cardType="ticket" />
           </Route>
 
           <Route path ='/events' exact strict>
@@ -123,75 +118,140 @@ class App extends Component {
 
           <Route path ='/cities' exact strict>
             <h1>By City</h1>
-            <List url="categories/all" cardType="category"/>
+            <List url="/locations/all" cardType="location"/>
           </Route>
+        
+  {/* Nested Pages */}
+          <Route path ='/tickets/:id' 
+            exact strict 
+            render = {
+              (props) => 
+              <section >
+                <Ticket example={false} {...props} /> 
+              </section>
+            }
+          />
+
+          <Route path ='/events/:id' 
+            exact strict 
+            render={
+              (props) => <Event {...props} /> 
+            }
+          />
+
+        <Route path ='/events/category/:type'
+            exact strict
+            render={
+              (props) => 
+                <section>
+                  <List url = {`events/category/${props.match.params.type}`} cardType="event"  {...props}/> 
+                </section>
+            }
+          />
+          
+          
+          <Route path ='/events/category/:type/:genre'
+            exact strict
+            render={
+              (props) => 
+              <section>
+                <List url = {`events/category/${props.match.params.type}/${props.match.params.genre}`} cardType="event" {...props}/> 
+              </section>
+            }
+          />
+
+          <Route path ='/events/city/:city'
+            exact strict
+            render={
+              (props) => 
+              <section>
+                <List url = {`/events/city/${props.match.params.city}`} cardType="event" {...props}/> 
+              </section>
+            }
+          />
+          
+        
         </div>    
       </Router>
     );
   }
 }
 
-
-
 const exampleTicket = {
-  "id": "5e13d4444b1d7154bbd3ce22",
-  "createdAt": "2020-01-07T00:43:48.672+0000",
-  "updatedAt": "2020-01-07T00:43:48.672+0000",
+  "id": "5e152ac98dc670548c07cab4",
+  "createdAt": "2020-01-08T01:05:13.404+0000",
+  "updatedAt": "2020-01-08T01:05:13.404+0000",
   "status": "new",
   "user": {
-    "id": "5e13d4444b1d7154bbd3ce15",
-    "createdAt": "2020-01-07T00:43:47.729+0000",
-    "updatedAt": "2020-01-07T00:43:47.729+0000",
+    "id": "5e152ac88dc670548c07caa2",
+    "createdAt": "2020-01-08T01:05:12.647+0000",
+    "updatedAt": "2020-01-08T01:05:12.647+0000",
     "providerId": null,
     "firstName": "Emily",
     "lastName": "Ball",
     "email": "eaball35@gmail.com",
-    "address1": "141 Parfitt Way SW",
-    "address2": "",
-    "city": "Bainbridge Island",
-    "state": "WA",
-    "zipCode": "98110"
+    "address": {
+      "id": "5e152ac88dc670548c07ca9c",
+      "createdAt": "2020-01-08T01:05:12.120+0000",
+      "updatedAt": "2020-01-08T01:05:12.120+0000",
+      "address1": "141 Parfitt Way SW",
+      "address2": "",
+      "city": "Bainbridge Island",
+      "state": "WA",
+      "zipCode": "98110"
+    }
   },
   "event": {
-    "id": "5e13d4444b1d7154bbd3ce1f",
-    "createdAt": "2020-01-07T00:43:48.499+0000",
-    "updatedAt": "2020-01-07T00:43:48.499+0000",
+    "id": "5e152ac98dc670548c07caae",
+    "createdAt": "2020-01-08T01:05:13.160+0000",
+    "updatedAt": "2020-01-08T01:05:13.160+0000",
     "categories": [
       {
-        "id": "5e13d4444b1d7154bbd3ce1b",
-        "createdAt": "2020-01-07T00:43:48.331+0000",
-        "updatedAt": "2020-01-07T00:43:48.331+0000",
+        "id": "5e152ac88dc670548c07caa8",
+        "createdAt": "2020-01-08T01:05:12.926+0000",
+        "updatedAt": "2020-01-08T01:05:12.926+0000",
         "type": "music",
-        "genre": "pop"
+        "genre": "pop",
+        "imageUrls": [
+          "https://www.muralswallpaper.com/app/uploads/dotted-explosion-pop-art-retro-plain-820x532.jpg"
+        ]
       },
       {
-        "id": "5e13d4444b1d7154bbd3ce1c",
-        "createdAt": "2020-01-07T00:43:48.331+0000",
-        "updatedAt": "2020-01-07T00:43:48.331+0000",
+        "id": "5e152ac98dc670548c07caa9",
+        "createdAt": "2020-01-08T01:05:12.926+0000",
+        "updatedAt": "2020-01-08T01:05:12.926+0000",
         "type": "music",
-        "genre": "rnb"
+        "genre": "rnb",
+        "imageUrls": [
+          "https://images.8tracks.com/cover/i/009/209/935/tumblr_n2ckgciXRP1s5p5luo1_r1_500-6742.jpg?rect=0,0,500,500&q=98&fm=jpg&fit=max"
+        ]
       }
     ],
     "venue": {
-      "id": "5e13d4444b1d7154bbd3ce1a",
-      "createdAt": "2020-01-07T00:43:48.229+0000",
-      "updatedAt": "2020-01-07T00:43:48.229+0000",
+      "id": "5e152ac88dc670548c07caa7",
+      "createdAt": "2020-01-08T01:05:12.818+0000",
+      "updatedAt": "2020-01-08T01:05:12.818+0000",
       "eventfulId": "ABCDE",
       "title": "Wrigley Field",
       "description": "Venue Description",
-      "address1": "1060 W Addison St",
-      "getAddress2": "",
-      "city": "Chicago",
-      "state": "IL",
-      "zipCode": "60613",
-      "venueDetails": "Venue Details"
+      "venueDetails": "Venue Details",
+      "location": {
+        "id": "5e152ac88dc670548c07caa1",
+        "createdAt": "2020-01-08T01:05:12.120+0000",
+        "updatedAt": "2020-01-08T01:05:12.120+0000",
+        "address1": "1060 W Addison St",
+        "address2": "",
+        "city": "Chicago",
+        "state": "IL",
+        "zipCode": "60613"
+      }
     },
     "eventfulId": "ABCD",
     "title": "Beyonce Lemonade",
     "artist": "Beyonce",
     "description": "Event Description",
-    "start": "2020-01-07T00:43:48.499+0000",
-    "end": "2020-01-07T00:43:48.499+0000",
+    "start": "2020-01-08T01:05:13.160+0000",
+    "end": "2020-01-08T01:05:13.160+0000",
     "imageUrls": [
       "https://s3.amazonaws.com/factmag-images/wp-content/uploads/2016/04/02150058/beyonce-the-formation-tour-2-1500x1000.jpg"
     ],
@@ -205,7 +265,7 @@ const exampleTicket = {
   "startTotalPrice": 400.5,
   "endTotalPrice": 25.2,
   "auctionDetails": "Auction Details",
-"overview": "Overview"
+  "overview": "Overview"
 }
 
 export default App;

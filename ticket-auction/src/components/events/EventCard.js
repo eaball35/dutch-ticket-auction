@@ -8,7 +8,7 @@ const EventCard = (props) => {
     if (props.event) {
       return (
         <div className="card-body">
-        <h2> <Link to={`/tickets/event/${props.event.id}`}>{props.event.title} </Link> </h2>
+        <h2> <Link to={`/events/${props.event.id}`}>{props.event.title} </Link> </h2>
         <img src={props.event.imageUrls[0]} alt={props.event.title} className="eventCard-icon-img"/>
       </div>
       )
