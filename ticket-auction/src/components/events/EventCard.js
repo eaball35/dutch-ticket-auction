@@ -8,9 +8,10 @@ const EventCard = (props) => {
     if (props.event) {
       return (
         <div className="card-body">
-        <h2> <Link to={`/events/${props.event.id}`}>{props.event.title} </Link> </h2>
-        <img src={props.event.imageUrls[0]} alt={props.event.title} className="eventCard-icon-img"/>
-      </div>
+          <h2>{props.event.title}</h2>
+          <img src={props.event.imageUrls[0]} alt={props.event.title} className="eventCard-icon-img"/>
+          <Link to={`/events/${props.event.id}`} className="btn btn-primary">Get Tickets</Link>
+        </div>
       )
     } else {
       return;
@@ -20,6 +21,7 @@ const EventCard = (props) => {
   return (
     <section className="eventCard-container card">
       {showEventCard()}
+
     </section>
   )
 }

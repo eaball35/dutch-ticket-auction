@@ -86,11 +86,4 @@ public class TicketListingController {
         return this.ticketListingRepository.findByEventCategories(id);
     }
 
-    @GetMapping("/price/{id}")
-    public HashMap<String, Object> getCurrentPrice(@PathVariable String id) {
-        Optional<TicketListing> getTicket = this.ticketListingRepository.findById(id);
-        TicketListing ticket = getTicket.get();
-        return ticket.calculatePrice();
-    }
-
 }

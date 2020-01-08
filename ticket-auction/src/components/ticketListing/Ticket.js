@@ -33,7 +33,7 @@ class Ticket extends Component {
   }
 
   fetchCurrentPrice() {
-    axios.get(`http://localhost:8080/tickets/price/${this.props.match.params.id}`)
+    axios.get(`http://localhost:8080/price/${this.props.match.params.id}`)
       .then((response) => {
         const lastUpdated = new Date()
         this.setState({
