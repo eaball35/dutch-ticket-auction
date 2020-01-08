@@ -1,6 +1,6 @@
 package com.TicketTime.TicketTime.order;
 
-import com.TicketTime.TicketTime.location.Location;
+import com.TicketTime.TicketTime.address.Address;
 import com.TicketTime.TicketTime.ticketListing.TicketListing;
 import com.TicketTime.TicketTime.user.User;
 import org.springframework.data.annotation.Id;
@@ -23,9 +23,9 @@ public class Order {
     @NotBlank
     private final Double totalCost;
     private final String ccDetails;
-    private final Location shippingAddress;
+    private final Address shippingAddress;
 
-    public Order(User user, TicketListing ticketListing, Double strikePrice, Double totalCost, String ccDetails, Location shippingAddress) {
+    public Order(User user, TicketListing ticketListing, Double strikePrice, Double totalCost, String ccDetails, Address shippingAddress) {
         this.user = user;
         this.ticketListing = ticketListing;
         this.strikePrice = strikePrice;
@@ -66,7 +66,7 @@ public class Order {
         return ccDetails;
     }
 
-    public Location getShippingAddress() { return shippingAddress; }
+    public Address getShippingAddress() { return shippingAddress; }
 
     public void setId(String id) {
         this.id = id;

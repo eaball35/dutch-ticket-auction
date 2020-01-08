@@ -1,5 +1,5 @@
 package com.TicketTime.TicketTime.venue;
-import com.TicketTime.TicketTime.location.Location;
+import com.TicketTime.TicketTime.address.Address;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,14 +18,14 @@ public class Venue {
     private final String title;
     private final String description;
     private final String venueDetails;
-    private final Location location;
+    private final Address address;
 
-    public Venue(String eventfulId, @NotBlank String title, String description, String venueDetails, Location location) {
+    public Venue(String eventfulId, @NotBlank String title, String description, String venueDetails, Address address) {
         this.eventfulId = eventfulId;
         this.title = title;
         this.description = description;
         this.venueDetails = venueDetails;
-        this.location = location;
+        this.address = address;
     }
 
     public String getId() {
@@ -56,8 +56,8 @@ public class Venue {
         return venueDetails;
     }
 
-    public Location getLocation() {
-        return location;
+    public Address getAddress() {
+        return address;
     }
 
     public void setId(String id) {
@@ -82,7 +82,7 @@ public class Venue {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", venueDetails='" + venueDetails + '\'' +
-                ", location=" + location +
+                ", location=" + address +
                 '}';
     }
 }

@@ -86,7 +86,7 @@ class Ticket extends Component {
               
               <h4>{listingDetails.event.start}  |  {listingDetails.ticketQuantity} {listingDetails.ticketGrouping} </h4>
               
-              <h2>@ {listingDetails.event.venue.title}  |  {listingDetails.event.venue.location.city}, {listingDetails.event.venue.location.state} </h2>
+              <h2>@ {listingDetails.event.venue.title}  |  {listingDetails.event.venue.address.city.name}, {listingDetails.event.venue.address.city.state} </h2>
               
               <h4>Listed {listingDetails.createdAt} for ${listingDetails.startTotalPrice/listingDetails.ticketQuantity} <span>ea</span></h4>
               

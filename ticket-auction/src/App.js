@@ -138,7 +138,7 @@ class App extends Component {
             <header>
               <h1>By City</h1>
             </header>
-            <List url="/locations/all" cardType="location"/>
+            <List url="/cities/all" cardType="city"/>
           </Route>
         
   {/* Nested Pages */}

@@ -36,7 +36,7 @@ class TicketTable extends Component {
           return (
             <tr key={i}>
               <td><Link to={`/tickets/${ticket.id}`}>{ticket.id} </Link></td>
-              <td>{ticket.event.venue.location.city}</td>
+              <td>{ticket.event.venue.address.city.name}</td>
             </tr>
           )
         });

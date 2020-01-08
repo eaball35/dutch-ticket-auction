@@ -1,5 +1,5 @@
 package com.TicketTime.TicketTime.user;
-import com.TicketTime.TicketTime.location.Location;
+import com.TicketTime.TicketTime.address.Address;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -20,9 +20,9 @@ public class User {
     private final String lastName;
     @NotBlank
     private final String email;
-    private final Location address;
+    private final Address address;
 
-    public User(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String email, Location address) {
+    public User(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String email, Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -57,7 +57,7 @@ public class User {
         return email;
     }
 
-    public Location getAddress() {
+    public Address getAddress() {
         return address;
     }
 

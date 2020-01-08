@@ -71,7 +71,7 @@ public class EventController {
 
     @GetMapping("/city/{city}")
     public List<Event> getEventsByCity(@PathVariable String city) {
-        return eventRepository.findByVenueLocationCity(city);
+        return eventRepository.findByVenueAddressCityName(city);
     }
 }
 

@@ -1,11 +1,13 @@
 package com.TicketTime.TicketTime;
 
+import com.TicketTime.TicketTime.address.Address;
 import com.TicketTime.TicketTime.category.Category;
 import com.TicketTime.TicketTime.category.CategoryRepository;
+import com.TicketTime.TicketTime.cities.City;
+import com.TicketTime.TicketTime.cities.CityRepository;
 import com.TicketTime.TicketTime.event.Event;
 import com.TicketTime.TicketTime.event.EventRepository;
-import com.TicketTime.TicketTime.location.Location;
-import com.TicketTime.TicketTime.location.LocationRepository;
+import com.TicketTime.TicketTime.address.AddressRepository;
 import com.TicketTime.TicketTime.order.Order;
 import com.TicketTime.TicketTime.order.OrderRepository;
 import com.TicketTime.TicketTime.ticketListing.TicketListing;
@@ -27,34 +29,48 @@ public class DBSeeder implements CommandLineRunner {
     private EventRepository eventRepository;
     private CategoryRepository categoryRepository;
     private OrderRepository orderRepository;
-    private LocationRepository locationRepository;
+    private AddressRepository addressRepository;
+    private CityRepository cityRepository;
 
 
-    public DBSeeder(TicketListingRepository ticketListingRepository, UserRepository userRepository, VenueRepository venueRepository, EventRepository eventRepository, CategoryRepository categoryRepository, OrderRepository orderRepository, LocationRepository locationRepository) {
+    public DBSeeder(TicketListingRepository ticketListingRepository, UserRepository userRepository, VenueRepository venueRepository, EventRepository eventRepository, CategoryRepository categoryRepository, OrderRepository orderRepository, AddressRepository addressRepository, CityRepository cityRepository) {
         this.ticketListingRepository = ticketListingRepository;
         this.userRepository = userRepository;
         this.venueRepository = venueRepository;
         this.eventRepository = eventRepository;
         this.categoryRepository = categoryRepository;
         this.orderRepository = orderRepository;
-        this.locationRepository = locationRepository;
+        this.addressRepository = addressRepository;
+        this.cityRepository = cityRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        Location bainbridge = new Location("141 Parfitt Way SW","","Bainbridge Island","WA","98110");
-        Location street123 = new Location("123 Street","Apt 22","Chicago","IL","60601");
-        Location cali = new Location("456 Beach Ln","302","San Deigo","CA","22434");
-        Location mountainrd = new Location("111 Mountain Rd.","","Denver","CO","80014");
-        Location centuryLinkAdd = new Location ("1505 5th Ave", "", "Seattle", "WA", "98101" );
-        Location wrigleyAdd = new Location ("1060 W Addison St", "", "Chicago", "IL", "60613");
-        this.locationRepository.deleteAll();
-        this.locationRepository.save(bainbridge);
-        this.locationRepository.save(street123);
-        this.locationRepository.save(cali);
-        this.locationRepository.save(mountainrd);
-        this.locationRepository.save(centuryLinkAdd);
-        this.locationRepository.save(wrigleyAdd);
+        City bainbridgeIsland = new City("Bainbridge Island", "WA");
+        City chicago = new City("Chicago", "IL");
+        City sanDiego = new City("San Diego", "CA");
+        City denver = new City("Denver", "CO");
+        City seattle = new City("Seattle", "WA");
+        this.cityRepository.deleteAll();
+        this.cityRepository.save(bainbridgeIsland);
+        this.cityRepository.save(chicago);
+        this.cityRepository.save(sanDiego);
+        this.cityRepository.save(denver);
+        this.cityRepository.save(seattle);
+
+        Address bainbridge = new Address("141 Parfitt Way SW","",bainbridgeIsland,"98110");
+        Address street123 = new Address("123 Street","Apt 22",chicago,"60601");
+        Address cali = new Address("456 Beach Ln","302",sanDiego,"22434");
+        Address mountainrd = new Address("111 Mountain Rd.","",denver,"80014");
+        Address centuryLinkAdd = new Address("1505 5th Ave", "",seattle, "98101" );
+        Address wrigleyAdd = new Address("1060 W Addison St", "", chicago,  "60613");
+        this.addressRepository.deleteAll();
+        this.addressRepository.save(bainbridge);
+        this.addressRepository.save(street123);
+        this.addressRepository.save(cali);
+        this.addressRepository.save(mountainrd);
+        this.addressRepository.save(centuryLinkAdd);
+        this.addressRepository.save(wrigleyAdd);
 
         User emily = new User("Emily", "Ball", "eaball35@gmail.com", bainbridge);
         User brian = new User("Brian", "Dahmen", "bmdahmen@gmail.com", street123);

@@ -41,7 +41,7 @@ render() {
               <h1>{eventDetails.title}</h1>
               <h2>{eventDetails.artist}</h2>
               <h4>{eventDetails.start} </h4>
-              <h2>@ {eventDetails.venue.title}  |  {eventDetails.venue.location.city}, {eventDetails.venue.location.state} </h2>
+              <h2>@ {eventDetails.venue.title}  |  {eventDetails.venue.address.city.name}, {eventDetails.venue.address.city.state} </h2>
               <p>{eventDetails.eventDetails}</p>
             </section>
 
