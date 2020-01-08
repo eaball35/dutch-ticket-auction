@@ -1,21 +1,21 @@
 package com.TicketTime.TicketTime;
 
-import com.TicketTime.TicketTime.address.Address;
-import com.TicketTime.TicketTime.category.Category;
-import com.TicketTime.TicketTime.category.CategoryRepository;
-import com.TicketTime.TicketTime.cities.City;
-import com.TicketTime.TicketTime.cities.CityRepository;
-import com.TicketTime.TicketTime.event.Event;
-import com.TicketTime.TicketTime.event.EventRepository;
-import com.TicketTime.TicketTime.address.AddressRepository;
-import com.TicketTime.TicketTime.order.Order;
-import com.TicketTime.TicketTime.order.OrderRepository;
-import com.TicketTime.TicketTime.ticketListing.TicketListing;
-import com.TicketTime.TicketTime.ticketListing.TicketListingRepository;
-import com.TicketTime.TicketTime.user.User;
-import com.TicketTime.TicketTime.user.UserRepository;
-import com.TicketTime.TicketTime.venue.Venue;
-import com.TicketTime.TicketTime.venue.VenueRepository;
+import com.TicketTime.TicketTime.model.Address;
+import com.TicketTime.TicketTime.model.Category;
+import com.TicketTime.TicketTime.repository.CategoryRepository;
+import com.TicketTime.TicketTime.model.City;
+import com.TicketTime.TicketTime.repository.CityRepository;
+import com.TicketTime.TicketTime.model.Event;
+import com.TicketTime.TicketTime.repository.EventRepository;
+import com.TicketTime.TicketTime.repository.AddressRepository;
+import com.TicketTime.TicketTime.model.Order;
+import com.TicketTime.TicketTime.repository.OrderRepository;
+import com.TicketTime.TicketTime.model.TicketListing;
+import com.TicketTime.TicketTime.repository.TicketListingRepository;
+import com.TicketTime.TicketTime.model.User;
+import com.TicketTime.TicketTime.repository.UserRepository;
+import com.TicketTime.TicketTime.model.Venue;
+import com.TicketTime.TicketTime.repository.VenueRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
