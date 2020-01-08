@@ -27,15 +27,22 @@ class App extends Component {
 
     this.state = {
       loggedIn: false,
-      currentUserId: 0,
-      errors: "",
+      currentUserId: undefined,
     };
   }
 
   updateLoginUser = () => {
-    this.setState({
-      loggedIn: !this.state.loggedIn
-    })
+    if(this.state.loggedIn) {
+      this.setState({
+        loggedIn: false,
+        currentUserId: undefined
+      })
+    } else {
+      this.setState({
+        loggedIn: true,
+        currentUserId: 1234
+      })
+    }
   }
 
   render() {
@@ -51,11 +58,15 @@ class App extends Component {
           
   {/* Login/Login Pages */}
           <Route path ='/sign-in' exact strict>
-            <h1>Sign In</h1>
+            <header>
+              <h1>Sign In</h1>
+            </header>
           </Route>
           
           <Route path ='/register' exact strict>
-            <h1>Register</h1>
+            <header>
+              <h1>Register</h1>
+            </header>
           </Route>
           
   {/* User/Account Pages */}
@@ -75,14 +86,11 @@ class App extends Component {
             component={Seller}
           />
 
-          <Route path ='/seller-stats/:sellerId' 
-            exact strict
-            component={Seller}
-          />
-
   {/* Checkout Pages */}
           <Route path ='/checkout' exact strict>
-            <h1>Checkout</h1>
+            <header>
+              <h1>Checkout</h1>
+            </header>
           </Route>
 
   {/* Create Pages */}
@@ -92,32 +100,44 @@ class App extends Component {
 
   {/* Nav Link Pages */}
           <Route path ='/' exact strict>
-            <h1>Home</h1>
+            <header>
+              <h1>Home</h1>
+            </header>
             <List url="/tickets/all" cardType="ticket" />
           </Route>
 
           <Route path ='/events' exact strict>
-            <h1>Events</h1>
+            <header>
+              <h1>Events</h1>
+            </header>
             <List url='/events/all' cardType="event" />
           </Route>
 
           <Route path ='/sports' exact strict>
-            <h1>Sports</h1>
+            <header>
+              <h1>Sports</h1>
+            </header>
             <List url="/categories/type/sports" cardType="category"/>
           </Route>
 
           <Route path ='/music' exact strict>
-            <h1>Music</h1>
+            <header>
+              <h1>Music</h1>
+            </header>
             <List url="/categories/type/music" cardType="category"/>
           </Route>
 
           <Route path ='/comedy' exact strict>
-            <h1>Comedy</h1>
+            <header>
+              <h1>Comedy</h1>
+            </header>
             <List url="/events/category/comedy" cardType="event"/>
           </Route>
 
           <Route path ='/cities' exact strict>
-            <h1>By City</h1>
+            <header>
+              <h1>By City</h1>
+            </header>
             <List url="/locations/all" cardType="location"/>
           </Route>
         

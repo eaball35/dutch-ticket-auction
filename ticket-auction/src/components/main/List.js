@@ -17,10 +17,10 @@ class List extends Component {
 
   componentDidMount = () => {
     const url = `http://localhost:8080/${this.props.url}`
-    this.fetchData(url);
+    this.fetchCollection(url);
   }
 
-  fetchData(url) {
+  fetchCollection(url) {
     axios.get(url)
       .then((response) => {
         this.setState({collection: response.data})
@@ -31,7 +31,7 @@ class List extends Component {
       });
   }
   
-  render() {
+  render() {    
     let collection;
     if (this.state.collection) {
       if (this.props.cardType === "ticket") {
@@ -51,9 +51,13 @@ class List extends Component {
           return (<LocationCard location={location} key={i}/>)
         });
       }
+    } else {
+      return (
+        <div className="alert alert-warning">One moment, pulling listings for you now...</div>
+      )
     }
     return (
-        <section className="List-container" >
+        <section className="list-container" >
           {collection}
         </section>
     )

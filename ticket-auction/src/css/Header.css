@@ -6,7 +6,9 @@
 }
 
 .top-header {
-  margin-top: .6em
+  margin: 1em;
+  margin-top: .6em;
+  margin-bottom: .6em;
 }
 
 .sign-in-btn {
