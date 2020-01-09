@@ -1,12 +1,8 @@
 package com.TicketTime.TicketTime.controller;
 
 import com.TicketTime.TicketTime.exception.NotFoundException;
-import com.TicketTime.TicketTime.exception.ResourceNotFoundException;
 import com.TicketTime.TicketTime.model.User;
 import com.TicketTime.TicketTime.repository.UserRepository;
-import com.TicketTime.TicketTime.security.oauth2.CurrentUser;
-import com.TicketTime.TicketTime.security.oauth2.UserPrincipal;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,15 +18,6 @@ public class UserController {
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
-//    ADDED THIS!!!
-    @GetMapping("/user/me")
-    @PreAuthorize("hasRole('USER')")
-    public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-        return userRepository.findById(userPrincipal.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
-    }
-//    ADDED ABOVE!!
 
     @GetMapping("/all")
     public List<User> getAll() {
@@ -65,16 +52,5 @@ public class UserController {
         }
         return ticket;
     }
-
-    @GetMapping("/{email}")
-    public Optional<User> getByEmail(@PathVariable("email") String email) {
-        Optional<User> ticket = this.userRepository.findByEmail(email);
-        if (ticket.isEmpty()) {
-            throw new NotFoundException("User Not Found");
-        }
-        return ticket;
-    }
-
-
 }
 

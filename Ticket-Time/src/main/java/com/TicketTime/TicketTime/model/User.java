@@ -1,4 +1,5 @@
 package com.TicketTime.TicketTime.model;
+import com.TicketTime.TicketTime.model.Address;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,20 +12,19 @@ public class User {
     private String id;
     private Date createdAt = new Date();
     private Date updatedAt = new Date();
-
-//    Added provider
-    private AuthProvider1 provider;
-    private String providerId;
-    private String password;
+    private Date providerId = null;
 
     @NotBlank
-    private String name;
+    private final String firstName;
     @NotBlank
-    private String email;
+    private final String lastName;
+    @NotBlank
+    private final String email;
     private final Address address;
 
-    public User(@NotBlank String name, @NotBlank String email, Address address) {
-        this.name = name;
+    public User(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String email, Address address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.address = address;
     }
@@ -41,20 +41,16 @@ public class User {
         return updatedAt;
     }
 
-    public AuthProvider1 getProvider() {
-        return provider;
-    }
-
-    public String getProviderId() {
+    public Date getProviderId() {
         return providerId;
     }
 
-    public String getPassword() {
-        return password;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
     public String getEmail() {
@@ -77,25 +73,10 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public void setProvider(AuthProvider1 provider) {
-        this.provider = provider;
-    }
-
-    public void setProviderId(String providerId) {
+    public void setProviderId(Date providerId) {
         this.providerId = providerId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     @Override
     public String toString() {
@@ -103,10 +84,9 @@ public class User {
                 "id='" + id + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
-                ", provider=" + provider +
-                ", providerId='" + providerId + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
+                ", providerId=" + providerId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", address=" + address +
                 '}';
