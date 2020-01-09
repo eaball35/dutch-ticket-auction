@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package com.TicketTime.TicketTime.security.oauth2.user;
+=======
+package com.TicketTime.TicketTime.security.oauth2;
+>>>>>>> parent of 4ce7207... jan8 branch
 
 import com.TicketTime.TicketTime.util.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;

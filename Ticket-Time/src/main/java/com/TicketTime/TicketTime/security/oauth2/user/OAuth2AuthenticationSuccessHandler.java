@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 package com.TicketTime.TicketTime.security.oauth2.user;
 
 import com.TicketTime.TicketTime.security.oauth2.TokenProvider;
+=======
+package com.TicketTime.TicketTime.security.oauth2;
+
+import com.TicketTime.TicketTime.exception.BadRequestException1;
+>>>>>>> parent of 4ce7207... jan8 branch
 import com.TicketTime.TicketTime.util.CookieUtils;
 import com.example.springsocial.config.AppProperties;
 import com.example.springsocial.exception.BadRequestException;
@@ -19,7 +25,11 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
 
+<<<<<<< HEAD
 import static com.example.springsocial.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+=======
+import static com.TicketTime.TicketTime.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+>>>>>>> parent of 4ce7207... jan8 branch
 
 @Component
 public class OAuth2AuthenticationSuccessHandler<AppProperties> extends SimpleUrlAuthenticationSuccessHandler {
