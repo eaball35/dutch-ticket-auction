@@ -5,6 +5,7 @@ import com.TicketTime.TicketTime.model.User;
 import com.TicketTime.TicketTime.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,9 +34,9 @@ public class UserController {
 
     //    Save can perform insert or update
     @PostMapping
-    public String update(@RequestBody User user) {
+    public User update(@RequestBody User user) {
         User newUser = this.userRepository.save(user);
-        return newUser.getId();
+        return newUser;
     }
 
     @DeleteMapping("/{id}")

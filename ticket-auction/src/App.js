@@ -27,11 +27,11 @@ class App extends Component {
 
     this.state = {
       loggedIn: false,
-      currentUserId: undefined,
+      currentUser: undefined,
     };
   }
 
-  updateLoginUser = () => {
+  updateLoginUser = (user = 123) => {
     if(this.state.loggedIn) {
       this.setState({
         loggedIn: false,
@@ -40,7 +40,7 @@ class App extends Component {
     } else {
       this.setState({
         loggedIn: true,
-        currentUserId: 1234
+        currentUser: user
       })
     }
   }
@@ -49,12 +49,14 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Header 
-            loggedIn={this.state.loggedIn}
-            currentUserId={this.state.currentUserId}
-            logInCallback={this.updateLoginUser}
-          />
-          <CategoryNav/>
+          <section className="app-header">
+            <Header 
+              loggedIn={this.state.loggedIn}
+              currentUser={this.state.currentUser}
+              logInCallback={this.updateLoginUser}
+            />
+            <CategoryNav/>
+          </section>
           
   {/* Login/Login Pages */}
           <Route path ='/sign-in' exact strict>
@@ -66,15 +68,22 @@ class App extends Component {
           <Route path ='/register' exact strict>
             <header>
               <h1>Register</h1>
-              <RegisterForm></RegisterForm>
+              <RegisterForm updateCurrentUser={this.updateLoginUser}></RegisterForm>
             </header>
           </Route>
           
   {/* User/Account Pages */}
-          <Route 
-            path ='/myaccount/:userId' 
-            exact strict
-            component={User}
+          <Route path ='/myaccount/:userId' 
+            exact strict 
+            render = { (props) => 
+              <section >
+                {
+                  (this.state.currentUser)
+                    ? <h1>{this.state.currentUser.username}'s account</h1>
+                    : <h2>Sorry, you can't access this page</h2>
+                }
+              </section>
+            }
           />
           
           <Route path ='/new-ticket/:sellerId' 

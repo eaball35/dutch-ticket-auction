@@ -43,10 +43,11 @@ class SignInForm extends Component {
 
     axios.post(url, data, headers)
       .then((response) => {
+        this.props.updateCurrentUser(response.data)
         this.setState({
           username: "",
           email: "",
-          redirect: `/myaccount/${response.data}`
+          redirect: `/myaccount/${response.data.id}`
         })
       })
       .catch((error) => {

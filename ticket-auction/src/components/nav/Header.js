@@ -7,7 +7,7 @@ class Header extends Component {
   render() {
     const leftWelcomeMessage = () => {
       if (this.props.loggedIn) {
-        return <p> Welcome {this.props.currentUserId}! </p>
+        return <p> Welcome {this.props.currentUser.username}! </p>
       } else {
         return <p> Welcome! Please 
                   <strong><Link to='/sign-in' onClick={this.props.logInCallback}> Sign in </Link></strong> or 
@@ -20,11 +20,13 @@ class Header extends Component {
     const rightLinks = () => {
       if (this.props.loggedIn) {
         return (
-          <section>
+          <section className="top-header">
             <strong>
               <Link to='/new-ticket'> Start Selling</Link>  |  
               <Link to='/seller-stats/2'> Seller Stats</Link>  |  
-              <Link to='/myaccount/2'>  My Untitled Account </Link>
+              <Link to={`/myaccount/${this.props.currentUser.id}`}>  
+              My Untitled Account </Link>
+
             </strong>
             <Link 
               to='/' 
@@ -58,7 +60,10 @@ class Header extends Component {
         </section>
         
         <section className='d-flex justify-content-center align-items-center'>
-          <h1 className='nav-logo-text'> <NavLink to='/'> Untitled Capstone </NavLink> </h1>
+          <h1> 
+            <NavLink to='/'> 
+              <img src="https://www.tryimg.com/u/2020/01/09/TicketClockLogo-01.png" alt="ticketime logo" className="nav-logo"></img>
+            </NavLink> </h1>
           <Search></Search>
         </section>
       </section>
