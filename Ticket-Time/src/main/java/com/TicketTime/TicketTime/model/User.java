@@ -17,41 +17,16 @@ public class User {
     private String providerId;
     private String password;
 
-<<<<<<< Updated upstream:Ticket-Time/src/main/java/com/TicketTime/TicketTime/user/User.java
-=======
-//    Added provider
-    private AuthProvider1 provider;
-    private String providerId;
-    private String password;
-    private String imageURL;
-
->>>>>>> Stashed changes:Ticket-Time/src/main/java/com/TicketTime/TicketTime/model/User.java
     @NotBlank
     private String name;
     @NotBlank
-<<<<<<< Updated upstream:Ticket-Time/src/main/java/com/TicketTime/TicketTime/model/User.java
     private String email;
     private final Address address;
 
     public User(@NotBlank String name, @NotBlank String email, Address address) {
         this.name = name;
-=======
-<<<<<<< Updated upstream:Ticket-Time/src/main/java/com/TicketTime/TicketTime/user/User.java
-    private final String email;
-    private final Address address;
-
-    public User(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String email, Address address) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-=======
-    private String email;
-    private Address address;
-
-    public User(@NotBlank String name, @NotBlank String email) {
-        this.name = name;
->>>>>>> Stashed changes:Ticket-Time/src/main/java/com/TicketTime/TicketTime/model/User.java
->>>>>>> Stashed changes:Ticket-Time/src/main/java/com/TicketTime/TicketTime/user/User.java
         this.email = email;
+        this.address = address;
     }
 
     public String getId() {
@@ -78,22 +53,8 @@ public class User {
         return password;
     }
 
-<<<<<<< Updated upstream:Ticket-Time/src/main/java/com/TicketTime/TicketTime/model/User.java
     public String getName() {
         return name;
-=======
-<<<<<<< Updated upstream:Ticket-Time/src/main/java/com/TicketTime/TicketTime/user/User.java
-    public String getLastName() {
-        return lastName;
-=======
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public String getName() {
-        return name;
->>>>>>> Stashed changes:Ticket-Time/src/main/java/com/TicketTime/TicketTime/model/User.java
->>>>>>> Stashed changes:Ticket-Time/src/main/java/com/TicketTime/TicketTime/user/User.java
     }
 
     public String getEmail() {
@@ -124,26 +85,10 @@ public class User {
         this.providerId = providerId;
     }
 
-<<<<<<< Updated upstream:Ticket-Time/src/main/java/com/TicketTime/TicketTime/model/User.java
-=======
-<<<<<<< Updated upstream:Ticket-Time/src/main/java/com/TicketTime/TicketTime/user/User.java
-=======
->>>>>>> Stashed changes:Ticket-Time/src/main/java/com/TicketTime/TicketTime/user/User.java
     public void setPassword(String password) {
         this.password = password;
     }
 
-<<<<<<< Updated upstream:Ticket-Time/src/main/java/com/TicketTime/TicketTime/model/User.java
-=======
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
->>>>>>> Stashed changes:Ticket-Time/src/main/java/com/TicketTime/TicketTime/user/User.java
     public void setName(String name) {
         this.name = name;
     }
@@ -151,10 +96,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-<<<<<<< Updated upstream:Ticket-Time/src/main/java/com/TicketTime/TicketTime/model/User.java
-=======
->>>>>>> Stashed changes:Ticket-Time/src/main/java/com/TicketTime/TicketTime/model/User.java
->>>>>>> Stashed changes:Ticket-Time/src/main/java/com/TicketTime/TicketTime/user/User.java
 
     @Override
     public String toString() {
@@ -162,24 +103,10 @@ public class User {
                 "id='" + id + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
-<<<<<<< Updated upstream:Ticket-Time/src/main/java/com/TicketTime/TicketTime/model/User.java
                 ", provider=" + provider +
                 ", providerId='" + providerId + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
-=======
-<<<<<<< Updated upstream:Ticket-Time/src/main/java/com/TicketTime/TicketTime/user/User.java
-                ", providerId=" + providerId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-=======
-                ", provider=" + provider +
-                ", providerId='" + providerId + '\'' +
-                ", password='" + password + '\'' +
-                ", imageURL='" + imageURL + '\'' +
-                ", name='" + name + '\'' +
->>>>>>> Stashed changes:Ticket-Time/src/main/java/com/TicketTime/TicketTime/model/User.java
->>>>>>> Stashed changes:Ticket-Time/src/main/java/com/TicketTime/TicketTime/user/User.java
                 ", email='" + email + '\'' +
                 ", address=" + address +
                 '}';

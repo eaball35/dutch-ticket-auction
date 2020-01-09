@@ -12,21 +12,13 @@ import java.util.List;
 import java.util.Map;
 
 public class UserPrincipal implements OAuth2User, UserDetails {
-<<<<<<< Updated upstream
     private Long id;
-=======
-    private String id;
->>>>>>> Stashed changes
     private String email;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
 
-<<<<<<< Updated upstream
     public UserPrincipal(Long id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
-=======
-    public UserPrincipal(String id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
->>>>>>> Stashed changes
         this.id = id;
         this.email = email;
         this.password = password;

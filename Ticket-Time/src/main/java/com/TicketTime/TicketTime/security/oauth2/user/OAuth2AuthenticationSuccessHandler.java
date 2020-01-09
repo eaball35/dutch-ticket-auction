@@ -1,14 +1,6 @@
-<<<<<<< Updated upstream
 package com.TicketTime.TicketTime.security.oauth2;
 
 import com.TicketTime.TicketTime.exception.BadRequestException1;
-=======
-package com.TicketTime.TicketTime.security.oauth2.user;
-
-import com.TicketTime.TicketTime.config.AppProperties1;
-import com.TicketTime.TicketTime.exception.BadRequestException1;
-import com.TicketTime.TicketTime.security.oauth2.TokenProvider;
->>>>>>> Stashed changes
 import com.TicketTime.TicketTime.util.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,32 +15,20 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
 
-<<<<<<< Updated upstream
 import static com.TicketTime.TicketTime.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
-=======
-import static com.TicketTime.TicketTime.security.oauth2.user.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
->>>>>>> Stashed changes
 
 @Component
 public class OAuth2AuthenticationSuccessHandler<AppProperties> extends SimpleUrlAuthenticationSuccessHandler {
 
     private TokenProvider tokenProvider;
 
-<<<<<<< Updated upstream
     private AppProperties appProperties;
-=======
-    private AppProperties1 appProperties;
->>>>>>> Stashed changes
 
     private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
 
     @Autowired
-<<<<<<< Updated upstream
     OAuth2AuthenticationSuccessHandler(TokenProvider tokenProvider, AppProperties appProperties,
-=======
-    OAuth2AuthenticationSuccessHandler(TokenProvider tokenProvider, AppProperties1 appProperties,
->>>>>>> Stashed changes
                                        HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository) {
         this.tokenProvider = tokenProvider;
         this.appProperties = appProperties;
