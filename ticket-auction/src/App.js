@@ -11,6 +11,7 @@ import axios from 'axios';
 import List from './components/main/List';
 import { Button } from 'react-bootstrap';
 import CategoryNav from './components/nav/CategoryNav';
+import RegisterForm from './components/login/RegisterForm.js';
 
 const User = ({match}) => {
   return (<h1>User {match.params.userId}</h1>)
@@ -65,6 +66,7 @@ class App extends Component {
           <Route path ='/register' exact strict>
             <header>
               <h1>Register</h1>
+              <RegisterForm></RegisterForm>
             </header>
           </Route>
           

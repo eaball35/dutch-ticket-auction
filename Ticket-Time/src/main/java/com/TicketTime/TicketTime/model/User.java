@@ -12,21 +12,20 @@ public class User {
     private String id;
     private Date createdAt = new Date();
     private Date updatedAt = new Date();
-    private Date providerId = null;
+    private Date providerId;
+    private String firstName;
+    private String lastName;
+    private Address address;
 
-    @NotBlank
-    private final String firstName;
-    @NotBlank
-    private final String lastName;
     @NotBlank
     private final String email;
-    private final Address address;
+    @NotBlank
+    private final String username;
 
-    public User(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String email, Address address) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+
+    public User( @NotBlank String email, String username) {
         this.email = email;
-        this.address = address;
+        this.username = username;
     }
 
     public String getId() {
@@ -57,6 +56,10 @@ public class User {
         return email;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
     public Address getAddress() {
         return address;
     }
@@ -77,6 +80,17 @@ public class User {
         this.providerId = providerId;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     @Override
     public String toString() {
@@ -87,8 +101,9 @@ public class User {
                 ", providerId=" + providerId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
                 ", address=" + address +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }

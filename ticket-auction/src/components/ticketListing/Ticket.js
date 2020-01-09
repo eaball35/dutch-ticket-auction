@@ -83,38 +83,51 @@ class Ticket extends Component {
         return (<h6>Ticket ID {tNum}</h6>)
       }
     }
-    const listingDetails = this.state.ticket;
+    
 
     const showTicket = () => {
       if (this.state.ticket !== undefined) {
+        
+        // Ticket Fields
+        const listingDetails = this.state.ticket;
+        const imageUrls = listingDetails.event.imageUrls
+        const artist = listingDetails.event.artist
+        const title = listingDetails.event.title
+        const start = listingDetails.event.start
+        const ticketQuantity = listingDetails.ticketQuantity
+        const ticketGrouping = listingDetails.ticketGrouping
+        const venue = listingDetails.event.venue.title
+        const city = listingDetails.event.venue.address.city.name
+        const state = listingDetails.event.venue.address.city.state
+        const createdAt = listingDetails.createdAt
+        const priceEach = listingDetails.startTotalPrice/listingDetails.ticketQuantity
+        const overview = listingDetails.overview
+        const currentPrice = this.state.currentPrice/listingDetails.ticketQuantity
+        const lastUpdated = this.state.lastUpdated
+
         return (
           <section>
             <section>
               {ticketNum()}
-              <img src={listingDetails.event.imageUrls} alt={listingDetails.event.title} className='event-img'/>
-              
-              <h1>{listingDetails.event.artist} - {listingDetails.event.title}</h1>
-              
-              <h4>{listingDetails.event.start}  |  {listingDetails.ticketQuantity} {listingDetails.ticketGrouping} </h4>
-              
-              <h2>@ {listingDetails.event.venue.title}  |  {listingDetails.event.venue.address.city.name}, {listingDetails.event.venue.address.city.state} </h2>
-              
-              <h4>Listed {listingDetails.createdAt} for ${listingDetails.startTotalPrice/listingDetails.ticketQuantity} <span>ea</span></h4>
-              
-              <p>{listingDetails.overview}</p>
+              <img src={imageUrls} alt={title} className='event-img'/>
+              <h1>{artist} - {title}</h1>
+              <h4>{start}  |  {ticketQuantity} {ticketGrouping} </h4>
+              <h2>@ {venue}  |  {city}, {state} </h2>
+              <h4>Listed {createdAt} for ${priceEach} <span>ea</span></h4>
+              <p>{overview}</p>
             </section>
 
             <section>
               <h4>Current Price</h4>
-              <h2> ${this.state.currentPrice/listingDetails.ticketQuantity} <span>ea</span></h2>
-              <p>last updated {this.state.lastUpdated}</p>
-              <button className='btn btn-secondary'>Buy Now</button>
+              <h2> ${currentPrice} <span>ea</span> </h2>
+              <p> last updated {lastUpdated} </p>
+              <button className='btn btn-secondary'> Buy Now </button>
             </section>
 
             <section>
-              <button onClick={() => {this.tabClick('auction')}}>Auction</button>
-              <button onClick={() => {this.tabClick('event')}}>Event</button>
-              <button onClick={() => {this.tabClick('venue')}}>Venue</button>
+              <button onClick={() => {this.tabClick('auction')}}> Auction </button>
+              <button onClick={() => {this.tabClick('event')}}> Event </button>
+              <button onClick={() => {this.tabClick('venue')}}> Venue </button>
               
               <section>
                 {this.chooseDetails()}
@@ -126,12 +139,10 @@ class Ticket extends Component {
         return "";
       }
     }
-
   
     return (
       <section>
         {showTicket()}
-        {console.log(this.props)}
       </section>
     )
   }

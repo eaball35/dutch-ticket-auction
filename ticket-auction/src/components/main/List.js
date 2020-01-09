@@ -59,12 +59,7 @@ class List extends Component {
         });
       }
     } else {
-      return (
-        <section>
-          <div className="alert alert-warning">One moment, pulling listings for you now...</div>
-          <p>{username}</p>
-        </section>
-      )
+      return ("")
     }
     return (
         <section className="list-container" >
