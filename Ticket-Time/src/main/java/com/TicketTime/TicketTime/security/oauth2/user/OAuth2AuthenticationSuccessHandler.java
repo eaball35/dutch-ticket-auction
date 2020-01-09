@@ -1,7 +1,11 @@
-package com.TicketTime.TicketTime.security.oauth2;
+package com.TicketTime.TicketTime.security.oauth2.user;
 
-import com.TicketTime.TicketTime.exception.BadRequestException1;
+import com.TicketTime.TicketTime.security.oauth2.TokenProvider;
 import com.TicketTime.TicketTime.util.CookieUtils;
+import com.example.springsocial.config.AppProperties;
+import com.example.springsocial.exception.BadRequestException;
+import com.example.springsocial.security.TokenProvider;
+import com.example.springsocial.util.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -15,7 +19,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
 
-import static com.TicketTime.TicketTime.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.example.springsocial.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
 @Component
 public class OAuth2AuthenticationSuccessHandler<AppProperties> extends SimpleUrlAuthenticationSuccessHandler {
@@ -53,7 +57,7 @@ public class OAuth2AuthenticationSuccessHandler<AppProperties> extends SimpleUrl
                 .map(Cookie::getValue);
 
         if(redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
-            throw new BadRequestException1("Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
+            throw new BadRequestException("Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
         }
 
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
