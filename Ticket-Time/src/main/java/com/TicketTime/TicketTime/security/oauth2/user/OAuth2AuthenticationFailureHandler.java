@@ -1,4 +1,4 @@
-package com.TicketTime.TicketTime.security.oauth2.user;
+package com.TicketTime.TicketTime.security.oauth2;
 
 import com.TicketTime.TicketTime.util.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;
