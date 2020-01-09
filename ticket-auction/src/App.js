@@ -114,6 +114,13 @@ class App extends Component {
             <List url='/events/all' cardType="event" />
           </Route>
 
+          <Route path ='/performers' exact strict>
+            <header>
+              <h1>Performers</h1>
+            </header>
+            <List url='/performers/all' cardType="performer" />
+          </Route>
+
           <Route path ='/sports' exact strict>
             <header>
               <h1>Sports</h1>
@@ -190,7 +197,16 @@ class App extends Component {
               </section>
             }
           />
-          
+
+          <Route path ='/events/performer/:id'
+            exact strict
+            render={
+              (props) => 
+              <section>
+                <List url = {`/events/performer/${props.match.params.id}`} cardType="event" {...props}/> 
+              </section>
+            }
+          />
         
         </div>    
       </Router>

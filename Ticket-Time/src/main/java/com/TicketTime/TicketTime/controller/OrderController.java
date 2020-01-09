@@ -44,11 +44,11 @@ public class OrderController {
 
     @GetMapping("/{id}")
     public Optional<Order> getById(@PathVariable("id") String id) {
-        Optional<Order> ticket = this.orderRepository.findById(id);
-        if (ticket.isEmpty()) {
+        Optional<Order> order = this.orderRepository.findById(id);
+        if (order.isEmpty()) {
             throw new NotFoundException("Order Not Found");
         }
-        return ticket;
+        return order;
     }
 
 //    Get all orders by user

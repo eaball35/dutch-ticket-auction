@@ -1,6 +1,7 @@
 package com.TicketTime.TicketTime.controller;
 
 import com.TicketTime.TicketTime.model.Event;
+import com.TicketTime.TicketTime.model.Performer;
 import com.TicketTime.TicketTime.repository.EventRepository;
 import com.TicketTime.TicketTime.exception.NotFoundException;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +58,11 @@ public class EventController {
     @GetMapping("/venue/{id}")
     public List<Event> getEventsByVenue(@PathVariable String id) {
         return eventRepository.findByVenue(id);
+    }
+
+    @GetMapping("/performer/{id}")
+    public List<Event> getEventsByPerformer(@PathVariable String id) {
+        return eventRepository.findByPerformer(id);
     }
 
     //   Get all events by category genre

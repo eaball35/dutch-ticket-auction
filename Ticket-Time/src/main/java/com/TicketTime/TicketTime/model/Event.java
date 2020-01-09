@@ -15,13 +15,13 @@ public class Event {
     @NotBlank
     private Date updatedAt = new Date();
     private ArrayList<Category> categories;
+
     @NotBlank
     private final Venue venue;
-
     private final String eventfulId;
     @NotBlank
     private final String title;
-    private final String artist;
+    private final ArrayList<Performer> performer;
     @NotBlank
     private final String description;
     @NotBlank
@@ -33,12 +33,12 @@ public class Event {
     private final Boolean allDay;
     private final String eventDetails;
 
-    public Event(ArrayList<Category> categories,Venue venue, String eventfulId, String title, String artist, String description, Date start, Date end, ArrayList<String> imageUrls, Boolean allDay, String eventDetails) {
+    public Event(ArrayList<Category> categories, @NotBlank Venue venue, String eventfulId, @NotBlank String title, ArrayList<Performer> performer, @NotBlank String description, @NotBlank Date start, @NotBlank Date end, ArrayList<String> imageUrls, @NotBlank Boolean allDay, String eventDetails) {
         this.categories = categories;
         this.venue = venue;
         this.eventfulId = eventfulId;
         this.title = title;
-        this.artist = artist;
+        this.performer = performer;
         this.description = description;
         this.start = start;
         this.end = end;
@@ -75,8 +75,8 @@ public class Event {
         return title;
     }
 
-    public String getArtist() {
-        return artist;
+    public ArrayList<Performer> getPerformer() {
+        return performer;
     }
 
     public String getDescription() {
@@ -117,26 +117,6 @@ public class Event {
 
     public void setCategories(ArrayList<Category> categories) {
         this.categories = categories;
-    }
-
-    @Override
-    public String toString() {
-        return "Event{" +
-                "id='" + id + '\'' +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", categories=" + categories +
-                ", venue=" + venue +
-                ", eventfulId='" + eventfulId + '\'' +
-                ", title='" + artist + '\'' +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", start=" + start +
-                ", end=" + end +
-                ", imageUrls=" + imageUrls +
-                ", allDay=" + allDay +
-                ", eventDetails='" + eventDetails + '\'' +
-                '}';
     }
 }
 

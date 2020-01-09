@@ -3,6 +3,7 @@ import TicketCard from '../ticketListing/TicketCard';
 import EventCard from '../events/EventCard';
 import CategoryCard from '../categories/CategoryCard';
 import CityCard from '../locations/CityCard';
+import PerformerCard from '../performers/PerformerCard';
 import axios from 'axios';
 import '../../css/List.css'
 import SPRING_SECURITY from '../../config_keys.js'
@@ -57,6 +58,10 @@ class List extends Component {
         collection = this.state.collection.map((city, i) => {
           return (<CityCard city={city} key={i}/>)
         });
+      } else if (this.props.cardType === "performer") {
+        collection = this.state.collection.map((performer, i) => {
+          return (<PerformerCard performer={performer} key={i}/>)
+        }); 
       }
     } else {
       return ("")

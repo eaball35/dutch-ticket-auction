@@ -7,6 +7,7 @@ class SearchBar extends Component {
 
     this.state = {
       query: '',
+      
     };
   }
 

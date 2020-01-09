@@ -46,11 +46,11 @@ public class UserController {
 
     @GetMapping("/{id}")
     public Optional<User> getById(@PathVariable("id") String id) {
-        Optional<User> ticket = this.userRepository.findById(id);
-        if (ticket.isEmpty()) {
+        Optional<User> user = this.userRepository.findById(id);
+        if (user.isEmpty()) {
             throw new NotFoundException("User Not Found");
         }
-        return ticket;
+        return user;
     }
 }
 
