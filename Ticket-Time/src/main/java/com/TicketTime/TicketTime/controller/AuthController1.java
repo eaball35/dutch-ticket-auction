@@ -63,7 +63,11 @@ public class AuthController1 {
         }
 
         // Creating user's account
+<<<<<<< Updated upstream
         User user = new User(null,null,null);
+=======
+        User user = new User(null,null);
+>>>>>>> Stashed changes
         user.setName(signUpRequest.getName());
         user.setEmail(signUpRequest.getEmail());
         user.setPassword(signUpRequest.getPassword());

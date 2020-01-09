@@ -1,5 +1,10 @@
 package com.TicketTime.TicketTime.security.oauth2.user;
 
+<<<<<<< Updated upstream
+=======
+import com.TicketTime.TicketTime.exception.OAuth2AuthenticationProcessingException1;
+import com.TicketTime.TicketTime.model.AuthProvider1;
+>>>>>>> Stashed changes
 import com.TicketTime.TicketTime.repository.UserRepository;
 import com.TicketTime.TicketTime.security.oauth2.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,15 +44,24 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
         if(StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
+<<<<<<< Updated upstream
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
+=======
+            throw new OAuth2AuthenticationProcessingException1("Email not found from OAuth2 provider");
+>>>>>>> Stashed changes
         }
 
         Optional<User> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
         User user;
         if(userOptional.isPresent()) {
             user = userOptional.get();
+<<<<<<< Updated upstream
             if(!user.getProvider().equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
                 throw new OAuth2AuthenticationProcessingException("Looks like you're signed up with " +
+=======
+            if(!user.getProvider().equals(AuthProvider1.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
+                throw new OAuth2AuthenticationProcessingException1("Looks like you're signed up with " +
+>>>>>>> Stashed changes
                         user.getProvider() + " account. Please use your " + user.getProvider() +
                         " account to login.");
             }
@@ -60,6 +74,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
+<<<<<<< Updated upstream
         User user = new User();
 
         user.setProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
@@ -67,12 +82,25 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         user.setName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
         user.setImageUrl(oAuth2UserInfo.getImageUrl());
+=======
+        User user = new User(null,null);
+
+        user.setProvider(AuthProvider1.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
+        user.setProviderId(oAuth2UserInfo.getId());
+        user.setName(oAuth2UserInfo.getName());
+        user.setEmail(oAuth2UserInfo.getEmail());
+        user.setImageURL(oAuth2UserInfo.getImageUrl());
+>>>>>>> Stashed changes
         return userRepository.save(user);
     }
 
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
         existingUser.setName(oAuth2UserInfo.getName());
+<<<<<<< Updated upstream
         existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
+=======
+        existingUser.setImageURL(oAuth2UserInfo.getImageUrl());
+>>>>>>> Stashed changes
         return userRepository.save(existingUser);
     }
 

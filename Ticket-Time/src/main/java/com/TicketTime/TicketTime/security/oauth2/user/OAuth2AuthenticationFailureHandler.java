@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 package com.TicketTime.TicketTime.security.oauth2;
+=======
+package com.TicketTime.TicketTime.security.oauth2.user;
+>>>>>>> Stashed changes
 
 import com.TicketTime.TicketTime.util.CookieUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+<<<<<<< Updated upstream
 import static com.TicketTime.TicketTime.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+=======
+import static com.TicketTime.TicketTime.security.oauth2.user.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+>>>>>>> Stashed changes
 @Component
 public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
