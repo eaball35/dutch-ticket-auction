@@ -7,12 +7,15 @@ class Header extends Component {
   render() {
     const leftWelcomeMessage = () => {
       if (this.props.loggedIn) {
-        return <p className="welcome-message"> Welcome {this.props.currentUser.username}! </p>
+        return (
+          <p className="welcome-message">Hello {this.props.currentUser.username}! </p>
+        )
+    
       } else {
         return <p className="welcome-message"> Welcome! Please 
                   <strong><Link to='/sign-in' onClick={this.props.logInCallback}> Sign in </Link></strong> or 
                   <strong><Link to='/register'> Register </Link></strong> 
-                  to start selling! 
+                  to start listing! 
                 </p>
       }  
     }
@@ -25,14 +28,9 @@ class Header extends Component {
               <Link to='/new-ticket' className='login-links'> Start Selling</Link>  |  
               <Link to='/seller-stats/2' className='login-links'> Seller Stats</Link>  |  
               <Link to={`/myaccount/${this.props.currentUser.id}`} className='login-links'>  
-              My TicketTime Account </Link>
-
+              My TicketClock Account </Link>
             </strong>
-            <Link 
-              to='/' 
-              onClick={this.props.logInCallback} 
-              className="btn btn-secondary sign-out-btn"> Sign Out 
-            </Link>
+      
           </section>
         )
       } else {

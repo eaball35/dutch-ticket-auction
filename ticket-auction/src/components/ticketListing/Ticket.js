@@ -3,6 +3,11 @@ import '../../css/Ticket.css';
 import axios from 'axios';
 import SPRING_SECURITY from '../../config_keys.js'
 
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+var dateFormat = require('dateformat');
+TimeAgo.addLocale(en)
+const timeAgo = new TimeAgo('en-US')
 const base_url = 'http://localhost:8080'
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
@@ -77,14 +82,6 @@ class Ticket extends Component {
     }
   }
   render() {
-    const ticketNum = () => {
-      if (!this.props.example) {
-        const tNum = this.props.match.params.id
-        return (<h6>Ticket ID {tNum}</h6>)
-      }
-    }
-    
-
     const showTicket = () => {
       if (this.state.ticket !== undefined && this.state.currentPrice !== undefined ) { 
         // Ticket Fields
@@ -92,40 +89,42 @@ class Ticket extends Component {
         const imageUrls = listingDetails.event.imageUrls
         const performer = listingDetails.event.performer[0].name
         const title = listingDetails.event.title
-        const start = listingDetails.event.start
+        const start = dateFormat(listingDetails.event.start, "dddd, mmmm dS, yyyy, h:MM TT")
         const ticketQuantity = listingDetails.ticketQuantity
         const ticketGrouping = listingDetails.ticketGrouping
         const venue = listingDetails.event.venue.title
         const city = listingDetails.event.venue.address.city.name
         const state = listingDetails.event.venue.address.city.state
-        const createdAt = listingDetails.createdAt
-        const priceEach = (listingDetails.startTotalPrice/ticketQuantity).toFixed(2);
+        const createdAt = timeAgo.format(new Date(listingDetails.createdAt))
+        const price = (listingDetails.startTotalPrice).toFixed(2);
+        const priceEa = (listingDetails.startTotalPrice/ticketQuantity).toFixed(2);
         const overview = listingDetails.overview
         const currentPrice = (this.state.currentPrice).toFixed(2);
-        const currentPriceEa = (currentPrice/ticketQuantity).toFixed(2);
-        const lastUpdated = this.state.lastUpdated
+        const currentPriceEa = (this.state.currentPrice/ticketQuantity).toFixed(2);
+        const lastUpdated = timeAgo.format(new Date(this.state.lastUpdated));
         
 
         return (
           <section>
             <section className="ticket-details-container">
-              <section className="ticket-info-sect">
-                {ticketNum()}
-                <img src={imageUrls} alt={title} className='event-img'/>
+                  <img src={imageUrls} alt={title} className='event-img ticket-info-sect'/>
+                
+              <section className="ticket-info-sect details-sect">
                 <h1>{title}</h1>
                 <h2>{performer}</h2>
-                <h4>{start}  |  {ticketQuantity} {ticketGrouping} </h4>
+                <h4>{start}</h4>
+                <h4>{ticketQuantity} {ticketGrouping}</h4>
                 <h2>@ {venue}  |  {city}, {state} </h2>
-                <h4>Listed {createdAt} for <strong>${priceEach}</strong> <span>ea</span></h4>
+        <h4>Listed {createdAt} for <strong>${price} total</strong> <span> - ${priceEa} ea</span></h4>
                 <p>{overview}</p>
               </section>
 
-              <section className= "ticket-info-sect">
+              <section className= "ticket-info-sect price-sect">
                 <h4>Current Price</h4>
                 <h2> ${currentPriceEa} <span>ea</span> </h2>
-                <p>Total ${currentPrice}</p>
+                <p>Total ${currentPrice} + tax/fees</p>
                 <p> last updated {lastUpdated} </p>
-                <button className='btn btn-secondary'> Buy Now </button>
+                <button className='btn btn-success'> Buy Now </button>
               </section>
             </section>
 

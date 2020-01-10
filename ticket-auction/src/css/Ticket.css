@@ -1,21 +1,22 @@
 .event-img {
-  max-width: 10%;
+  max-width: 20vw;
+  max-height: 20vw;
 }
 
 .ticket-details-container {
   display: flex;
+  flex-direction: row;
+  
 }
 
 .ticket-info-sect {
-  margin-left: 5em;
-  margin-right: 5em;
   margin-top: 2em;
 }
 
-.details-tabs {
-  margin-left: 5em;
+.price-sect {
+  min-width: 25%;
 }
 
-.details {
-  margin-left: 5em;
+.details-sect {
+  min-width: 50%;
 }

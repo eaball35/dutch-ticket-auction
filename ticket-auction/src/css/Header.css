@@ -5,6 +5,16 @@
   color:white;
 }
 
+.welcome-message a {
+  color: rgb(61, 61, 89);
+}
+
+.welcome-message a:hover {
+  text-decoration: none;
+  color: rgb(32, 32, 69);
+}
+
+
 .sign-in-btn {
   margin-right: .5em;
 }
@@ -18,11 +28,10 @@
 }
 
 .nav-logo {
-  max-width: 28vw;
+  max-width: 23vw;
 }
 
 .header-middle-sect {
-  margin-top: 1em;
   margin-bottom: 1em;
 }
 

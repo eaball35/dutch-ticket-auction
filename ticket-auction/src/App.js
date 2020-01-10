@@ -13,6 +13,10 @@ import { Button } from 'react-bootstrap';
 import CategoryNav from './components/nav/CategoryNav';
 import RegisterForm from './components/login/RegisterForm.js';
 import SignInForm from './components/login/SignInForm.js';
+import Map from './components/main/Map.js';
+import GMap from './components/main/GoogleMap.js';
+import TopCities from './components/main/TopCities';
+import { GoogleMap, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 const User = ({match}) => {
   return (<h1>User {match.params.userId}</h1>)
@@ -29,8 +33,10 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       currentUser: undefined,
+      selectedState: "WA"
     };
   }
+
 
   updateLoginUser = (user = 123) => {
     if(this.state.loggedIn) {
@@ -45,6 +51,11 @@ class App extends Component {
       })
     }
   }
+  
+  mapHandler = (event) => {
+    this.setState({selectedState: event.target.dataset.name })
+  };
+
 
   render() {
     return (
@@ -155,9 +166,21 @@ class App extends Component {
 
           <Route path ='/cities' exact strict>
             <header>
-              <h1>By City</h1>
+              <h1>By Location</h1>
             </header>
-            <List url="/cities/all" cardType="city"/>
+            
+            <section className="map-cities-container">
+              <Map selectedState={this.state.selectedState} mapHandler={this.mapHandler.bind(this)}/>
+              <TopCities selectedState={this.state.selectedState}></TopCities>
+            </section>
+              
+              <GMap
+                google={this.props.google}
+                zoom={8}
+                initialCenter={{ lat: 47.444, lng: -122.176}}
+              >
+              <Marker position={{ lat: 48.00, lng: -122.00}} />
+            </GMap>
           </Route>
         
   {/* Nested Pages */}
