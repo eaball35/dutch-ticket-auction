@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import TicketTable from '../ticketListing/TicketTable';
 // import '../../css/Event.css';
-import SPRING_SECURITY from '../../config_keys.js'
+import SPRING_SECURITY from '../../config_spring_keys.js'
 
 const base_url = 'http://localhost:8080'
 const username = `${SPRING_SECURITY.username}`

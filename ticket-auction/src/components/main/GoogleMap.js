@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import '../../css/GoogleMap.css'
+import GOOGLE_SECURITY from '../../config_google_api_keys.js'
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -31,6 +33,7 @@ export class MapContainer extends Component {
           google={this.props.google}
           zoom={8}
           initialCenter={{ lat: 47.444, lng: -122.176}}
+          className="google-map"
         >
           {this.displayMarkers()}
         </Map>
@@ -39,5 +42,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyCDarDI_rqfT73Qjf-MoSi81mygVvBCnqc"
+  apiKey: GOOGLE_SECURITY
 })(MapContainer);

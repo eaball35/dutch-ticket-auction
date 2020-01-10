@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../css/Ticket.css';
 import axios from 'axios';
-import SPRING_SECURITY from '../../config_keys.js'
+import SPRING_SECURITY from '../../config_spring_keys.js'
 
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
