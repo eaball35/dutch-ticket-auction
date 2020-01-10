@@ -7,9 +7,9 @@ class Header extends Component {
   render() {
     const leftWelcomeMessage = () => {
       if (this.props.loggedIn) {
-        return <p> Welcome {this.props.currentUser.username}! </p>
+        return <p className="welcome-message"> Welcome {this.props.currentUser.username}! </p>
       } else {
-        return <p> Welcome! Please 
+        return <p className="welcome-message"> Welcome! Please 
                   <strong><Link to='/sign-in' onClick={this.props.logInCallback}> Sign in </Link></strong> or 
                   <strong><Link to='/register'> Register </Link></strong> 
                   to start selling! 
@@ -22,10 +22,10 @@ class Header extends Component {
         return (
           <section className="top-header">
             <strong>
-              <Link to='/new-ticket'> Start Selling</Link>  |  
-              <Link to='/seller-stats/2'> Seller Stats</Link>  |  
-              <Link to={`/myaccount/${this.props.currentUser.id}`}>  
-              My Untitled Account </Link>
+              <Link to='/new-ticket' className='login-links'> Start Selling</Link>  |  
+              <Link to='/seller-stats/2' className='login-links'> Seller Stats</Link>  |  
+              <Link to={`/myaccount/${this.props.currentUser.id}`} className='login-links'>  
+              My TicketTime Account </Link>
 
             </strong>
             <Link 
@@ -59,10 +59,10 @@ class Header extends Component {
           <div className='right-links'>{rightLinks()}</div>
         </section>
         
-        <section className='d-flex justify-content-center align-items-center'>
+        <section className='header-middle-sect d-flex justify-content-center align-items-center'>
           <h1> 
             <NavLink to='/'> 
-              <img src="https://www.tryimg.com/u/2020/01/09/TicketClockLogo-01.png" alt="ticketime logo" className="nav-logo"></img>
+              <img src="https://www.tryimg.com/u/2020/01/10/TicketClockLogo-01-01c77c1710841bf592.png" alt="ticketime logo" className="nav-logo"></img>
             </NavLink> </h1>
           <Search></Search>
         </section>

@@ -2,6 +2,7 @@
   padding: 1em;
   padding-top: .6em;
   padding-bottom: .6em; 
+  color:white;
 }
 
 .sign-in-btn {
@@ -17,5 +18,19 @@
 }
 
 .nav-logo {
-  max-width: 25vw;
+  max-width: 28vw;
+}
+
+.header-middle-sect {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.login-links {
+  margin-right: .5em;
+  margin-left: .5em;
+}
+
+.welcome-message {
+  font-size: 1.2em;
 }

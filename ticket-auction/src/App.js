@@ -12,6 +12,7 @@ import List from './components/main/List';
 import { Button } from 'react-bootstrap';
 import CategoryNav from './components/nav/CategoryNav';
 import RegisterForm from './components/login/RegisterForm.js';
+import SignInForm from './components/login/SignInForm.js';
 
 const User = ({match}) => {
   return (<h1>User {match.params.userId}</h1>)
@@ -63,6 +64,7 @@ class App extends Component {
             <header>
               <h1>Sign In</h1>
             </header>
+            <SignInForm updateCurrentUser={this.updateLoginUser}></SignInForm>
           </Route>
           
           <Route path ='/register' exact strict>

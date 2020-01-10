@@ -86,12 +86,11 @@ class Ticket extends Component {
     
 
     const showTicket = () => {
-      if (this.state.ticket !== undefined) {
-        
+      if (this.state.ticket !== undefined && this.state.currentPrice !== undefined ) { 
         // Ticket Fields
         const listingDetails = this.state.ticket;
         const imageUrls = listingDetails.event.imageUrls
-        const artist = listingDetails.event.artist
+        const performer = listingDetails.event.performer[0].name
         const title = listingDetails.event.title
         const start = listingDetails.event.start
         const ticketQuantity = listingDetails.ticketQuantity
@@ -100,39 +99,46 @@ class Ticket extends Component {
         const city = listingDetails.event.venue.address.city.name
         const state = listingDetails.event.venue.address.city.state
         const createdAt = listingDetails.createdAt
-        const priceEach = listingDetails.startTotalPrice/listingDetails.ticketQuantity
+        const priceEach = (listingDetails.startTotalPrice/ticketQuantity).toFixed(2);
         const overview = listingDetails.overview
-        const currentPrice = this.state.currentPrice/listingDetails.ticketQuantity
+        const currentPrice = (this.state.currentPrice).toFixed(2);
+        const currentPriceEa = (currentPrice/ticketQuantity).toFixed(2);
         const lastUpdated = this.state.lastUpdated
+        
 
         return (
           <section>
-            <section>
-              {ticketNum()}
-              <img src={imageUrls} alt={title} className='event-img'/>
-              <h1>{artist} - {title}</h1>
-              <h4>{start}  |  {ticketQuantity} {ticketGrouping} </h4>
-              <h2>@ {venue}  |  {city}, {state} </h2>
-              <h4>Listed {createdAt} for ${priceEach} <span>ea</span></h4>
-              <p>{overview}</p>
+            <section className="ticket-details-container">
+              <section className="ticket-info-sect">
+                {ticketNum()}
+                <img src={imageUrls} alt={title} className='event-img'/>
+                <h1>{title}</h1>
+                <h2>{performer}</h2>
+                <h4>{start}  |  {ticketQuantity} {ticketGrouping} </h4>
+                <h2>@ {venue}  |  {city}, {state} </h2>
+                <h4>Listed {createdAt} for <strong>${priceEach}</strong> <span>ea</span></h4>
+                <p>{overview}</p>
+              </section>
+
+              <section className= "ticket-info-sect">
+                <h4>Current Price</h4>
+                <h2> ${currentPriceEa} <span>ea</span> </h2>
+                <p>Total ${currentPrice}</p>
+                <p> last updated {lastUpdated} </p>
+                <button className='btn btn-secondary'> Buy Now </button>
+              </section>
             </section>
 
-            <section>
-              <h4>Current Price</h4>
-              <h2> ${currentPrice} <span>ea</span> </h2>
-              <p> last updated {lastUpdated} </p>
-              <button className='btn btn-secondary'> Buy Now </button>
-            </section>
-
-            <section>
+            <section className="details-tabs">
               <button onClick={() => {this.tabClick('auction')}}> Auction </button>
               <button onClick={() => {this.tabClick('event')}}> Event </button>
               <button onClick={() => {this.tabClick('venue')}}> Venue </button>
-              
-              <section>
-                {this.chooseDetails()}
-              </section>
             </section>
+              
+            <section className="details">
+              {this.chooseDetails()}
+            </section>
+
           </section>
         );
       } else {
