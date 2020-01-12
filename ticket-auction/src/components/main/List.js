@@ -6,7 +6,7 @@ import CityCard from '../cards/CityCard';
 import PerformerCard from '../cards/PerformerCard';
 import axios from 'axios';
 import '../../css/List.css'
-import SPRING_SECURITY from '../../config_spring_keys.js'
+import SPRING_SECURITY from '../../../config_spring_keys.js/index.js'
 
 const base_url = 'http://localhost:8080'
 const username = `${SPRING_SECURITY.username}`
