@@ -22,5 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-.config_spring_keys.js
-.config_google_api_keys.js
+./src/config_spring_keys.js
+./src/config_google_api_keys.js

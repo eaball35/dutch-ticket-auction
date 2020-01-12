@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import '../../css/List.css'
-import SPRING_SECURITY from '../../../config_spring_keys.js/index.js'
+import SPRING_SECURITY from '../../config_spring_keys.js/index.js.js'
 import CityCard from '../cards/CityCard';
 
 const base_url = 'http://localhost:8080'
