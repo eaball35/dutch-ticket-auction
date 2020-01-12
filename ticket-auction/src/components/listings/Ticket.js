@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../css/Ticket.css';
 import axios from 'axios';
-import SPRING_SECURITY from '../../../config_spring_keys.js/index.js'
+import SPRING_SECURITY from '../../config_spring_keys.js'
 import { BrowserRouter as Router, Link, NavLink, Redirect } from 'react-router-dom';
 
 import TimeAgo from 'javascript-time-ago'

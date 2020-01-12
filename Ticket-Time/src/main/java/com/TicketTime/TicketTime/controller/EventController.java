@@ -4,6 +4,8 @@ import com.TicketTime.TicketTime.model.Event;
 import com.TicketTime.TicketTime.model.Performer;
 import com.TicketTime.TicketTime.repository.EventRepository;
 import com.TicketTime.TicketTime.exception.NotFoundException;
+import org.springframework.data.mongodb.core.query.TextCriteria;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,35 +54,34 @@ public class EventController {
         getById(id);
         this.eventRepository.deleteById(id);
     }
-
-//    Filter Actions
-//    Get all events by venue id
-    @GetMapping("/venue/{id}")
-    public List<Event> getEventsByVenue(@PathVariable String id) {
-        return eventRepository.findByVenue(id);
+    
+    @GetMapping
+    public List<Event> getEventsByGroup(@RequestParam(value="city", required = false) String city, @RequestParam(value="venue", required = false) String venueId, @RequestParam(value="performer", required = false) String performerId) {
+        if(city != null && venueId == null && performerId == null) {
+            return eventRepository.findByVenueAddressCityName(city);
+        } else if (city == null && venueId != null && performerId == null ) {
+            return eventRepository.findByVenue(venueId);
+        } else if (city == null && venueId == null && performerId != null) {
+            return eventRepository.findByPerformer(performerId);
+        } else {
+            return eventRepository.findAll();
+        }
     }
 
-    @GetMapping("/performer/{id}")
-    public List<Event> getEventsByPerformer(@PathVariable String id) {
-        return eventRepository.findByPerformer(id);
+    @GetMapping("/category")
+    public List<Event> getEventsByCategory(@RequestParam(value="type", required = false) String type, @RequestParam(value="genre", required = false) String genre) {
+        if(type != null && genre != null ) {
+            return eventRepository.findByCategoriesByTypeAndGenre(type, genre);
+        } else if (type != null && genre == null) {
+            return eventRepository.findByCategoriesType(type);
+        } else if (type == null && genre != null) {
+            return eventRepository.findByCategoriesGenre(type);
+        } else {
+            return eventRepository.findAll();
+        }
     }
 
-    //   Get all events by category genre
-    @GetMapping("/category/{type}/{genre}")
-    public List<Event> getEventsByCategoryGenre(@PathVariable String type, @PathVariable String genre) {
-        return eventRepository.findByCategoriesByTypeAndGenre(type, genre);
-    }
 
-//    Get all events by category type
-    @GetMapping("/category/{type}")
-    public List<Event> getEventsByCategoryType(@PathVariable String type) {
-        return eventRepository.findByCategoriesType(type);
-    }
-
-    @GetMapping("/city/{city}")
-    public List<Event> getEventsByCity(@PathVariable String city) {
-        return eventRepository.findByVenueAddressCityName(city);
-    }
 }
 
 

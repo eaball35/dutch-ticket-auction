@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 import '../../css/GoogleMap.css'
-import GOOGLE_SECURITY from '../../config_google_api_keys.js/index.js.js'
+import GOOGLE_SECURITY from '../../config_google_api_keys.js'
 import Geocode from "react-geocode";
 import axios from 'axios';
-import SPRING_SECURITY from '../../config_spring_keys.js/index.js.js'
+import SPRING_SECURITY from '../../config_spring_keys.js'
 
 const base_url = 'http://localhost:8080'
 const username = `${SPRING_SECURITY.username}`

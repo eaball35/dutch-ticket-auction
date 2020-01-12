@@ -17,6 +17,7 @@ import Checkout from './components/main/Checkout.js';
 import GMap from './components/main/GoogleMap.js';
 import TopCities from './components/main/TopCities';
 import { GoogleMap, GoogleApiWrapper, Marker } from 'google-maps-react';
+import MyAccount from './components/main/MyAccount';
 
 const User = ({match}) => {
   return (<h1>User {match.params.userId}</h1>)
@@ -101,6 +102,33 @@ class App extends Component {
                     ? <h1>{this.state.currentUser.username}'s account</h1>
                     : <h2>Sorry, you can't access this page</h2>
                 }
+                <MyAccount currentUser={this.state.currentUser}/>
+              </section>
+            }
+          />
+
+          <Route path ='/myaccount/edit/:userId' 
+            exact strict 
+            render = { (props) => 
+              <section >
+                {
+                  (this.state.currentUser)
+                    ? <h1>Edit {this.state.currentUser.username}'s account</h1>
+                    : <h2>Sorry, you can't access this page</h2>
+                }
+              </section>
+            }
+          />
+
+          <Route path ='/myaccount/delete/:userId' 
+            exact strict 
+            render = { (props) => 
+              <section >
+                {
+                  (this.state.currentUser)
+                    ? <h1>Edit {this.state.currentUser.username}'s account</h1>
+                    : <h2>Sorry, you can't access this page</h2>
+                }
               </section>
             }
           />
@@ -177,7 +205,7 @@ class App extends Component {
             <header>
               <h1>Comedy</h1>
             </header>
-            <List url="/events/category/comedy" cardType="event"/>
+            <List url="/events/category?type=comedy" cardType="event"/>
           </Route>
 
           <Route path ='/cities' exact strict>
@@ -226,7 +254,7 @@ class App extends Component {
                   <header>
                     <h1>Events - {props.match.params.type}</h1>
                   </header>
-                  <List url = {`/events/category/${props.match.params.type}`} cardType="event"  {...props}/> 
+                  <List url = {`/events/category?type=${props.match.params.type}`} cardType="event"  {...props}/> 
                 </section>
             }
           />
@@ -240,7 +268,7 @@ class App extends Component {
                 <header>
                   <h1>Events - {props.match.params.genre}</h1>
                 </header>
-                <List url = {`/events/category/${props.match.params.type}/${props.match.params.genre}`} cardType="event" {...props}/> 
+                <List url = {`/events/category?type=${props.match.params.type}&genre=${props.match.params.genre}`} cardType="event" {...props}/> 
               </section>
             }
           />
@@ -253,7 +281,7 @@ class App extends Component {
                 <header>
                   <h1>Events - {props.match.params.city}</h1>
                 </header>
-                <List url = {`/events/city/${props.match.params.city}`} cardType="event" {...props}/> 
+                <List url = {`/events?city=${props.match.params.city}`} cardType="event" {...props}/> 
               </section>
             }
           />
@@ -266,7 +294,7 @@ class App extends Component {
                 <header>
                   <h1>Events - {props.match.params.name}</h1>
                 </header>
-                <List url = {`/events/performer/${props.match.params.id}`} cardType="event" {...props}/> 
+                <List url = {`/events?performer=${props.match.params.id}`} cardType="event" {...props}/> 
               </section>
             }
           />

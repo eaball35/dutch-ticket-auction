@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
-import SPRING_SECURITY from '../../config_spring_keys.js/index.js.js'
+import SPRING_SECURITY from '../../config_spring_keys.js'
 
 const base_url = 'http://localhost:8080'
 const username = `${SPRING_SECURITY.username}`

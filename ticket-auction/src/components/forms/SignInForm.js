@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Link, NavLink, Redirect } from 'react-router-dom';
-import SPRING_SECURITY from '../../config_spring_keys.js/index.js.js'
+import SPRING_SECURITY from '../../config_spring_keys.js'
 
 
 const base_url = 'http://localhost:8080'
@@ -16,6 +16,7 @@ class SignInForm extends Component {
       username: "",
       email: "",
       redirect: undefined,
+      currentUser: undefined
     };
   }
   
@@ -35,7 +36,7 @@ class SignInForm extends Component {
     }
     
     axios.get( url, headers).then((response) => {
-        return response.data
+        this.setState({currentUser: response.data})
       })
       .catch((error) => {
         this.setState({error})
@@ -45,29 +46,24 @@ class SignInForm extends Component {
   
   onSubmit = (event) => {
     event.preventDefault();
-    const user = this.fetchUserByEmail(this.state.email)
-    if (user !== undefined) {
-      this.props.updateCurrentUser(user);
-    }
+    this.fetchUserByEmail(this.state.email)
   }
   
   render() {
-    const { redirect } = this.state;
+    const { redirect,currentUser  } = this.state;
     if (redirect !== undefined) {
       return <Redirect to={redirect}/>;
+    }
+
+    if (currentUser !== undefined) {
+      this.props.updateCurrentUser(currentUser);
+      this.setState({redirect: `/myaccount/${currentUser.id}`})
     }
 
     return (
       <section className="login-form">
         <form onSubmit={this.onSubmit}>
-          <div>
-            <label htmlFor="username"> username  </label>
-            <input
-              name="username"
-              onChange={this.onInputChange}
-              value={this.state.name}
-            />
-          </div>
+
           <div>
           <label htmlFor="email"> email  </label>
           <input
