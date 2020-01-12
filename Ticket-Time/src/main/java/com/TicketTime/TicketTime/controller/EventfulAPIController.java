@@ -27,14 +27,13 @@ public class EventfulAPIController {
     }
 
     @RequestMapping("/search/{keyword}/{location}")
-    public String searchEventInfo(@PathVariable("keyword") String keyword, @PathVariable("location") String location) {
+    public Object searchEventInfo(@PathVariable("keyword") String keyword, @PathVariable("location") String location) {
         String base = "http://api.eventful.com/json/events/search?";
         String kw = "q=title:" + keyword + "+||+description:" + keyword;
         String loc = "&l=" + location;
 
         String url = base + kw + loc + "&app_key=" + apiKey;
-        System.out.println(url);
-        String response = restTemplate.getForObject(url, String.class);
+        Object response = restTemplate.getForObject(url, Object.class);
         return response;
     }
 

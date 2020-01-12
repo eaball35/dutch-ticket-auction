@@ -4,7 +4,7 @@ import com.TicketTime.TicketTime.model.Category;
 
 import java.util.*;
 
-public class ListService {
+public class Service {
     public HashMap<String, Set> listUniqueCategory(List<Category> categories){
          Set<String> uniqueCategories = new HashSet<>();
          Set<String> uniqueGenres = new HashSet<>();

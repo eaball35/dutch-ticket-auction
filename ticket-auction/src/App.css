@@ -18,7 +18,12 @@ header {
   font-family: 'Varela Round', sans-serif;
 }
 
-.map-cities-container {
+.login-form {
   display: flex;
+  flex-direction: column;
+  margin-left: 2em;
 }
 
+* {
+  /* border: solid 2px red */
+}

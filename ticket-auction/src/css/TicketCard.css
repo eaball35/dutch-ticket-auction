@@ -1,7 +1,13 @@
 .ticketCard-container {
-  max-width: 25vw;
+  display: flex;
+  min-width: 100%;
+  margin: 1em;
+  margin-top: 0em;
+  border: grey 1px solid;
+  padding: 0.75em;
+  border-radius: 10px;
 }
 
 .ticketCard-icon-img {
-  max-width: 100%;
+  max-width: 15vw;
 }

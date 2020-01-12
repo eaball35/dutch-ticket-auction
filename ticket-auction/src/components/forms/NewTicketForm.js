@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Ticket from './Ticket'
+import Ticket from '../listings/Ticket'
 import axios from 'axios';
 import DateTimePicker from 'react-datetime-picker';
 
@@ -38,7 +38,6 @@ class NewTicket extends Component {
   
   onInputChange = (event) => {
     const updatedState = {};
-    console.log(event)
     const field = event.target.name;
     const value = event.target.value;
 
@@ -116,7 +115,7 @@ class NewTicket extends Component {
                   " ", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "MD", "MA", "MI", "MN", "MS", "MO", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", ])}
               </select>
             </div>)
-        } else if (state === "eventStart" || state === "eventEnd" || state === "auctionStart" || state == "auctionEnd") {
+        } else if (state === "eventStart" || state === "eventEnd" || state === "auctionStart" || state === "auctionEnd") {
           return (
               <div>
                 <label htmlFor={state}> {labels[index]}: </label>

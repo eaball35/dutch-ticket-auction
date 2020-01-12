@@ -29,7 +29,7 @@ class SearchBar extends Component {
           <input 
             type='submit' 
             value='Search'
-            className='btn btn-primary'
+            className='btn btn-dark'
           />
         </form>
       </section>

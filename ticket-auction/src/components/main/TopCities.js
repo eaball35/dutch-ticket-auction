@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import '../../css/List.css'
 import SPRING_SECURITY from '../../config_spring_keys.js'
-import CityCard from '../locations/CityCard';
+import CityCard from '../cards/CityCard';
 
 const base_url = 'http://localhost:8080'
 const username = `${SPRING_SECURITY.username}`
@@ -36,10 +36,9 @@ class TopCities extends Component {
     
     axios.get( url, headers).then((response) => {
         this.setState({collection: response.data})
-        console.log(response.data)
       })
       .catch((error) => {
-        this.setState({collection: undefined})
+        this.setState({error: error})
       });
   }
   
@@ -47,7 +46,7 @@ class TopCities extends Component {
     let collection;
     if (this.state.collection) {
         collection = this.state.collection.map((city,i) => {
-          return (<CityCard city={city}/>)
+          return (<CityCard city={city} key={i}/>)
         });
     } else {
       return "None available"

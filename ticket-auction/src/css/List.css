@@ -1,6 +1,12 @@
 .list-container {
+  margin-left: 3em;
+}
+
+.categoryContainer, .performerContainer {
   display: flex;
   flex-wrap: wrap;
-  margin: 1em;
-  justify-content: space-around;
+}
+
+.eventsContainer {
+  max-width: 50%;
 }

@@ -2,7 +2,7 @@ package com.TicketTime.TicketTime.controller;
 
 import com.TicketTime.TicketTime.model.Category;
 import com.TicketTime.TicketTime.repository.CategoryRepository;
-import com.TicketTime.TicketTime.service.ListService;
+import com.TicketTime.TicketTime.service.Service;
 import com.TicketTime.TicketTime.model.TicketListing;
 import com.TicketTime.TicketTime.repository.TicketListingRepository;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ import java.util.Set;
 public class ServiceController {
     private TicketListingRepository ticketListingRepository;
     private CategoryRepository categoryRepository;
-    private ListService listService = new ListService();
+    private Service service = new Service();
 
     public ServiceController(TicketListingRepository ticketListingRepository, CategoryRepository categoryRepository) {
         this.ticketListingRepository = ticketListingRepository;
@@ -36,6 +36,6 @@ public class ServiceController {
     @GetMapping("/list/category")
     public HashMap<String, Set> listTypes() {
         List<Category> categories = this.categoryRepository.findAll();
-        return this.listService.listUniqueCategory(categories);
+        return this.service.listUniqueCategory(categories);
     }
 }

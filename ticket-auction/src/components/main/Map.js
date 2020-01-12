@@ -13,7 +13,7 @@ class Map extends Component {
 
   render() {
     return (
-      <div>
+      <div className ="USA-map-container">
         <USAMap customize={this.statesCustomConfig()} onClick={this.props.mapHandler} />
       </div>
     );

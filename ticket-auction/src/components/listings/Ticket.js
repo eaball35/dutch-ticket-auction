@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import '../../css/Ticket.css';
 import axios from 'axios';
 import SPRING_SECURITY from '../../config_spring_keys.js'
+import { BrowserRouter as Router, Link, NavLink, Redirect } from 'react-router-dom';
 
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
+
 var dateFormat = require('dateformat');
 TimeAgo.addLocale(en)
 const timeAgo = new TimeAgo('en-US')
+
 const base_url = 'http://localhost:8080'
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
@@ -22,6 +25,7 @@ class Ticket extends Component {
       error: "",
       currentPrice: undefined,
       lastUpdated: null,
+      redirect: undefined,
     };
   }
 
@@ -81,6 +85,20 @@ class Ticket extends Component {
       return (this.state.ticket.event.eventDetails)
     }
   }
+  
+  strikePrice = () => {
+    const priceUrl = `${base_url}/price/${this.props.match.params.id}`
+    const headers = { 
+      headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
+    }
+    this.fetchCurrentPrice(priceUrl, headers)
+    this.props.addToCheckout({ 
+      ticket: this.state.ticket, 
+      strikePrice: this.state.currentPrice
+    })
+    this.setState({redirect: "/checkout"})
+  } 
+
   render() {
     const showTicket = () => {
       if (this.state.ticket !== undefined && this.state.currentPrice !== undefined ) { 
@@ -124,7 +142,7 @@ class Ticket extends Component {
                 <h2> ${currentPriceEa} <span>ea</span> </h2>
                 <p>Total ${currentPrice} + tax/fees</p>
                 <p> last updated {lastUpdated} </p>
-                <button className='btn btn-success'> Buy Now </button>
+                <button className='btn btn-success' onClick={this.strikePrice}> Strike Price </button>
               </section>
             </section>
 
@@ -144,7 +162,12 @@ class Ticket extends Component {
         return "";
       }
     }
-  
+
+    const { redirect } = this.state;
+    if (redirect !== undefined) {
+      return <Redirect to={redirect}/>;
+    }
+
     return (
       <section>
         {showTicket()}

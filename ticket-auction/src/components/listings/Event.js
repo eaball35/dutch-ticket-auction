@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import TicketTable from '../ticketListing/TicketTable';
+import TicketTable from '../main/TicketTable';
 // import '../../css/Event.css';
 import SPRING_SECURITY from '../../config_spring_keys.js'
 
@@ -41,7 +41,6 @@ render() {
     const eventDetails = this.state.event
 
     const showEvent = () => {
-      console.log(this.state.event)
       if(this.state.event) {
         return (
           <section>

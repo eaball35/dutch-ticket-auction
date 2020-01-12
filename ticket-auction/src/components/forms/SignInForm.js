@@ -28,11 +28,27 @@ class SignInForm extends Component {
     this.setState(updatedState);
   }
 
+  fetchUserByEmail = (email) => {
+    const url = `${base_url}/users/email/${email}`
+    const headers = { 
+      headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
+    }
+    
+    axios.get( url, headers).then((response) => {
+        return response.data
+      })
+      .catch((error) => {
+        this.setState({error})
+      });
+  }
   
   
   onSubmit = (event) => {
     event.preventDefault();
-    this.updateCurrentUser();
+    const user = this.fetchUserByEmail(this.state.email)
+    if (user !== undefined) {
+      this.props.updateCurrentUser(user);
+    }
   }
   
   render() {
@@ -42,27 +58,29 @@ class SignInForm extends Component {
     }
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <div>
-          <label htmlFor="username"> username  </label>
+      <section className="login-form">
+        <form onSubmit={this.onSubmit}>
+          <div>
+            <label htmlFor="username"> username  </label>
+            <input
+              name="username"
+              onChange={this.onInputChange}
+              value={this.state.name}
+            />
+          </div>
+          <div>
+          <label htmlFor="email"> email  </label>
           <input
-            name="username"
+            name="email"
             onChange={this.onInputChange}
-            value={this.state.name}
+            value={this.state.email}
           />
         </div>
         <div>
-        <label htmlFor="email"> email  </label>
-        <input
-          name="email"
-          onChange={this.onInputChange}
-          value={this.state.email}
-        />
-      </div>
-      <div>
-        <input type="submit" value="Sign In"/>
-      </div>
-    </form>
+          <input type="submit" value="Sign In"/>
+        </div>
+      </form>
+    </section>
     )
   }
 }

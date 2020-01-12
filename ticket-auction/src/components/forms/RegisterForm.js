@@ -8,7 +8,7 @@ const base_url = 'http://localhost:8080'
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 
-class SignInForm extends Component {
+class RegisterForm extends Component {
   constructor(props) {
     super(props);
 
@@ -68,29 +68,31 @@ class SignInForm extends Component {
     }
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <div>
-          <label htmlFor="username"> username  </label>
+      <section className="login-form">
+        <form onSubmit={this.onSubmit}>
+          <div>
+            <label htmlFor="username"> username  </label>
+            <input
+              name="username"
+              onChange={this.onInputChange}
+              value={this.state.name}
+            />
+          </div>
+          <div>
+          <label htmlFor="email"> email  </label>
           <input
-            name="username"
+            name="email"
             onChange={this.onInputChange}
-            value={this.state.name}
+            value={this.state.email}
           />
         </div>
         <div>
-        <label htmlFor="email"> email  </label>
-        <input
-          name="email"
-          onChange={this.onInputChange}
-          value={this.state.email}
-        />
-      </div>
-      <div>
-        <input type="submit" value="Register"/>
-      </div>
-    </form>
+          <input type="submit" value="Register"/>
+        </div>
+      </form>
+    </section>
     )
   }
 }
 
-export default SignInForm;
+export default RegisterForm;

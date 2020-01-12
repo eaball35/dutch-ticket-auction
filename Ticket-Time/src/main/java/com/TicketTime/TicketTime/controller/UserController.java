@@ -53,5 +53,14 @@ public class UserController {
         }
         return user;
     }
+
+    @GetMapping("/email/{email}")
+    public Optional<User> getByEmail(@PathVariable("email") String email) {
+        Optional<User> user = this.userRepository.findByEmail(email);
+        if (user.isEmpty()) {
+            throw new NotFoundException("User Not Found");
+        }
+        return user;
+    }
 }
 

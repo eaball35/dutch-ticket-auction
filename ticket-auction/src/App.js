@@ -4,16 +4,16 @@ import { BrowserRouter as Router, Link } from 'react-router-dom';
 import Route from 'react-router-dom/Route'
 import Header from './components/nav/Header'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Ticket from './components/ticketListing/Ticket'
-import Event from './components/events/Event'
-import NewTicket from './components/ticketListing/NewTicket';
-import axios from 'axios';
+import Ticket from './components/listings/Ticket'
+import Event from './components/listings/Event'
+import NewTicket from './components/forms/NewTicketForm';
 import List from './components/main/List';
-import { Button } from 'react-bootstrap';
 import CategoryNav from './components/nav/CategoryNav';
-import RegisterForm from './components/login/RegisterForm.js';
-import SignInForm from './components/login/SignInForm.js';
+import RegisterForm from './components/forms/RegisterForm.js';
+import SignInForm from './components/forms/SignInForm.js';
+import PurchaseForm from './components/forms/PurchaseForm.js';
 import Map from './components/main/Map.js';
+import Checkout from './components/main/Checkout.js';
 import GMap from './components/main/GoogleMap.js';
 import TopCities from './components/main/TopCities';
 import { GoogleMap, GoogleApiWrapper, Marker } from 'google-maps-react';
@@ -33,7 +33,8 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       currentUser: undefined,
-      selectedState: "WA"
+      selectedState: "WA",
+      cartTicket: undefined,
     };
   }
 
@@ -55,6 +56,10 @@ class App extends Component {
   mapHandler = (event) => {
     this.setState({selectedState: event.target.dataset.name })
   };
+
+  addToCheckout = (cartTicket) => {
+    this.setState({cartTicket})
+  }
 
 
   render() {
@@ -81,8 +86,9 @@ class App extends Component {
           <Route path ='/register' exact strict>
             <header>
               <h1>Register</h1>
-              <RegisterForm updateCurrentUser={this.updateLoginUser}></RegisterForm>
             </header>
+              <RegisterForm updateCurrentUser={this.updateLoginUser}></RegisterForm>
+            
           </Route>
           
   {/* User/Account Pages */}
@@ -113,12 +119,23 @@ class App extends Component {
           <Route path ='/checkout' exact strict>
             <header>
               <h1>Checkout</h1>
+              <Checkout cartTicket={this.state.cartTicket} />
+            </header>
+          </Route>
+
+          <Route path ='/checkout/purchase' exact strict>
+            <header>
+              <h1>Purchase</h1>
+              <PurchaseForm cartTicket={this.state.cartTicket}/>
             </header>
           </Route>
 
   {/* Create Pages */}
           <Route path ='/new-ticket' exact strict>
-            <NewTicket exampleTicket={exampleTicket} currentUserId = {this.state.currentUserId}/>
+            <NewTicket 
+              exampleTicket={exampleTicket} 
+              currentUserId = {this.state.currentUserId}
+            />
           </Route>
 
   {/* Nav Link Pages */}
@@ -126,7 +143,6 @@ class App extends Component {
             <header>
               <h1>Home</h1>
             </header>
-            <List url="/tickets/all" cardType="ticket" />
           </Route>
 
           <Route path ='/events' exact strict>
@@ -177,7 +193,8 @@ class App extends Component {
               <GMap
                 google={this.props.google}
                 zoom={8}
-                initialCenter={{ lat: 47.444, lng: -122.176}}
+                initialCenter="Seattle WA"
+                collectionURL="/events/all"
               >
               <Marker position={{ lat: 48.00, lng: -122.00}} />
             </GMap>
@@ -189,7 +206,7 @@ class App extends Component {
             render = {
               (props) => 
               <section >
-                <Ticket example={false} {...props} /> 
+                <Ticket example={false} {...props} addToCheckout={this.addToCheckout.bind(this)} /> 
               </section>
             }
           />
@@ -206,6 +223,9 @@ class App extends Component {
             render={
               (props) => 
                 <section>
+                  <header>
+                    <h1>Events - {props.match.params.type}</h1>
+                  </header>
                   <List url = {`/events/category/${props.match.params.type}`} cardType="event"  {...props}/> 
                 </section>
             }
@@ -217,6 +237,9 @@ class App extends Component {
             render={
               (props) => 
               <section>
+                <header>
+                  <h1>Events - {props.match.params.genre}</h1>
+                </header>
                 <List url = {`/events/category/${props.match.params.type}/${props.match.params.genre}`} cardType="event" {...props}/> 
               </section>
             }
@@ -227,16 +250,22 @@ class App extends Component {
             render={
               (props) => 
               <section>
+                <header>
+                  <h1>Events - {props.match.params.city}</h1>
+                </header>
                 <List url = {`/events/city/${props.match.params.city}`} cardType="event" {...props}/> 
               </section>
             }
           />
 
-          <Route path ='/events/performer/:id'
+          <Route path ='/events/performer/:name/:id'
             exact strict
             render={
               (props) => 
               <section>
+                <header>
+                  <h1>Events - {props.match.params.name}</h1>
+                </header>
                 <List url = {`/events/performer/${props.match.params.id}`} cardType="event" {...props}/> 
               </section>
             }

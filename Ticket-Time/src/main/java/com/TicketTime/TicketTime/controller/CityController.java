@@ -51,6 +51,15 @@ public class CityController {
         getById(id);
         this.cityRepository.deleteById(id);
     }
+
+    @GetMapping("/state/{state}")
+    public List<City> getByState(@PathVariable("state") String state) {
+        List<City> cities = this.cityRepository.findByState(state);
+        if (cities.isEmpty()) {
+            throw new NotFoundException("State Not Found");
+        }
+        return cities;
+    }
 }
 
 
