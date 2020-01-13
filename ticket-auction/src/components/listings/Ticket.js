@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Link, NavLink, Redirect } from 'react-router-d
 
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
+import Countdown from '../main/Countdown';
 
 var dateFormat = require('dateformat');
 TimeAgo.addLocale(en)
@@ -31,8 +32,8 @@ class Ticket extends Component {
 
   componentDidMount = () => {
     if (!this.props.example) {
-      const ticketUrl = `${base_url}/tickets/${this.props.match.params.id}` 
-      const priceUrl = `${base_url}/price/${this.props.match.params.id}`
+      const ticketUrl = `${base_url}/tickets/${this.props.ticketId}` 
+      const priceUrl = `${base_url}/price/${this.props.ticketId}`
       const headers = { 
         headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
       }
@@ -87,7 +88,7 @@ class Ticket extends Component {
   }
   
   strikePrice = () => {
-    const priceUrl = `${base_url}/price/${this.props.match.params.id}`
+    const priceUrl = `${base_url}/price/${this.props.ticketId}`
     const headers = { 
       headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
     }
@@ -145,6 +146,8 @@ class Ticket extends Component {
                 <button className='btn btn-success' onClick={this.strikePrice}> Strike Price </button>
               </section>
             </section>
+
+            <Countdown date={listingDetails.start}/>
 
             <section className="details-tabs">
               <button onClick={() => {this.tabClick('auction')}}> Auction </button>

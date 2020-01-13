@@ -6,11 +6,13 @@ import Header from './components/nav/Header'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Ticket from './components/listings/Ticket'
 import Event from './components/listings/Event'
+import Order from './components/listings/Order'
 import NewTicket from './components/forms/NewTicketForm';
 import List from './components/main/List';
 import ManageMyTickets from './components/main/ManageMyTickets';
 import CategoryNav from './components/nav/CategoryNav';
 import RegisterForm from './components/forms/RegisterForm.js';
+import EditAccountForm from './components/forms/EditAccountForm.js';
 import SignInForm from './components/forms/SignInForm.js';
 import PurchaseForm from './components/forms/PurchaseForm.js';
 import Map from './components/main/Map.js';
@@ -98,7 +100,7 @@ class App extends Component {
                 {
                   (this.state.currentUser)
                     ? <MyAccount currentUser={this.state.currentUser}/>
-                    : <h2>Sorry, you can't access this page</h2>
+                    : <h2 className="no-access-msg">Sorry, you can't access this page</h2>
                 }
               </main>
             }
@@ -110,8 +112,8 @@ class App extends Component {
               <main >
                 {
                   (this.state.currentUser)
-                    ? <h1>Edit {this.state.currentUser.username}'s account</h1>
-                    : <h2>Sorry, you can't access this page</h2>
+                    ? <EditAccountForm currentUser={this.state.currentUser}/>
+                    : <h2 className="no-access-msg">Sorry, you can't access this page.</h2>
                 }
               </main>
             }
@@ -124,7 +126,7 @@ class App extends Component {
                 {
                   (this.state.currentUser)
                     ? <h1>Delete {this.state.currentUser.username}'s account</h1>
-                    : <h2>Sorry, you can't access this page</h2>
+                    : <h2 className="no-access-msg">Sorry, you can't access this page</h2>
                 }
               </main>
             }
@@ -137,7 +139,7 @@ class App extends Component {
                 {
                   (this.state.currentUser)
                     ? <ManageMyTickets currentUser={this.state.currentUser}/>
-                    : <h2>Sorry, you can't access this page</h2>
+                    : <h2 className="no-access-msg">Sorry, you can't access this page</h2>
                 }
               </main>
             }
@@ -150,7 +152,7 @@ class App extends Component {
                 {
                   (this.state.currentUser)
                     ? <h1>{this.state.currentUser.username}'s Seller Stats </h1>
-                    : <h2>Sorry, you can't access this page</h2>
+                    : <h2 className="no-access-msg">Sorry, you can't access this page</h2>
                 }
               </main>
             }
@@ -162,7 +164,7 @@ class App extends Component {
               <header>
                 <h1>Checkout</h1>  
               </header>
-              <Checkout cartTicket={this.state.cartTicket} />
+              <Checkout cartTicket={this.state.cartTicket} updateLoginUser={this.updateLoginUser} currentUser={this.state.currentUser} />
             </main>
           </Route>
 
@@ -171,9 +173,19 @@ class App extends Component {
             <header>
               <h1>Purchase</h1>
             </header>
-            <PurchaseForm cartTicket={this.state.cartTicket}/>
+            <PurchaseForm cartTicket={this.state.cartTicket} currentUser={this.state.currentUser}/>
             </main>
           </Route>
+
+          <Route path ='/orders/:id' 
+            exact strict 
+            render = {
+              (props) => 
+              <main >
+                <Order orderId={props.match.params.id}/>
+              </main>
+            }
+          />
 
   {/* Create Pages */}
           <Route path ='/new-ticket' exact strict>
@@ -271,7 +283,7 @@ class App extends Component {
             render = {
               (props) => 
               <main >
-                <Ticket example={false} {...props} addToCheckout={this.addToCheckout.bind(this)} /> 
+                <Ticket example={false} {...props} addToCheckout={this.addToCheckout.bind(this)} ticketId={props.match.params.id} /> 
               </main>
             }
           />

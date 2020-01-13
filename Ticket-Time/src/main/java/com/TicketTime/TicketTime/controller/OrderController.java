@@ -26,14 +26,14 @@ public class OrderController {
 
     @PutMapping
     public String insert(@RequestBody Order order) {
-        Order newUser = this.orderRepository.insert(order);
-        return newUser.getId();
+        Order newOrder = this.orderRepository.insert(order);
+        return newOrder.getId();
     }
 
     @PostMapping
-    public String update(@RequestBody Order order) {
-        Order newUser = this.orderRepository.save(order);
-        return newUser.getId();
+    public Order update(@RequestBody Order order) {
+        Order newOrder = this.orderRepository.save(order);
+        return newOrder;
     }
 
     @DeleteMapping("/{id}")
