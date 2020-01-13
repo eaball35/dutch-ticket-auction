@@ -23,33 +23,66 @@ public class User {
     private final String username;
 
 
-    public User( @NotBlank String email, String username) {
+    public User( @NotBlank String email, String username, Address address) {
         this.email = email;
         this.username = username;
+        this.address = address;
     }
 
     public String getId() {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Date getUpdatedAt() {
         return updatedAt;
     }
 
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public Date getProviderId() {
         return providerId;
+    }
+
+    public void setProviderId(Date providerId) {
+        this.providerId = providerId;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public String getLastName() {
         return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public String getEmail() {
@@ -58,38 +91,6 @@ public class User {
 
     public String getUsername() {
         return username;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public void setProviderId(Date providerId) {
-        this.providerId = providerId;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     @Override

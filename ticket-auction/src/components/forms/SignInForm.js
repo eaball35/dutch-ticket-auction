@@ -57,7 +57,11 @@ class SignInForm extends Component {
 
     if (currentUser !== undefined) {
       this.props.updateCurrentUser(currentUser);
-      this.setState({redirect: `/myaccount/${currentUser.id}`})
+      if (!this.props.redirect) {
+        this.setState({redirect: `/myaccount/${currentUser.id}`})
+      } else {
+        this.setState({redirect: this.props.redirect})
+      }
     }
 
     return (

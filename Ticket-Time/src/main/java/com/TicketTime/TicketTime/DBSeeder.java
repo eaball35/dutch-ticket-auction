@@ -60,10 +60,10 @@ public class DBSeeder implements CommandLineRunner {
         this.addressRepository.save(centuryLinkAdd);
         this.addressRepository.save(wrigleyAdd);
 
-        User emily = new User("eaball35@gmail.com", "eaball35");
-        User brian = new User("bmdahmen@gmail.com", "bmdahmen");
-        User ada = new User("AdaLove@firstcomputer.com", "Loveslace");
-        User winslow = new User("WinslowTheCat@hotmail.com", "The Cat");
+        User emily = new User("eaball35@gmail.com", "eaball35", bainbridge);
+        User brian = new User("bmdahmen@gmail.com", "bmdahmen", bainbridge);
+        User ada = new User("AdaLove@firstcomputer.com", "Loveslace", mountainrd);
+        User winslow = new User("WinslowTheCat@hotmail.com", "The Cat", cali);
         this.userRepository.deleteAll();
         this.userRepository.save(emily);
         this.userRepository.save(brian);

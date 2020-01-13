@@ -32,8 +32,8 @@ class Ticket extends Component {
 
   componentDidMount = () => {
     if (!this.props.example) {
-      const ticketUrl = `${base_url}/tickets/${this.props.match.params.id}` 
-      const priceUrl = `${base_url}/price/${this.props.match.params.id}`
+      const ticketUrl = `${base_url}/tickets/${this.props.ticketId}` 
+      const priceUrl = `${base_url}/price/${this.props.ticketId}`
       const headers = { 
         headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
       }
@@ -88,7 +88,7 @@ class Ticket extends Component {
   }
   
   strikePrice = () => {
-    const priceUrl = `${base_url}/price/${this.props.match.params.id}`
+    const priceUrl = `${base_url}/price/${this.props.ticketId}`
     const headers = { 
       headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
     }

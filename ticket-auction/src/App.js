@@ -6,6 +6,7 @@ import Header from './components/nav/Header'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Ticket from './components/listings/Ticket'
 import Event from './components/listings/Event'
+import Order from './components/listings/Order'
 import NewTicket from './components/forms/NewTicketForm';
 import List from './components/main/List';
 import ManageMyTickets from './components/main/ManageMyTickets';
@@ -163,7 +164,7 @@ class App extends Component {
               <header>
                 <h1>Checkout</h1>  
               </header>
-              <Checkout cartTicket={this.state.cartTicket} />
+              <Checkout cartTicket={this.state.cartTicket} updateLoginUser={this.updateLoginUser} currentUser={this.state.currentUser} />
             </main>
           </Route>
 
@@ -172,9 +173,19 @@ class App extends Component {
             <header>
               <h1>Purchase</h1>
             </header>
-            <PurchaseForm cartTicket={this.state.cartTicket}/>
+            <PurchaseForm cartTicket={this.state.cartTicket} currentUser={this.state.currentUser}/>
             </main>
           </Route>
+
+          <Route path ='/orders/:id' 
+            exact strict 
+            render = {
+              (props) => 
+              <main >
+                <Order orderId={props.match.params.id}/>
+              </main>
+            }
+          />
 
   {/* Create Pages */}
           <Route path ='/new-ticket' exact strict>
@@ -272,7 +283,7 @@ class App extends Component {
             render = {
               (props) => 
               <main >
-                <Ticket example={false} {...props} addToCheckout={this.addToCheckout.bind(this)} /> 
+                <Ticket example={false} {...props} addToCheckout={this.addToCheckout.bind(this)} ticketId={props.match.params.id} /> 
               </main>
             }
           />
