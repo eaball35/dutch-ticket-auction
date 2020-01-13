@@ -11,6 +11,7 @@ import List from './components/main/List';
 import ManageMyTickets from './components/main/ManageMyTickets';
 import CategoryNav from './components/nav/CategoryNav';
 import RegisterForm from './components/forms/RegisterForm.js';
+import EditAccountForm from './components/forms/EditAccountForm.js';
 import SignInForm from './components/forms/SignInForm.js';
 import PurchaseForm from './components/forms/PurchaseForm.js';
 import Map from './components/main/Map.js';
@@ -98,7 +99,7 @@ class App extends Component {
                 {
                   (this.state.currentUser)
                     ? <MyAccount currentUser={this.state.currentUser}/>
-                    : <h2>Sorry, you can't access this page</h2>
+                    : <h2 className="no-access-msg">Sorry, you can't access this page</h2>
                 }
               </main>
             }
@@ -110,8 +111,8 @@ class App extends Component {
               <main >
                 {
                   (this.state.currentUser)
-                    ? <h1>Edit {this.state.currentUser.username}'s account</h1>
-                    : <h2>Sorry, you can't access this page</h2>
+                    ? <EditAccountForm currentUser={this.state.currentUser}/>
+                    : <h2 className="no-access-msg">Sorry, you can't access this page.</h2>
                 }
               </main>
             }
@@ -124,7 +125,7 @@ class App extends Component {
                 {
                   (this.state.currentUser)
                     ? <h1>Delete {this.state.currentUser.username}'s account</h1>
-                    : <h2>Sorry, you can't access this page</h2>
+                    : <h2 className="no-access-msg">Sorry, you can't access this page</h2>
                 }
               </main>
             }
@@ -137,7 +138,7 @@ class App extends Component {
                 {
                   (this.state.currentUser)
                     ? <ManageMyTickets currentUser={this.state.currentUser}/>
-                    : <h2>Sorry, you can't access this page</h2>
+                    : <h2 className="no-access-msg">Sorry, you can't access this page</h2>
                 }
               </main>
             }
@@ -150,7 +151,7 @@ class App extends Component {
                 {
                   (this.state.currentUser)
                     ? <h1>{this.state.currentUser.username}'s Seller Stats </h1>
-                    : <h2>Sorry, you can't access this page</h2>
+                    : <h2 className="no-access-msg">Sorry, you can't access this page</h2>
                 }
               </main>
             }

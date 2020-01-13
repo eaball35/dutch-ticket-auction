@@ -34,6 +34,11 @@ footer {
   background-color: rgb(88, 155, 215);
 }
 
+.no-access-msg {
+  text-align: center;
+  margin-top: 3em;
+}
+
 
 * {
   /* border: solid 2px red */

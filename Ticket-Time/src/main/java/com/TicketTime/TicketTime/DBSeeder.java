@@ -123,11 +123,11 @@ public class DBSeeder implements CommandLineRunner {
         this.eventRepository.save(seinfeld);
         this.eventRepository.save(chapelle);
 
-        TicketListing orangeTicketListing = new TicketListing(emily, beyonce,4,"general admission",new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new GregorianCalendar(2020, Calendar.JANUARY, 10).getTime(), 400.50, 25.2, "Auction Details", "Overview");
-        TicketListing blueTicketListing = new TicketListing(brian, beethoven, 2, "together", new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new GregorianCalendar(2020, Calendar.JANUARY, 10).getTime(), 250.25, 10.25, "Auction Details", "Overview");
-        TicketListing redTicketListing = new TicketListing(brian, beyonce, 1, "single", new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new GregorianCalendar(2020, Calendar.JANUARY, 10).getTime(), 100.25, 2.00, "Auction Details", "Overview");
-        TicketListing greenTicketListing = new TicketListing(ada, seahakws, 3, "together", new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new GregorianCalendar(2020, Calendar.JANUARY, 10).getTime(), 300.00, 30.00, "Auction Details", "Overview");
-        TicketListing blackTicketListing = new TicketListing(ada, cubs, 1, "general admission", new GregorianCalendar(2020, Calendar.JANUARY, 3).getTime(), new GregorianCalendar(2020, Calendar.JANUARY, 9).getTime(), 100.00, 0.00, "Auction Details", "Overview");
+        TicketListing orangeTicketListing = new TicketListing(emily, beyonce,4,"general admission",new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new GregorianCalendar(2020, Calendar.JANUARY, 21).getTime(), 400.50, 25.2, "Auction Details", "Overview");
+        TicketListing blueTicketListing = new TicketListing(brian, beethoven, 2, "together", new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new GregorianCalendar(2020, Calendar.JANUARY, 21).getTime(), 250.25, 10.25, "Auction Details", "Overview");
+        TicketListing redTicketListing = new TicketListing(brian, beyonce, 1, "single", new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new GregorianCalendar(2020, Calendar.JANUARY, 30).getTime(), 100.25, 2.00, "Auction Details", "Overview");
+        TicketListing greenTicketListing = new TicketListing(ada, seahakws, 3, "together", new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new GregorianCalendar(2020, Calendar.JANUARY, 15).getTime(), 300.00, 30.00, "Auction Details", "Overview");
+        TicketListing blackTicketListing = new TicketListing(ada, cubs, 1, "general admission", new GregorianCalendar(2020, Calendar.JANUARY, 3).getTime(), new GregorianCalendar(2020, Calendar.JANUARY, 18).getTime(), 100.00, 0.00, "Auction Details", "Overview");
         this.ticketListingRepository.deleteAll();
         this.ticketListingRepository.save(orangeTicketListing);
         this.ticketListingRepository.save(redTicketListing);

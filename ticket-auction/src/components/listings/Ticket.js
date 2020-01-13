@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Link, NavLink, Redirect } from 'react-router-d
 
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
+import Countdown from '../main/Countdown';
 
 var dateFormat = require('dateformat');
 TimeAgo.addLocale(en)
@@ -145,6 +146,8 @@ class Ticket extends Component {
                 <button className='btn btn-success' onClick={this.strikePrice}> Strike Price </button>
               </section>
             </section>
+
+            <Countdown date={listingDetails.start}/>
 
             <section className="details-tabs">
               <button onClick={() => {this.tabClick('auction')}}> Auction </button>

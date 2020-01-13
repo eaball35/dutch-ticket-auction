@@ -1,0 +1,10 @@
+.my-account-page-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5em;
+}
+
+.my-account {
+  margin-right: 8em;
+}
+
