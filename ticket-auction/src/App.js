@@ -8,6 +8,7 @@ import Ticket from './components/listings/Ticket'
 import Event from './components/listings/Event'
 import NewTicket from './components/forms/NewTicketForm';
 import List from './components/main/List';
+import ManageMyTickets from './components/main/ManageMyTickets';
 import CategoryNav from './components/nav/CategoryNav';
 import RegisterForm from './components/forms/RegisterForm.js';
 import SignInForm from './components/forms/SignInForm.js';
@@ -18,14 +19,8 @@ import GMap from './components/main/GoogleMap.js';
 import TopCities from './components/main/TopCities';
 import { GoogleMap, GoogleApiWrapper, Marker } from 'google-maps-react';
 import MyAccount from './components/main/MyAccount';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const User = ({match}) => {
-  return (<h1>User {match.params.userId}</h1>)
-}
-
-const Seller = ({match}) => {
-  return (<h1>Seller {match.params.sellerId}</h1>)
-}
 
 class App extends Component {
   constructor(props) {
@@ -78,154 +73,196 @@ class App extends Component {
           
   {/* Login/Login Pages */}
           <Route path ='/sign-in' exact strict>
-            <header>
-              <h1>Sign In</h1>
-            </header>
-            <SignInForm updateCurrentUser={this.updateLoginUser}></SignInForm>
+            <main>
+              <header>
+                <h1>Sign In</h1>
+              </header>
+              <SignInForm updateCurrentUser={this.updateLoginUser}></SignInForm>
+            </main>
           </Route>
           
           <Route path ='/register' exact strict>
-            <header>
-              <h1>Register</h1>
-            </header>
+            <main>
+              <header>
+                <h1>Register</h1>
+              </header>
               <RegisterForm updateCurrentUser={this.updateLoginUser}></RegisterForm>
-            
+            </main>
           </Route>
           
   {/* User/Account Pages */}
           <Route path ='/myaccount/:userId' 
             exact strict 
             render = { (props) => 
-              <section >
+              <main>
                 {
                   (this.state.currentUser)
-                    ? <h1>{this.state.currentUser.username}'s account</h1>
+                    ? <MyAccount currentUser={this.state.currentUser}/>
                     : <h2>Sorry, you can't access this page</h2>
                 }
-                <MyAccount currentUser={this.state.currentUser}/>
-              </section>
+              </main>
             }
           />
 
           <Route path ='/myaccount/edit/:userId' 
             exact strict 
             render = { (props) => 
-              <section >
+              <main >
                 {
                   (this.state.currentUser)
                     ? <h1>Edit {this.state.currentUser.username}'s account</h1>
                     : <h2>Sorry, you can't access this page</h2>
                 }
-              </section>
+              </main>
             }
           />
 
           <Route path ='/myaccount/delete/:userId' 
             exact strict 
             render = { (props) => 
-              <section >
+              <main >
                 {
                   (this.state.currentUser)
-                    ? <h1>Edit {this.state.currentUser.username}'s account</h1>
+                    ? <h1>Delete {this.state.currentUser.username}'s account</h1>
                     : <h2>Sorry, you can't access this page</h2>
                 }
-              </section>
+              </main>
+            }
+          />
+
+          <Route path ='/myaccount/tickets/:userId'
+            exact strict 
+            render = { (props) => 
+              <main >
+                {
+                  (this.state.currentUser)
+                    ? <ManageMyTickets currentUser={this.state.currentUser}/>
+                    : <h2>Sorry, you can't access this page</h2>
+                }
+              </main>
             }
           />
           
-          <Route path ='/new-ticket/:sellerId' 
+          <Route path ='/seller-stats/:userId'
             exact strict
-            component={Seller}
-          />
-          
-          <Route path ='/seller-stats/:sellerId' 
-            exact strict
-            component={Seller}
+            render = { (props) => 
+              <main >
+                {
+                  (this.state.currentUser)
+                    ? <h1>{this.state.currentUser.username}'s Seller Stats </h1>
+                    : <h2>Sorry, you can't access this page</h2>
+                }
+              </main>
+            }
           />
 
   {/* Checkout Pages */}
           <Route path ='/checkout' exact strict>
-            <header>
-              <h1>Checkout</h1>
+            <main>
+              <header>
+                <h1>Checkout</h1>  
+              </header>
               <Checkout cartTicket={this.state.cartTicket} />
-            </header>
+            </main>
           </Route>
 
           <Route path ='/checkout/purchase' exact strict>
+            <main>
             <header>
               <h1>Purchase</h1>
-              <PurchaseForm cartTicket={this.state.cartTicket}/>
             </header>
+            <PurchaseForm cartTicket={this.state.cartTicket}/>
+            </main>
           </Route>
 
   {/* Create Pages */}
           <Route path ='/new-ticket' exact strict>
-            <NewTicket 
-              exampleTicket={exampleTicket} 
-              currentUserId = {this.state.currentUserId}
-            />
+            <main>
+              <NewTicket 
+                exampleTicket={exampleTicket} 
+                currentUserId = {this.state.currentUserId}
+              />
+            </main>
           </Route>
 
   {/* Nav Link Pages */}
           <Route path ='/' exact strict>
-            <header>
-              <h1>Home</h1>
-            </header>
+            <main>
+              <header>
+                <h1>Home</h1>
+              </header>
+            </main>
           </Route>
 
           <Route path ='/events' exact strict>
-            <header>
-              <h1>Events</h1>
-            </header>
-            <List url='/events/all' cardType="event" />
+            <main>
+              <header>
+                <h1>Events</h1>
+              </header>
+              <List url='/events/all' cardType="event" />
+            </main>
           </Route>
 
           <Route path ='/performers' exact strict>
-            <header>
-              <h1>Performers</h1>
-            </header>
-            <List url='/performers/all' cardType="performer" />
+            <main>
+              <header>
+                <h1>Performers</h1>
+              </header>
+              <List url='/performers/all' cardType="performer" />
+            </main>
           </Route>
 
           <Route path ='/sports' exact strict>
-            <header>
-              <h1>Sports</h1>
-            </header>
-            <List url="/categories/type/sports" cardType="category"/>
+            <main>
+              <header>
+                <h1>Sports</h1>
+              </header>
+              <List url="/categories/type/sports" cardType="category"/>
+            </main>
           </Route>
 
           <Route path ='/music' exact strict>
-            <header>
-              <h1>Music</h1>
-            </header>
-            <List url="/categories/type/music" cardType="category"/>
+            <main>
+              <header>
+                <h1>Music</h1>
+              </header>
+              <List url="/categories/type/music" cardType="category"/>
+            </main>
           </Route>
 
           <Route path ='/comedy' exact strict>
-            <header>
-              <h1>Comedy</h1>
-            </header>
-            <List url="/events/category?type=comedy" cardType="event"/>
+            <main>
+              <header>
+                <h1>Comedy</h1>
+              </header>
+              <List url="/events/category?type=comedy" cardType="event"/>
+            </main>
           </Route>
 
           <Route path ='/cities' exact strict>
-            <header>
-              <h1>By Location</h1>
-            </header>
-            
-            <section className="map-cities-container">
-              <Map selectedState={this.state.selectedState} mapHandler={this.mapHandler.bind(this)}/>
-              <TopCities selectedState={this.state.selectedState}></TopCities>
-            </section>
+            <main>
+              <header>
+                <h1>By Location</h1>
+              </header>
               
-              <GMap
-                google={this.props.google}
-                zoom={8}
-                initialCenter="Seattle WA"
-                collectionURL="/events/all"
-              >
-              <Marker position={{ lat: 48.00, lng: -122.00}} />
-            </GMap>
+              <section className="maps-container">
+                <div className="google-map-container">
+                  <GMap
+                    google={this.props.google}
+                    zoom={5}
+                    initialCenter="Seattle"
+                    collectionURL="/events/all"
+                    className="google-map"
+                  />
+                </div>
+                <div className="state-map">
+                  <Map selectedState={this.state.selectedState} mapHandler={this.mapHandler.bind(this)} />
+                </div>
+              </section>
+                
+              
+              <TopCities selectedState={this.state.selectedState}></TopCities>
+            </main>
           </Route>
         
   {/* Nested Pages */}
@@ -233,16 +270,19 @@ class App extends Component {
             exact strict 
             render = {
               (props) => 
-              <section >
+              <main >
                 <Ticket example={false} {...props} addToCheckout={this.addToCheckout.bind(this)} /> 
-              </section>
+              </main>
             }
           />
 
           <Route path ='/events/:id' 
             exact strict 
             render={
-              (props) => <Event {...props} /> 
+              (props) => 
+                <main>
+                  <Event {...props} /> 
+                </main>
             }
           />
 
@@ -250,12 +290,12 @@ class App extends Component {
             exact strict
             render={
               (props) => 
-                <section>
+                <main>
                   <header>
                     <h1>Events - {props.match.params.type}</h1>
                   </header>
                   <List url = {`/events/category?type=${props.match.params.type}`} cardType="event"  {...props}/> 
-                </section>
+                </main>
             }
           />
           
@@ -264,12 +304,12 @@ class App extends Component {
             exact strict
             render={
               (props) => 
-              <section>
+              <main>
                 <header>
                   <h1>Events - {props.match.params.genre}</h1>
                 </header>
                 <List url = {`/events/category?type=${props.match.params.type}&genre=${props.match.params.genre}`} cardType="event" {...props}/> 
-              </section>
+              </main>
             }
           />
 
@@ -277,12 +317,12 @@ class App extends Component {
             exact strict
             render={
               (props) => 
-              <section>
+              <main>
                 <header>
                   <h1>Events - {props.match.params.city}</h1>
                 </header>
                 <List url = {`/events?city=${props.match.params.city}`} cardType="event" {...props}/> 
-              </section>
+              </main>
             }
           />
 
@@ -290,14 +330,16 @@ class App extends Component {
             exact strict
             render={
               (props) => 
-              <section>
+              <main>
                 <header>
                   <h1>Events - {props.match.params.name}</h1>
                 </header>
                 <List url = {`/events?performer=${props.match.params.id}`} cardType="event" {...props}/> 
-              </section>
+              </main>
             }
           />
+
+          <footer></footer>
         
         </div>    
       </Router>

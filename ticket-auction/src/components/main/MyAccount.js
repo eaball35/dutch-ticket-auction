@@ -22,12 +22,25 @@ class MyAccount extends Component {
       }
       return (
         <section>
+          <h2>{this.props.currentUser.username}'s TicketClock Account</h2>
           <ul>
             <li>
-              <Link to={`/myaccount/edit/${this.props.currentUser}`}>Edit Account Settings</Link>
+              <Link to={`/myaccount/edit/${this.props.currentUser.id}`}>Edit Account Settings</Link>
             </li>
             <li>
-              <Link to={`/myaccount/delete/${this.props.currentUser}`}>Delete Account</Link>
+              <Link to={`/myaccount/delete/${this.props.currentUser.id}`}>Delete Account</Link>
+            </li>
+          </ul>
+          <h2>Selling on TicketClock</h2>
+          <ul>
+            <li>
+              <Link to={"/new-ticket"}>List New Tickets</Link>
+            </li>
+            <li>
+              <Link to={`/myaccount/tickets/${this.props.currentUser.id}`}>Manage My Ticket Listings</Link>
+            </li>
+            <li>
+              <Link to={`/seller-stats/${this.props.currentUser.id}`}>Seller Stats</Link>
             </li>
           </ul>
         </section>
