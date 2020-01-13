@@ -14,7 +14,7 @@ class Map extends Component {
   render() {
     return (
       <div className ="USA-map-container">
-        <USAMap customize={this.statesCustomConfig()} onClick={this.props.mapHandler} />
+        <USAMap customize={this.statesCustomConfig()} onClick={this.props.mapHandler} width="50%" height="50%" />
       </div>
     );
   }

@@ -2,3 +2,9 @@
   max-width: 40vw;
   max-height: 40vw;
 }
+
+.google-map-container {
+  min-width: 40%;
+  float: right;
+  margin-right: 4em;
+}

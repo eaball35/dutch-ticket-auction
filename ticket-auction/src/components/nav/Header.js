@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, NavLink } from 'react-router-dom';
 import Search from './SearchBar'
 import '../../css/Header.css'
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 class Header extends Component {
   render() {
@@ -44,6 +46,7 @@ class Header extends Component {
               to='/register' 
               className='btn btn-secondary register-btn'> Register 
             </Link>
+  
           </section>
         )
       }  

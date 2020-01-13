@@ -94,7 +94,7 @@ export class MapContainer extends Component {
           lat: event.venue.address.lat,
           lng: event.venue.address.lng
         }}
-        onClick={() => console.log(event.title)} />
+        onClick={() => console.log(event.venue)} />
       })
     } else {
       return "";

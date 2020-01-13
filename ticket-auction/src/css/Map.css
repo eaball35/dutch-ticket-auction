@@ -6,3 +6,8 @@ path:hover {
   cursor: pointer;
 }
 
+.state-map {
+  margin-left: 4em;
+  margin-right: 2em;
+}
+
