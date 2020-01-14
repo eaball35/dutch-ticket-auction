@@ -29,6 +29,14 @@ class List extends Component {
     this.fetchCollection(url, headers);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const url = `${base_url}${nextProps.url}`
+    const headers = { 
+      headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
+    }
+    this.fetchCollection(url, headers);
+  }
+
   fetchCollection(url, headers) {
     axios.get( url, headers).then((response) => {
         this.setState({collection: response.data})

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Link, NavLink, Redirect } from 'react-router-d
 import Map from './Map.js';
 import GMap from './GoogleMap.js';
 import TopCities from './TopCities';
+import List from './List';
 import axios from 'axios';
 
 import SPRING_SECURITY from '../../config_spring_keys.js'
@@ -20,7 +21,23 @@ class ByLocation extends Component {
       redirect: undefined,
       selectedState: "WA",
       topCity: "Seattle",
+      selectedVenue: undefined,
+      collection: undefined,
     };
+  }
+
+  fetchCollection(url, headers) {
+    axios.get( url, headers).then((response) => {
+        this.setState({collection: response.data})
+      })
+      .catch((error) => {
+        console.log("No collection")
+        // this.setState({errors: error})
+      });
+  }
+
+  setSelectedVenue = (venue) => {
+    this.setState({selectedVenue: venue})
   }
 
 
@@ -51,22 +68,30 @@ class ByLocation extends Component {
       }
       return (
         <section>
-        <section className="maps-container">
-          <div className="google-map-container">
-            <GMap
-              google={this.props.google}
-              zoom={5}
-              initialCenter = "Seattle"
-              center={this.state.topCity}
-              collectionURL="/venues/all"
-              className="google-map"
-            />
-          </div>
-          <div className="state-map">
-            <Map selectedState={this.state.selectedState} mapHandler={this.mapHandler} />
-          </div>
-        </section>      
         
+          <section className="maps-container">
+            <div className="google-map-container">
+              <GMap
+                google={this.props.google}
+                zoom={5}
+                initialCenter = "Seattle"
+                center={this.state.topCity}
+                collectionURL="/venues/all"
+                className="google-map"
+                setSelectedVenue={this.setSelectedVenue}
+              />
+            </div>
+            <div className="state-map">
+              <Map selectedState={this.state.selectedState} mapHandler={this.mapHandler} />
+            </div>
+          </section>      
+          {
+            (this.state.selectedVenue)
+              ? <List url={`/events?venue=${this.state.selectedVenue.id}`} cardType="event"></List>
+              : <List url={`/events?state=${this.state.selectedState}`} cardType="event"></List>
+          }
+
+            
         </section>
       )
   }

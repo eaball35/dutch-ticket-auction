@@ -247,7 +247,7 @@ class App extends Component {
             </main>
           </Route>
 
-          <Route path ='/cities' exact strict>
+          <Route path ='/location' exact strict>
             <main>
               <header>
                 <h1>By Location</h1>

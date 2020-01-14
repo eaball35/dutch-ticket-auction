@@ -15,10 +15,10 @@ class Header extends Component {
     
       } else {
         return <p className="welcome-message"> Welcome! Please 
-                  <strong><Link to='/sign-in' onClick={this.props.logInCallback}> Sign in </Link></strong> or 
+                  <strong><Link to='/sign-in'> Sign in </Link></strong> or 
                   <strong><Link to='/register'> Register </Link></strong> 
                   to start listing! 
-                </p>
+              </p>
       }  
     }
 
