@@ -9,6 +9,7 @@ import Event from './components/listings/Event'
 import Order from './components/listings/Order'
 import NewTicket from './components/forms/NewTicketForm';
 import List from './components/main/List';
+import ByLocationPage from './components/main/ByLocationPage';
 import ManageMyTickets from './components/main/ManageMyTickets';
 import CategoryNav from './components/nav/CategoryNav';
 import RegisterForm from './components/forms/RegisterForm.js';
@@ -31,7 +32,6 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       currentUser: undefined,
-      selectedState: "WA",
       cartTicket: undefined,
     };
   }
@@ -51,10 +51,6 @@ class App extends Component {
     }
   }
   
-  mapHandler = (event) => {
-    this.setState({selectedState: event.target.dataset.name })
-  };
-
   addToCheckout = (cartTicket) => {
     this.setState({cartTicket})
   }
@@ -256,24 +252,7 @@ class App extends Component {
               <header>
                 <h1>By Location</h1>
               </header>
-              
-              <section className="maps-container">
-                <div className="google-map-container">
-                  <GMap
-                    google={this.props.google}
-                    zoom={5}
-                    initialCenter="Seattle"
-                    collectionURL="/events/all"
-                    className="google-map"
-                  />
-                </div>
-                <div className="state-map">
-                  <Map selectedState={this.state.selectedState} mapHandler={this.mapHandler.bind(this)} />
-                </div>
-              </section>
-                
-              
-              <TopCities selectedState={this.state.selectedState}></TopCities>
+              <ByLocationPage/>  
             </main>
           </Route>
         

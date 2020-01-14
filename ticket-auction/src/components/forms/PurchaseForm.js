@@ -15,15 +15,15 @@ class PurchaseForm extends Component {
 
     this.state = {
       redirect: undefined,
+      shippingAddress: undefined,
     };
   }
+
   
   updateTicketListingStatus = (orderId) => {
     const url = "http://localhost:8080/tickets"
     const ticketListing = this.props.cartTicket.ticket
     ticketListing["status"] = "paid"
-
-    console.log(ticketListing)
 
     const headers = { 
       headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
@@ -57,13 +57,21 @@ class PurchaseForm extends Component {
   purchase = () => {
     // hard coded 10% tax rate & 2% fees
     const strikePrice = this.props.cartTicket.strikePrice
+    let user;
+
+    if (this.props.currentUser) {
+      user = this.props.currentUser
+    } else if (this.state.guestUser){
+      user = this.state.guestUser
+    }
+
     const newOrder = {
-      "user": this.props.currentUser,
+      "user": user,
       "ticketListing": this.props.cartTicket.ticket,
       "strikePrice": strikePrice,
       "totalCost": (strikePrice + (strikePrice * 0.02 )) * 1.1,
       "ccDetails": "",
-      "shippingAddress": this.props.currentUser.address
+      "shippingAddress": this.state.shippingAddress
     }
     this.createOrder(newOrder)
   }

@@ -27,27 +27,25 @@ export class MapContainer extends Component {
     this.state = {
       collection: undefined,
       initialCenter: undefined,
+      center: undefined,
     }
   }
 
   componentWillMount = () => {
     if (this.props.initialCenter && this.props.collectionURL) {
-      Geocode.fromAddress(this.props.initialCenter).then(
-        response => {
-          this.setState({initialCenter: response.results[0].geometry.location})
-        },
-        error => {
-          return "Error geting geolocation"
-        },
-      );
-
-      this.geocodeLocation(this.state.initialCenter)
+      this.geocodeLocation(this.props.initialCenter)
       
       const url = `${base_url}${this.props.collectionURL}`
       const headers = { 
         headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
       }
       this.fetchCollection(url, headers)
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props !== nextProps){
+      this.geocodeLocation(nextProps.center)
     }
   }
 
@@ -64,7 +62,10 @@ export class MapContainer extends Component {
   geocodeLocation = (location) => { 
       Geocode.fromAddress(location).then(
         response => {
-          return response.results[0].geometry.location
+          this.setState({
+            initialCenter: response.results[0].geometry.location,
+            center: response.results[0].geometry.location  
+          })
         },
         error => {
           return "Error geting geolocation"
@@ -72,29 +73,14 @@ export class MapContainer extends Component {
       )
   }
 
-//   geoCodeLocation = async (address) => {
-//     const geo = await Promise.all(this.geocodeLocation(address));
-//     return geo
-// }
-
-  // geoCodeLocations = (collection) => {
-  //   const geos = []
-  //   for(let i = 0; i < collection.length; i++){
-  //     const event = collection[i]
-  //     const address = `${event.venue.address.address1} ${event.venue.address.city.name}, ${event.venue.address.city.state} ${event.venue.address.zipCode} `
-
-  //     const geo = this.geocodeLocation(address)
-  //     }
-  // }
-
   displayMarkers = () => {
     if(this.state.collection) {
-      return this.state.collection.map((event, index) => {
+      return this.state.collection.map((venue, index) => {
         return <Marker key={index} id={index} position={{ 
-          lat: event.venue.address.lat,
-          lng: event.venue.address.lng
+          lat: venue.address.lat,
+          lng: venue.address.lng
         }}
-        onClick={() => console.log(event.venue)} />
+        onClick={() => console.log(venue)} />
       })
     } else {
       return "";
@@ -104,7 +90,7 @@ export class MapContainer extends Component {
   render() {
     const showMap = () => {
       
-      if(this.state.initialCenter && this.state.collection) {
+      if(this.state.center && this.state.collection) {
         return (
           <section>
             <Map
@@ -112,6 +98,7 @@ export class MapContainer extends Component {
               zoom={8}
               style={mapStyles}
               initialCenter={this.state.initialCenter}
+              center={this.state.center}
               className="google-map"
             >
               {this.displayMarkers()}
