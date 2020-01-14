@@ -80,16 +80,22 @@ export class MapContainer extends Component {
   }  
 
 
-  displayMarkers = () => {
+  displayMarkers = () => {    
     if(this.state.collection) {
       return this.state.collection.map((venue, index) => {
         return (
-            <Marker key={index} id={index} position={{ 
-              lat: venue.address.lat,
-              lng: venue.address.lng
-            }}
-            visible={true}
-            onClick={() => this.onMarkerClick(venue)} />
+            <Marker 
+              title={venue.title}
+              name={venue.title}
+              key={index} 
+              id={index} 
+              position= {{ 
+                lat: venue.address.lat,
+                lng: venue.address.lng
+              }}
+              visible={true}
+              onClick={() => this.onMarkerClick(venue)}>
+            </Marker>
         )
       })
     } else {
@@ -106,14 +112,13 @@ export class MapContainer extends Component {
   }
 
   render() {
-    const showMap = () => {
-      
+    const showMap = () => {    
       if(this.state.center && this.state.collection) {
         return (
           <section>
             <Map
               google={this.props.google}
-              zoom={8}
+              zoom={10}
               style={mapStyles}
               initialCenter={this.state.initialCenter}
               center={this.state.center}

@@ -5,6 +5,7 @@ import GMap from './GoogleMap.js';
 import TopCities from './TopCities';
 import List from './List';
 import axios from 'axios';
+import '../../css/ByLocationPage.css'
 
 import SPRING_SECURITY from '../../config_spring_keys.js'
 
@@ -56,9 +57,30 @@ class ByLocation extends Component {
   }
 
   mapHandler = (event) => {
-    this.setState({selectedState: event.target.dataset.name })
+    this.setState({
+      selectedState: event.target.dataset.name,
+      selectedVenue: undefined 
+    })
     this.fetchTopCity(event.target.dataset.name)
   };
+
+  showEvents = () => {
+    if (this.state.selectedVenue) {
+      return (
+        <section>
+          <h2 className="show-events-title">Events @ {this.state.selectedVenue.title}</h2>
+          <List url={`/events?venue=${this.state.selectedVenue.id}`} cardType="event"></List>
+        </section>
+      )
+    } else {
+      return (
+        <section>
+          <h2 className="show-events-title">Events in {this.state.selectedState}</h2>
+          <List url={`/events?state=${this.state.selectedState}`} cardType="event"></List>
+        </section>
+      )
+    }
+  }
 
 
   render() {  
@@ -85,13 +107,7 @@ class ByLocation extends Component {
               <Map selectedState={this.state.selectedState} mapHandler={this.mapHandler} />
             </div>
           </section>      
-          {
-            (this.state.selectedVenue)
-              ? <List url={`/events?venue=${this.state.selectedVenue.id}`} cardType="event"></List>
-              : <List url={`/events?state=${this.state.selectedState}`} cardType="event"></List>
-          }
-
-            
+          {this.showEvents()}
         </section>
       )
   }

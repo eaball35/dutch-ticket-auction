@@ -50,9 +50,9 @@ public class DBSeeder implements CommandLineRunner {
         Address street123 = new Address("123 Street","Apt 22",chicago,"60601","44.3148443","-85.60236429999999");
         Address cali = new Address("456 Beach Ln","302",sanDiego,"22434","32.715738","-117.1610838");
         Address mountainrd = new Address("111 Mountain Rd.","",denver,"80014","39.91424689999999","-104.6002959");
-        Address centuryLinkAdd = new Address("1505 5th Ave", "",seattle, "98101","-33.890140", "18.507130");
+        Address centuryLinkAdd = new Address("1505 5th Ave", "",seattle, "98101","47.5952", "-122.3316");
         Address wrigleyAdd = new Address("1060 W Addison St", "", chicago,  "60613","41.9462284","-87.73971229999999");
-        Address benaroyaAdd = new Address("200 University St", "", seattle,  "98101","47.752110","-122.359290");
+        Address benaroyaAdd = new Address("200 University St", "", seattle,  "98101","47.608084","-122.336970");
         this.addressRepository.deleteAll();
         this.addressRepository.save(bainbridge);
         this.addressRepository.save(street123);
