@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import '../../css/GoogleMap.css'
 import GOOGLE_SECURITY from '../../config_google_api_keys.js'
 import Geocode from "react-geocode";
@@ -28,6 +28,8 @@ export class MapContainer extends Component {
       collection: undefined,
       initialCenter: undefined,
       center: undefined,
+      
+      selectedVenue: undefined,
     }
   }
 
@@ -73,29 +75,50 @@ export class MapContainer extends Component {
       )
   }
 
-  displayMarkers = () => {
+  onMarkerClick = (venue) => {
+    this.props.setSelectedVenue(venue)
+  }  
+
+
+  displayMarkers = () => {    
     if(this.state.collection) {
       return this.state.collection.map((venue, index) => {
-        return <Marker key={index} id={index} position={{ 
-          lat: venue.address.lat,
-          lng: venue.address.lng
-        }}
-        onClick={() => console.log(venue)} />
+        return (
+            <Marker 
+              title={venue.title}
+              name={venue.title}
+              key={index} 
+              id={index} 
+              position= {{ 
+                lat: venue.address.lat,
+                lng: venue.address.lng
+              }}
+              visible={true}
+              onClick={() => this.onMarkerClick(venue)}>
+            </Marker>
+        )
       })
     } else {
       return "";
     }
   }
 
+  showVenueTitle = () => {
+    if (this.state.selectedVenue) {
+      return (<h1>{this.state.selectedVenue.title}</h1>)
+    } else {
+      return ""
+    }
+  }
+
   render() {
-    const showMap = () => {
-      
+    const showMap = () => {    
       if(this.state.center && this.state.collection) {
         return (
           <section>
             <Map
               google={this.props.google}
-              zoom={8}
+              zoom={10}
               style={mapStyles}
               initialCenter={this.state.initialCenter}
               center={this.state.center}

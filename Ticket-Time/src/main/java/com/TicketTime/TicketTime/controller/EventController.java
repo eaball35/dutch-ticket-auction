@@ -56,12 +56,14 @@ public class EventController {
     }
     
     @GetMapping
-    public List<Event> getEventsByGroup(@RequestParam(value="city", required = false) String city, @RequestParam(value="venue", required = false) String venueId, @RequestParam(value="performer", required = false) String performerId) {
-        if(city != null && venueId == null && performerId == null) {
+    public List<Event> getEventsByGroup(@RequestParam(value="state", required = false) String state, @RequestParam(value="city", required = false) String city, @RequestParam(value="venue", required = false) String venueId, @RequestParam(value="performer", required = false) String performerId) {
+        if(state!= null && city == null && venueId == null && performerId == null){
+            return eventRepository.findByVenueAddressCityState(state);
+        } else if(state== null && city != null && venueId == null && performerId == null) {
             return eventRepository.findByVenueAddressCityName(city);
-        } else if (city == null && venueId != null && performerId == null ) {
+        } else if (state == null && city == null && venueId != null && performerId == null ) {
             return eventRepository.findByVenue(venueId);
-        } else if (city == null && venueId == null && performerId != null) {
+        } else if (state== null && city == null && venueId == null && performerId != null) {
             return eventRepository.findByPerformer(performerId);
         } else {
             return eventRepository.findAll();

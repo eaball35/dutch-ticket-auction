@@ -19,7 +19,7 @@ class CategoryNav extends Component {
               <Link to="/events" className="nav-link"> Events </Link>
             </li>
             <li className="nav-item">
-              <Link to="/cities" className="nav-link"> ByLocation </Link>
+              <Link to="/location" className="nav-link"> ByLocation </Link>
             </li>
             <li className="nav-item">
               <Link to="/performers" className="nav-link"> Performers </Link>

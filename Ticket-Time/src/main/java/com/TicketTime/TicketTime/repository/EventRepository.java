@@ -29,6 +29,9 @@ public interface EventRepository extends MongoRepository <Event, String> {
     @Query("{'Venue.Address.City.name':?0}")
     List<Event> findByVenueAddressCityName(String city);
 
+    @Query("{'Venue.Address.City.state':?0}")
+    List<Event> findByVenueAddressCityState(String state);
+
     @Query("{'Performer.id':?0}")
     List<Event> findByPerformer(String id);
 }
