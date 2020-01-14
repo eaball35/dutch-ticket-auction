@@ -147,7 +147,7 @@ class Ticket extends Component {
               </section>
             </section>
 
-            <Countdown date={listingDetails.start}/>
+            <Countdown date={new Date(listingDetails.auctionStart)}/>
 
             <section className="details-tabs">
               <button onClick={() => {this.tabClick('auction')}}> Auction </button>
