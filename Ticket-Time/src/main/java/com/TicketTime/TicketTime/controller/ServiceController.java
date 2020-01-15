@@ -2,8 +2,10 @@ package com.TicketTime.TicketTime.controller;
 
 import com.TicketTime.TicketTime.model.Category;
 import com.TicketTime.TicketTime.model.City;
+import com.TicketTime.TicketTime.model.Venue;
 import com.TicketTime.TicketTime.repository.CategoryRepository;
 import com.TicketTime.TicketTime.repository.CityRepository;
+import com.TicketTime.TicketTime.repository.VenueRepository;
 import com.TicketTime.TicketTime.service.Service;
 import com.TicketTime.TicketTime.model.TicketListing;
 import com.TicketTime.TicketTime.repository.TicketListingRepository;
@@ -19,12 +21,14 @@ public class ServiceController {
     private TicketListingRepository ticketListingRepository;
     private CategoryRepository categoryRepository;
     private CityRepository cityRepository;
+    private VenueRepository venueRepository;
     private Service service = new Service();
 
-    public ServiceController(TicketListingRepository ticketListingRepository, CategoryRepository categoryRepository, CityRepository cityRepository) {
+    public ServiceController(TicketListingRepository ticketListingRepository, CategoryRepository categoryRepository, CityRepository cityRepository, VenueRepository venueRepository) {
         this.ticketListingRepository = ticketListingRepository;
         this.categoryRepository = categoryRepository;
         this.cityRepository = cityRepository;
+        this.venueRepository = venueRepository;
     }
 
     @GetMapping("/price/{ticketListingId}")
@@ -84,6 +88,24 @@ public class ServiceController {
             }
         }
         return returnListings;
+    }
+
+    @GetMapping("/findVenue")
+    public List<Venue> venueExist(@RequestParam (value="title") String title, @RequestParam (value="zipCode") String zipCode) {
+        if(title.equals("") && zipCode.equals("")) {
+            return null;
+        }
+        List<Venue> venues = this.venueRepository.findAll();
+
+        List<Venue> outputs = new ArrayList<Venue>();
+        for(int i = 0; i < venues.size(); i++) {
+            String venueTitle = venues.get(i).getTitle().toUpperCase();
+            String venueZipCode = venues.get(i).getAddress().getZipCode().toUpperCase();
+            if (venueTitle.contains(title.toUpperCase()) && venueZipCode.contains((zipCode.toUpperCase())) ) {
+                outputs.add(venues.get(i));
+            }
+        }
+        return outputs;
     }
 
 }

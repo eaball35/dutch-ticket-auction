@@ -3,6 +3,9 @@ import Ticket from '../listings/Ticket'
 import axios from 'axios';
 import DateTimePicker from 'react-datetime-picker';
 import '../../css/NewTicketForm.css';
+import NewTicketFormEvent from './NewTicketFormEvent';
+import NewTicketFormVenue from './NewTicketFormVenue';
+import NewTicketFormAuction from './NewTicketFormAuction';
 
 class NewTicket extends Component {
   constructor(props) {
@@ -17,18 +20,13 @@ class NewTicket extends Component {
       eventAllDay: "",
       performerImgUrls: [],
       eventImgUrls: [],
-      ventCategoryTypes: [],
+      eventCategoryTypes: [],
       eventCategoryGenres: [],
+      showEventForm: false,
       
       
-      venueTitle: "",
-      venueDescription: "",
-      venueDetails: "",
-      venueAddress1: "",
-      venueAddress2: "",
-      venueCity: "",
-      venueState: "",
-      venueZipCode: "",
+      venue: "",
+      showVenueForm: true,
       
       
       auctionStart: "",
@@ -37,8 +35,20 @@ class NewTicket extends Component {
       endTotalPrice: "",
       auctionDetails: "",
       overview: "",
+      showAuctionForm: false
     };
   }
+  
+  updateShowForm = (form) => {
+    if(form === "venue") {
+      this.setState({showVenueForm: !this.state.showVenueForm})
+    } else if (form === "event") {
+      this.setState({showEventForm: !this.state.showEventForm})
+    } else if (form === "auction") {
+      this.setState({showAuctionForm: !this.state.showAuctionForm})
+    }
+  }
+  
   
   onInputChange = (event) => {
     const updatedState = {};
@@ -64,85 +74,59 @@ class NewTicket extends Component {
       });
   }
 
-  tabClick = () => {
 
+  lookupVenue = (title) => {
+    
   }
+
+  submitVenue = (inputVenue) => {
+    
+  }
+
+  showTicketForms = () => {
+    if (this.state.showVenueForm) {
+      return <NewTicketFormVenue updateShowForm={this.updateShowForm} submitVenue={this.submitVenue}/>
+    } else if (this.state.showEventForm) {
+      return <NewTicketFormEvent updateShowForm={this.updateShowForm}/>
+    } else if (this.state.showAuctionForm) {
+      return (
+        <div>
+          <NewTicketFormAuction updateShowForm={this.updateShowForm}/>
+          <form onSubmit={this.onSubmitTicket}>
+            <div>
+              <input type="submit" value="Submit New Ticket"/>
+            </div>
+          </form>  
+        </div>
+      )
+    } else {
+      return null;
+    }
+  }
+
+  placeClassName = (tab) => {
+    if (tab === "venue" && this.state.showVenueForm) {
+      return "new-ticket-place active"
+    } else if (tab === "event" && this.state.showEventForm) {
+      return "new-ticket-place active"
+    } else if (tab === "auction" && this.state.showAuctionForm) {
+      return "new-ticket-place active"
+    } else {
+      return "new-ticket-place"
+    }
+  }
+
   
   render() {
-    const eventStates = ["artist", "event", "eventLocation", "eventCity", "eventState", "eventStart", "eventEnd", "eventDetails"]
-    const eventLabels = ["Artist", "Event", "Location", "City", "State", "Event Start", "Event End", "Event Details"]
-    const ticketStates = ["ticketQuantity", "ticketGrouping", "ticketDetails"]
-    const ticketLabels = ["Quantity", "Grouping", "Details"]
-    const auctionStates = ["auctionStartTotalPrice", "auctionEndTotalPrice", "auctionStart", "auctionEnd", "auctionOverview", "auctionDetails"]
-    const auctionLabels = ["Start Total Price", "End Total Price", "Auction Start", "Auction End", "Auction Overview", "Auction Details"]
-
-    
-    const inputs = (states, labels, index = -1) => states.map((state) => {
-        index++;
-        if (state === "ticketGrouping") {
-          return( 
-          <div>
-            <label htmlFor={state}> {labels[index]}: </label>
-            <select name={state} onChange={this.onInputChange}value={this.state.emoji}>
-              {inputOptions(["together", "general admission"])}
-            </select>
-          </div>)
-        } else if (state === "eventState") {
-          return( 
-            <div>
-              <label htmlFor={state}> {labels[index]}: </label>
-              <select name={state} onChange={this.onInputChange}value={this.state.emoji}>
-                {inputOptions([
-                  " ", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "MD", "MA", "MI", "MN", "MS", "MO", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", ])}
-              </select>
-            </div>)
-        } else if (state === "eventStart" || state === "eventEnd" || state === "auctionStart" || state === "auctionEnd") {
-          return (
-              <div>
-                <label htmlFor={state}> {labels[index]}: </label>
-                <DateTimePicker
-                  name={state}
-                  onChange={this.onInputChange}
-                  value={this.state.name}
-                />
-              </div>
-          )} else {
-          return (
-            <div>
-              <label htmlFor={state}> {labels[index]}: </label>
-              <input
-                name={state}
-                onChange={this.onInputChange}
-                value={this.state.name}
-              />
-            </div>
-          )}
-    })
-
-    const inputOptions = (list) => list.map((item, i) => {
-      return <option value={item} key={i}>{item}</option>
-    });
-  
-
     return (
       <section className="new-ticket-container">
-        <form onSubmit={this.onSubmitTicket}>
-        
-          <button onClick={() => {this.tabClick('event')}}>Event</button>
-          {inputs(eventStates, eventLabels)}
-          
-          <button onClick={() => {this.tabClick('ticket')}}>Ticket</button>
-          {inputs(ticketStates, ticketLabels)}
-          
-          <button onClick={() => {this.tabClick('auction')}}>Auction</button>
-          {inputs(auctionStates, auctionLabels)}
-        
-          <div>
-            <input type="submit" value="Submit"/>
-          </div>
-        </form>      
-
-        <Ticket ticket={this.state.newTicket} example={true}/>
+        <h1>3 Easy Steps to Start Selling on TicketClock</h1>
+        <div className="new-ticket-place-container">
+          <span className={this.placeClassName("venue")}>1</span>
+          <span className={this.placeClassName("event")}>2</span>
+          <span className={this.placeClassName("auction")}>3</span>
+        </div>
+        {this.showTicketForms()}
       </section>
     )
   }

@@ -1,4 +1,93 @@
 .new-ticket-container {
   margin-left: 10em;
   margin-top: 2em;
+  max-width: 70vw;
+  border: solid black 1px
+}
+
+.new-ticket-container h1 {
+  text-align: center;
+  margin-bottom: 0.75em;
+  padding: 0.5em;
+  background-color: rgb(61, 61, 89);
+  color: white;
+}
+
+.new-ticket-place-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.new-ticket-place {
+  border: solid 1px  rgb(61, 61, 89);
+  border-radius: 50%;
+  padding: 0.5em;
+  padding-right: 1em;
+  padding-left: 1em;
+  margin-bottom: 2em;
+}
+
+.new-ticket-place-container .active {
+  background-color:  rgb(61, 61, 89);
+  color: white;
+  font-weight: bold;
+}
+
+.new-ticket-venue-container {
+  display: flex;
+  justify-content: space-evenly;
+  padding-bottom: 2em;
+}
+
+.venue-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1em;
+  padding-right: 0;
+}
+.venue-btn-container input {
+  font-size: 1.25em;
+}
+
+.add-btns {
+  display: flex;
+  justify-content: center;
+}
+
+.center-or {
+  text-align: center;
+  padding-top: 1em;
+}
+
+.add-btns .search {
+  margin-top: 1em;
+}
+
+.search-results {
+  display: flex;
+  border: solid grey 1px;
+  border-radius: 15px;
+  margin-top: 0.5em;
+  padding: 0.5em;
+}
+
+.search-results button {
+  margin-left: 2em;
+  margin-right: 1em;
+}
+
+.search-results div {
+  display: flex;
+  align-items: center;
+}
+
+.search-results-container {
+  margin-top: 2em;
+}
+
+.selected-venue-details {
+  background-color: rgb(61, 61, 89);
+  color: white;
+  border-radius: 15px;
+  padding: 1em
 }
