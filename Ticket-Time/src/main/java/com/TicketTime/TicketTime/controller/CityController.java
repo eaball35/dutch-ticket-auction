@@ -49,6 +49,16 @@ public class CityController {
         return newCategory.getId();
     }
 
+    @GetMapping("/name/{name}")
+    public Optional<City> getByName(@PathVariable("name") String name) {
+        Optional<City> city = this.cityRepository.findByName(name);
+        if (city.isEmpty()) {
+            throw new NotFoundException("City Not Found");
+        }
+        return city;
+    }
+
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id) {
         getById(id);

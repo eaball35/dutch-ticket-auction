@@ -13,8 +13,7 @@ public class User {
     private Date createdAt = new Date();
     private Date updatedAt = new Date();
     private Date providerId;
-    private String firstName;
-    private String lastName;
+    private String name;
     private Address address;
 
     @NotBlank
@@ -23,9 +22,10 @@ public class User {
     private final String username;
 
 
-    public User( @NotBlank String email, String username, Address address) {
+    public User( @NotBlank String email, String username, String name, Address address) {
         this.email = email;
         this.username = username;
+        this.name = name;
         this.address = address;
     }
 
@@ -61,20 +61,12 @@ public class User {
         this.providerId = providerId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Address getAddress() {
@@ -100,8 +92,7 @@ public class User {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", providerId=" + providerId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", name='" + name + '\'' +
                 ", address=" + address +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +

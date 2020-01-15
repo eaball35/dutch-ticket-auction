@@ -44,11 +44,11 @@ public class VenueController {
 
     @GetMapping("/{id}")
     public Optional<Venue> getById(@PathVariable("id") String id) {
-        Optional<Venue> ticket = this.venueRepository.findById(id);
-        if (ticket.isEmpty()) {
+        Optional<Venue> venue = this.venueRepository.findById(id);
+        if (venue.isEmpty()) {
             throw new NotFoundException("Venue Not Found");
         }
-        return ticket;
+        return venue;
     }
 }
 

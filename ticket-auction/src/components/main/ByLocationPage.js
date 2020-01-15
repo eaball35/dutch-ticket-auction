@@ -68,7 +68,7 @@ class ByLocation extends Component {
     if (this.state.selectedVenue) {
       return (
         <section>
-          <h2 className="show-events-title">Events @ {this.state.selectedVenue.title}</h2>
+          <h2 className="show-events-title">Events @ {this.state.selectedVenue.title} - {this.state.selectedVenue.address.city.name}, {this.state.selectedVenue.address.city.state}</h2>
           <List url={`/events?venue=${this.state.selectedVenue.id}`} cardType="event"></List>
         </section>
       )

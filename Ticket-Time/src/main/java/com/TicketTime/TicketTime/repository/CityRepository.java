@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface CityRepository extends MongoRepository <City, String> {
     Optional<City> findById(String id);
+    Optional<City> findByName(String name);
     List<City> findByState(String state);
-
-
 }

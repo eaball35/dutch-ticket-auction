@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import SPRING_SECURITY from '../../config_spring_keys.js'
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+import '../../css/TicketTable.css';
+
+TimeAgo.addLocale(en)
+const timeAgo = new TimeAgo('en-US')
 
 const base_url = 'http://localhost:8080'
 const username = `${SPRING_SECURITY.username}`
@@ -44,8 +50,11 @@ class TicketTable extends Component {
         ticketTable = this.state.tickets.map((ticket, i) => {
           return (
             <tr key={i}>
-              <td><Link to={`/tickets/${ticket.id}`}>{ticket.id} </Link></td>
-              <td>{ticket.event.venue.address.city.name}</td>
+              <td><Link to={`/tickets/${ticket.id}`}>Ticket ID ...{ticket.id.slice(-6)} </Link></td>
+              <td>{ticket.ticketQuantity}</td>
+              <td>{ticket.user.username}</td>
+              <td> {timeAgo.format(new Date(ticket.createdAt))}</td>
+              <td> ${(ticket.startTotalPrice/ ticket.ticketQuantity).toFixed(2)}</td>
             </tr>
           )
         });
@@ -54,17 +63,22 @@ class TicketTable extends Component {
       }
   
     return (
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>City</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ticketTable}
-        </tbody>
-      </table>
+      <section className="ticketTable-container">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Ticket</th>
+              <th>Quantity</th>
+              <th>Seller</th>
+              <th>Posted</th>
+              <th>Start Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ticketTable}
+          </tbody>
+        </table>
+      </section>
     )
   }
 }
