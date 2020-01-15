@@ -53,7 +53,11 @@ export class MapContainer extends Component {
 
   fetchCollection(url, headers) {
     axios.get( url, headers).then((response) => {
-        this.setState({collection: response.data})
+      if (this.props.singleCollection) {
+        this.setState({collection: [response.data]})
+      } else {
+      this.setState({collection: response.data})
+      }
       })
       .catch((error) => {
         console.log("No collection")
@@ -76,14 +80,16 @@ export class MapContainer extends Component {
   }
 
   onMarkerClick = (venue) => {
-    this.props.setSelectedVenue(venue)
+    if (!this.props.singleCollection) {
+      this.props.setSelectedVenue(venue)
+    }
   }  
 
 
   displayMarkers = () => {    
     if(this.state.collection) {
-      return this.state.collection.map((venue, index) => {
-        return (
+        return this.state.collection.map((venue, index) => {
+          return (
             <Marker 
               title={venue.title}
               name={venue.title}
@@ -96,8 +102,8 @@ export class MapContainer extends Component {
               visible={true}
               onClick={() => this.onMarkerClick(venue)}>
             </Marker>
-        )
-      })
+          )
+        })
     } else {
       return "";
     }
@@ -122,7 +128,7 @@ export class MapContainer extends Component {
               style={mapStyles}
               initialCenter={this.state.initialCenter}
               center={this.state.center}
-              className="google-map"
+              className={this.props.className}
             >
               {this.displayMarkers()}
             </Map>

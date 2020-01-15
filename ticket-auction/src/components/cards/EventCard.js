@@ -60,6 +60,7 @@ class EventCard extends Component  {
             </div>
             <div className="eventCard-details">
               <h2 onClick={this.onClick}> {title} </h2>
+              <h4> {`${this.props.event.venue.address.city.name}, ${this.props.event.venue.address.city.state}`} </h4>
               <h4> {this.props.event.description} </h4>
               <p onClick={this.moreDetails}> ▼ More details </p>
             </div>

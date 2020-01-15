@@ -9,10 +9,7 @@ import com.TicketTime.TicketTime.model.TicketListing;
 import com.TicketTime.TicketTime.repository.TicketListingRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 
 @CrossOrigin(origins = { "http://localhost:3000"})
@@ -58,6 +55,35 @@ public class ServiceController {
             }
         }
         return topCity;
+    }
+
+    @GetMapping("/search")
+    public List<TicketListing> searchTicketListings(@RequestParam (value="q") String q) {
+        List<TicketListing> tickets = this.ticketListingRepository.findAll();
+
+        List<TicketListing> returnListings = new ArrayList<>();
+        for(int i=0; i < tickets.size(); i++) {
+            if(tickets.get(i).getEvent().getTitle().toUpperCase().contains(q.toUpperCase()) || tickets.get(i).getEvent().getDescription().toUpperCase().contains(q.toUpperCase())) {
+                returnListings.add(tickets.get(i));
+                continue;
+            } else if (tickets.get(i).getOverview().toUpperCase().contains(q.toUpperCase()) || tickets.get(i).getEvent().getPerformer().get(0).getName().toUpperCase().contains(q.toUpperCase()) || tickets.get(i).getEvent().getPerformer().get(0).getDescription().toUpperCase().contains(q.toUpperCase())) {
+                returnListings.add(tickets.get(i));
+                continue;
+            } else if (tickets.get(i).getEvent().getVenue().getTitle().toUpperCase().contains(q.toUpperCase()) || tickets.get(i).getEvent().getVenue().getDescription().toUpperCase().contains(q.toUpperCase())) {
+                returnListings.add(tickets.get(i));
+                continue;
+            } else {
+                for (int ind = 0; ind <tickets.get(i).getEvent().getCategories().size();
+                ind++){
+                    List<Category> categories = tickets.get(i).getEvent().getCategories();
+                    if (categories.get(ind).getType().toUpperCase().contains(q.toUpperCase()) || categories.get(ind).getGenre().toUpperCase().contains(q.toUpperCase())) {
+                        returnListings.add(tickets.get(i));
+                        continue;
+                    }
+                }
+            }
+        }
+        return returnListings;
     }
 
 }

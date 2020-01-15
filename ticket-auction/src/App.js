@@ -185,6 +185,9 @@ class App extends Component {
 
   {/* Create Pages */}
           <Route path ='/new-ticket' exact strict>
+            <header>
+              <h1>Create New Ticket Listing</h1>
+            </header>
             <main>
               <NewTicket 
                 exampleTicket={exampleTicket} 
@@ -201,6 +204,19 @@ class App extends Component {
               </header>
             </main>
           </Route>
+
+          <Route path ='/search/:query' 
+            exact strict 
+            render = {
+              (props) => 
+              <main >
+                <header>
+                  <h1>Search : "{props.match.params.query}"</h1>
+                </header>
+                <List url={`/search?q=${props.match.params.query}`} cardType="ticket"/>
+              </main>
+            }
+          />
 
           <Route path ='/events' exact strict>
             <main>

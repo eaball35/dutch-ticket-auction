@@ -2,37 +2,41 @@ import React, { Component } from 'react';
 import Ticket from '../listings/Ticket'
 import axios from 'axios';
 import DateTimePicker from 'react-datetime-picker';
+import '../../css/NewTicketForm.css';
 
 class NewTicket extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      createdAt: this.props.exampleTicket.createdAt,
-      userId: this.props.currentUserId,
+      eventTitle: "",
+      eventDescription: "",
+      eventStart: "",
+      eventEnd: "",
+      performer: "",
+      eventAllDay: "",
+      performerImgUrls: [],
+      eventImgUrls: [],
+      ventCategoryTypes: [],
+      eventCategoryGenres: [],
       
-      artist: this.props.exampleTicket.artist,
-      event: this.props.exampleTicket.event,
-      eventImgUrls: this.props.exampleTicket.eventImgUrls,
-      eventLocation: this.props.exampleTicket.eventLocation,
-      eventCity: this.props.exampleTicket.eventCity,
-      eventState: this.props.exampleTicket.eventState,
-      eventStart: this.props.exampleTicket.eventStart,
-      eventEnd: this.props.exampleTicket.eventEnd,
-      eventDetails: this.props.exampleTicket.eventDetails,
       
-      ticketQuantity: this.props.exampleTicket.ticketQuantity,
-      ticketGrouping: this.props.exampleTicket.ticketGrouping,
-      ticketDetails: this.props.exampleTicket.ticketDetails,
+      venueTitle: "",
+      venueDescription: "",
+      venueDetails: "",
+      venueAddress1: "",
+      venueAddress2: "",
+      venueCity: "",
+      venueState: "",
+      venueZipCode: "",
       
-      auctionStartTotalPrice: this.props.exampleTicket.auctionStartTotalPrice,
-      auctionStart: this.props.exampleTicket.auctionStart,
-      auctionEndTotalPrice: this.props.exampleTicket.auctionEndTotalPrice,
-      auctionEnd: this.props.exampleTicket.auctionEnd,
-      auctionOverview: this.props.exampleTicket.auctionOverview,
-      auctionDetails: this.props.exampleTicket.auctionDetails,
-
-      newTicket: this.props.exampleTicket,
+      
+      auctionStart: "",
+      auctionEnd: "",
+      startTotalPrice: "",
+      endTotalPrice: "",
+      auctionDetails: "",
+      overview: "",
     };
   }
   
@@ -42,36 +46,13 @@ class NewTicket extends Component {
     const value = event.target.value;
 
     updatedState[field] = value;
-    
-    // eslint-disable-next-line react/no-direct-mutation-state
-    this.state.newTicket[field] = value;
-    updatedState['newTicket'] = this.state.newTicket;
-    
     this.setState(updatedState);
   }
 
   onSubmitTicket = (event) => {
     event.preventDefault();
     const params = {
-      "userId": this.state.userId,
-      "artist": this.state.artist,
-      "event": this.state.event,
-      "eventImgUrls": this.state.eventImgUrls,
-      "eventLocation": this.state.eventLocation,
-      "eventCity": this.state.eventCity,
-      "eventState": this.state.eventState,
-      "eventStart": this.state.eventStart,
-      "eventEnd": this.state.eventEnd,
-      "eventDetails": this.state.eventDetails,
-      "ticketQuantity": this.state.ticketQuantity,
-      "ticketGrouping": this.state.ticketGrouping,
-      "ticketDetails": this.state.ticketDetails,
-      "auctionStartTotalPrice": this.state.auctionStartTotalPrice,
-      "auctionStart": this.state.auctionStart,
-      "auctionEndTotalPrice": this.state.auctionEndTotalPrice,
-      "auctionEnd": this.state.auctionEnd,
-      "auctionOverview": this.state.auctionOverview,
-      "auctionDetails": this.state.auctionDetails
+      
     }
 
     axios.post(`http://localhost:8080/tickets`, params)
@@ -144,7 +125,7 @@ class NewTicket extends Component {
   
 
     return (
-      <section>
+      <section className="new-ticket-container">
         <form onSubmit={this.onSubmitTicket}>
         
           <button onClick={() => {this.tabClick('event')}}>Event</button>
