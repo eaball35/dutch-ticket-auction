@@ -185,14 +185,19 @@ class App extends Component {
 
   {/* Create Pages */}
           <Route path ='/new-ticket' exact strict>
-            <header>
-              <h1>Create New Ticket Listing</h1>
-            </header>
             <main>
-              <NewTicket 
-                exampleTicket={exampleTicket} 
-                currentUserId = {this.state.currentUserId}
-              />
+              
+              { (this.state.currentUser)
+                ? <section>
+                    <header>
+                      <h1>Create New Ticket Listing</h1>
+                    </header>
+                    <NewTicket 
+                      exampleTicket={exampleTicket} 
+                      currentUser = {this.state.currentUser} />
+                  </section> 
+                : <h2 className="no-access-msg">Sorry, you can't access this page</h2>
+              }
             </main>
           </Route>
 
