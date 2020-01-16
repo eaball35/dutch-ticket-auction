@@ -36,35 +36,60 @@ public class TicketListing {
     @NotBlank
     private final String auctionDetails;
     @NotBlank
-    private final String overview;
+    private final String pitch;
 
-    public TicketListing(@NotBlank User user, @NotBlank Event event, @NotBlank Integer ticketQuantity, @NotBlank String ticketGrouping, @NotBlank Date auctionStart, @NotBlank Date auctionEnd, @NotBlank Double startTotalPrice, @NotBlank Double endTotalPrice, @NotBlank String auctionDetails, @NotBlank String overview) {
+    public TicketListing(@NotBlank User user, @NotBlank Event event, @NotBlank Integer ticketQuantity, @NotBlank String ticketGrouping, @NotBlank Date auctionStart , @NotBlank Date auctionEnd, @NotBlank Double startTotalPrice, @NotBlank Double endTotalPrice, @NotBlank String auctionDetails, @NotBlank String pitch) {
         this.user = user;
         this.event = event;
         this.ticketQuantity = ticketQuantity;
         this.ticketGrouping = ticketGrouping;
-        this.auctionStart = auctionStart;
-        this.auctionEnd = auctionEnd;
+
+        if (auctionEnd == null) {
+            this.auctionEnd = new Date();
+        } else {
+            this.auctionEnd = auctionEnd;
+        }
+        if (auctionStart == null) {
+            this.auctionStart = new Date();
+        } else {
+            this.auctionStart = auctionStart;
+        }
         this.startTotalPrice = startTotalPrice;
         this.endTotalPrice = endTotalPrice;
         this.auctionDetails = auctionDetails;
-        this.overview = overview;
+        this.pitch = pitch;
     }
 
     public String getId() {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Date getUpdatedAt() {
         return updatedAt;
     }
 
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public String getStatus() {
         return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public User getUser() {
@@ -103,24 +128,8 @@ public class TicketListing {
         return auctionDetails;
     }
 
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public String getPitch() {
+        return pitch;
     }
 
     public HashMap<String, Object> calculatePrice() {
@@ -154,7 +163,7 @@ public class TicketListing {
                 ", startTotalPrice=" + startTotalPrice +
                 ", endTotalPrice=" + endTotalPrice +
                 ", auctionDetails='" + auctionDetails + '\'' +
-                ", overview='" + overview + '\'' +
+                ", pitch='" + pitch + '\'' +
                 '}';
     }
 }

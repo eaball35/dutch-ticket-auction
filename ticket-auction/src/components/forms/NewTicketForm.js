@@ -58,7 +58,6 @@ class NewTicket extends Component {
     const data = {
       user: this.props.currentUser,
       event: this.state.event,
-      venue: this.state.venue,
 
       auctionStart: this.state.auctionStart,
       auctionEnd: this.state.auctionEnd,
@@ -82,7 +81,8 @@ class NewTicket extends Component {
   }
 
   submitEvent = (inputEvent) => {
-    this.setState({venue: inputEvent})
+    console.log("I got here" + inputEvent)
+    this.setState({event: inputEvent})
   }
 
   showTicketForms = () => {

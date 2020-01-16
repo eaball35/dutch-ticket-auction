@@ -1,19 +1,26 @@
 import React from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Link as Link } from 'react-router-dom';
 import '../../css/PerformerCard.css'
 
 const PerformerCard = (props) => {    
 
+  const url = `/events/performer/${props.performer.name}/${props.performer.id}`
+  const performer = props.performer.name
+  const image =  <img src={props.performer.imageUrls[0]} alt={props.performer.name}className="performer-img"/>
+
   return (
-    <section className="performerCard-container card">
-      <div className="card-body">
-        <h2>{props.performer.name}</h2>
-        <h4>{props.performer.description}</h4>
-        <img src={props.performer.imageUrls[0]} alt={props.performer.name}className="performerCard-icon-img"/>
-        <Link to={`/events/performer/${props.performer.name}/${props.performer.id}`} className="btn btn-primary">Browse Events </Link>
+    <section className="card performer-card-container">
+      <div className="performer-card">
+        <Link to={url} >
+          <div className="performer-text">
+            {performer}
+          </div>  
+          {image}
+        </Link>
       </div>
     </section>
   )
 }
 
 export default PerformerCard;
+

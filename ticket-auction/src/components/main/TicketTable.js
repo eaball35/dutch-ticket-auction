@@ -67,11 +67,11 @@ class TicketTable extends Component {
         <table className="table">
           <thead>
             <tr>
-              <th>Ticket</th>
+              <th>Ticket Listings</th>
               <th>Quantity</th>
               <th>Seller</th>
               <th>Posted</th>
-              <th>Start Price</th>
+              <th>Start Price (per unit)</th>
             </tr>
           </thead>
           <tbody>

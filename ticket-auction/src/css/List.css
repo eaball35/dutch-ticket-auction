@@ -1,10 +1,12 @@
 .list-container {
-  margin-left: 3em;
+  margin: auto;
+  margin-bottom: 4em;
 }
 
 .categoryContainer, .performerContainer {
   display: flex;
   flex-wrap: wrap;
+  margin: 1em;
 }
 
 .eventsContainer {
