@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+  import React, { Component } from 'react';
 import axios from 'axios';
 import TicketTable from '../main/TicketTable';
 import '../../css/Event.css';
@@ -54,12 +54,11 @@ render() {
               <img src={eventDetails.imageUrls} alt={eventDetails.title} className='event-img'/>
               <div className="event-details">
                 <h6>EVENT</h6>
+                <h4>{start} </h4>
                 <h1>{eventDetails.title}</h1>
                 <h2>
                   <Link to={`/events/performer/${eventDetails.performer[0].name}/${eventDetails.performer[0].id}`}>{eventDetails.performer[0].name} </Link>
                 </h2>
-
-                <h4>{start} </h4>
                 <h2>@ {eventDetails.venue.title}  |  {eventDetails.venue.address.city.name}, {eventDetails.venue.address.city.state} </h2>
                 <p>{eventDetails.eventDetails}</p>
               </div>
@@ -77,7 +76,8 @@ render() {
             </section>
 
 
-            <section>
+            <section className ="ticket-table-container">
+              <h2>Browse Ticket Listings</h2>
               <TicketTable url={`/tickets/event/${this.props.match.params.id}`}/>
             </section>
 

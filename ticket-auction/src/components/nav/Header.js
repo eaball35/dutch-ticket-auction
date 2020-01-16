@@ -40,13 +40,12 @@ class Header extends Component {
           <section className='guest-right-links'>
             <Link 
               to='/sign-in' 
-              className='btn btn-secondary sign-in-btn'> Sign In 
+              className='btn btn-dark sign-in-btn'> Sign In 
             </Link>
             <Link 
               to='/register' 
-              className='btn btn-secondary register-btn'> Register 
+              className='btn btn-dark register-btn'> Register 
             </Link>
-  
           </section>
         )
       }  

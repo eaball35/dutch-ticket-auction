@@ -25,15 +25,15 @@ public class VenueController {
     }
 
     @PutMapping
-    public String insert(@RequestBody Venue venue) {
-        Venue newUser = this.venueRepository.insert(venue);
-        return newUser.getId();
+    public Venue insert(@RequestBody Venue venue) {
+        Venue newVenue = this.venueRepository.insert(venue);
+        return newVenue;
     }
 
     @PostMapping
-    public String update(@RequestBody Venue venue) {
-        Venue newUser = this.venueRepository.save(venue);
-        return newUser.getId();
+    public Venue update(@RequestBody Venue venue) {
+        Venue newVenue = this.venueRepository.save(venue);
+        return newVenue;
     }
 
     @DeleteMapping("/{id}")

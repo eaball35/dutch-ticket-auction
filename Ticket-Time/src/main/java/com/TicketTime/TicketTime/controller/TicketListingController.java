@@ -28,18 +28,18 @@ public class TicketListingController {
 
 //    Insert just inserts data
     @PutMapping
-    public String insert(@RequestBody TicketListing ticketListing) {
+    public TicketListing insert(@RequestBody TicketListing ticketListing) {
         ticketListing.setUpdatedAt(new Date());
         TicketListing newTicketListing = this.ticketListingRepository.insert(ticketListing);
-        return newTicketListing.getId();
+        return newTicketListing;
     }
 
 //    Save performs insert and update
     @PostMapping
-    public String update(@RequestBody TicketListing ticketListing) {
+    public TicketListing update(@RequestBody TicketListing ticketListing) {
         ticketListing.setUpdatedAt(new Date());
         TicketListing newTicketListing = this.ticketListingRepository.save(ticketListing);
-        return newTicketListing.getId();
+        return newTicketListing;
     }
 
     @DeleteMapping("/{id}")

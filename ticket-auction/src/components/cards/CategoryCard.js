@@ -4,12 +4,19 @@ import '../../css/CategoryCard.css'
 
 const CategoryCard = (props) => {    
 
+  const url = `events/category/${props.category.type}/${props.category.genre}`
+  const genre = props.category.genre
+  const image = <img src={props.category.imageUrls[0]} alt={genre} className="category-img"/>
+
   return (
-    <section className="categoryCard-container card">
-      <div className="card-body">
-        <h2>{props.category.genre}</h2>
-        <img src={props.category.imageUrls[0]} alt={props.category.genre}className="categoryCard-icon-img"/>
-        <Link to={`events/category/${props.category.type}/${props.category.genre}`} className="btn btn-primary">Browse Events</Link>
+    <section className="card category-card-container">
+      <div className="category-card">
+        <Link to={url} >
+          {image}
+          <div className="centered">
+            {genre}
+          </div>
+        </Link>
       </div>
     </section>
   )

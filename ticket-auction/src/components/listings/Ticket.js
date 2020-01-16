@@ -6,8 +6,6 @@ import { BrowserRouter as Router, Link, NavLink, Redirect } from 'react-router-d
 
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
-import Countdown from '../main/Countdown';
-
 var dateFormat = require('dateformat');
 TimeAgo.addLocale(en)
 const timeAgo = new TimeAgo('en-US')
@@ -31,16 +29,14 @@ class Ticket extends Component {
   }
 
   componentDidMount = () => {
-    if (!this.props.example) {
-      const ticketUrl = `${base_url}/tickets/${this.props.ticketId}` 
-      const priceUrl = `${base_url}/price/${this.props.ticketId}`
+      const ticketUrl = `${base_url}/tickets/${this.props.match.params.id}` 
+      const priceUrl = `${base_url}/price/${this.props.match.params.id}`
       const headers = { 
         headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
       }
 
       this.fetchTicket(ticketUrl, headers);
-      this.fetchCurrentPrice(priceUrl, headers); 
-    }
+      this.fetchCurrentPrice(priceUrl, headers);
   }
 
   fetchTicket(url, headers) {
@@ -79,11 +75,23 @@ class Ticket extends Component {
 
   chooseDetails = () => {
     if (this.state.detailsTab === 'auction') {
-      return (this.state.ticket.auctionDetails)
+      return (
+        <div className="tab-details">
+          {this.state.ticket.auctionDetails}
+        </div>
+        )
     } else if (this.state.detailsTab === 'venue') {
-      return (this.state.ticket.event.venue.venueDetails)
+      return (
+        <div className="tab-details">
+          {this.state.ticket.event.venue.venueDetails}
+        </div>
+        )
     } else if (this.state.detailsTab === 'event') {
-      return (this.state.ticket.event.eventDetails)
+      return (
+        <div className="tab-details">
+          {this.state.ticket.event.eventDetails}
+        </div>
+        )
     }
   }
   
@@ -101,6 +109,19 @@ class Ticket extends Component {
   } 
 
   render() {
+    const tabColor = (tab) => {
+      if (this.state.detailsTab === "auction" && tab === "auction") {
+        return "tab tab-active"
+      } else if (this.state.detailsTab === "event" && tab === "event") {
+        return "tab tab-active"
+      } else if (this.state.detailsTab === "venue" && tab === "venue") {
+        return "tab tab-active"
+      } else {
+        return "tab"
+      }
+    }
+
+    
     const showTicket = () => {
       if (this.state.ticket !== undefined && this.state.currentPrice !== undefined ) { 
         // Ticket Fields
@@ -108,6 +129,7 @@ class Ticket extends Component {
         const imageUrls = listingDetails.event.imageUrls
         const performer = listingDetails.event.performer[0].name
         const title = listingDetails.event.title
+        const user = listingDetails.user.username
         const start = dateFormat(listingDetails.event.start, "dddd, mmmm dS, yyyy, h:MM TT")
         const ticketQuantity = listingDetails.ticketQuantity
         const ticketGrouping = listingDetails.ticketGrouping
@@ -117,7 +139,7 @@ class Ticket extends Component {
         const createdAt = timeAgo.format(new Date(listingDetails.createdAt))
         const price = (listingDetails.startTotalPrice).toFixed(2);
         const priceEa = (listingDetails.startTotalPrice/ticketQuantity).toFixed(2);
-        const overview = listingDetails.overview
+        const pitch = listingDetails.pitch
         const currentPrice = (this.state.currentPrice).toFixed(2);
         const currentPriceEa = (this.state.currentPrice/ticketQuantity).toFixed(2);
         const lastUpdated = timeAgo.format(new Date(this.state.lastUpdated));
@@ -126,16 +148,17 @@ class Ticket extends Component {
         return (
           <section>
             <section className="ticket-details-container">
-                  <img src={imageUrls} alt={title} className='event-img ticket-info-sect'/>
+              <img src={imageUrls} alt={title} className='event-img ticket-info-sect'/>
                 
               <section className="ticket-info-sect details-sect">
+                <h6>TICKET LISTING {listingDetails.id.slice(-6).toUpperCase()}</h6>
+                <h4>{start}</h4>
                 <h1>{title}</h1>
                 <h2>{performer}</h2>
-                <h4>{start}</h4>
                 <h4>{ticketQuantity} {ticketGrouping}</h4>
                 <h2>@ {venue}  |  {city}, {state} </h2>
-        <h4>Listed {createdAt} for <strong>${price} total</strong> <span> - ${priceEa} ea</span></h4>
-                <p>{overview}</p>
+                <h6>Listed {createdAt} by {user} for <strong>${price} total</strong> <span> - ${priceEa} ea</span></h6>
+                <p>{pitch}</p>
               </section>
 
               <section className= "ticket-info-sect price-sect">
@@ -147,18 +170,15 @@ class Ticket extends Component {
               </section>
             </section>
 
-            <Countdown date={new Date(listingDetails.auctionStart)}/>
-
             <section className="details-tabs">
-              <button onClick={() => {this.tabClick('auction')}}> Auction </button>
-              <button onClick={() => {this.tabClick('event')}}> Event </button>
-              <button onClick={() => {this.tabClick('venue')}}> Venue </button>
+              <h2>Details</h2> 
+              <span onClick={() => {this.tabClick('auction')}} className={tabColor("auction")}> Auction </span>
+              <span onClick={() => {this.tabClick('event')}} className={tabColor("event")}> Event </span>
+              <span onClick={() => {this.tabClick('venue')}}className={tabColor("venue")}> Venue </span>
+              <section className="details">
+                {this.chooseDetails()}
+              </section>
             </section>
-              
-            <section className="details">
-              {this.chooseDetails()}
-            </section>
-
           </section>
         );
       } else {
