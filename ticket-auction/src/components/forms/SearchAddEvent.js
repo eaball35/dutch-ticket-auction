@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import '../../css/NewTicketForm.css';
 
-class SearchAddVenue extends Component {
+class SearchAddEvent extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      venueZipCode: "",
-      venueTitle: "",
+      eventTitle: "",
+      eventPerformer: "",
     };
   }
   
@@ -19,39 +19,39 @@ class SearchAddVenue extends Component {
     updatedState[field] = value;  
     this.setState(updatedState);
   }
-  
+
   onSubmit = (event) => {
     event.preventDefault();
     this.props.onSearch({
-      venueZipCode: this.state.venueZipCode,
-      venueTitle: this.state.venueTitle,
+      eventTitle: this.state.eventTitle,
+      eventPerformer: this.state.eventPerformer,
     })
     this.setState({
-      venueZipCode: "",
-      venueTitle: "",
+      eventTitle: "",
+      eventPerformer: "",
     })
   }
   
   render() {
     return (
       <section className="venue-search">
-        <h2>Step 1: Search to Add Venue</h2>
-        <p>Enter title <strong>and/or</strong> zip code, click search, and select venue.</p>
+        <h2>Step 2: Search to Add Event</h2>
+        <p>Enter title <strong>and/or</strong> performer, click search, and select event.</p>
         <form onSubmit={this.onSubmit}>
           <div>
-            <label htmlFor="venueTitle"> Venue Title: </label>
+            <label htmlFor="eventTitle"> Event Title: </label>
             <input
-              name="venueTitle"
+              name="eventTitle"
               onChange={this.onInputChange}
-              value={this.state.venueTitle}
+              value={this.state.eventTitle}
             />
           </div>
           <div>
-            <label htmlFor="venueZipCode"> Venue Zip Code: </label>
+            <label htmlFor="eventPerformer"> Event Performer: </label>
             <input
-              name="venueZipCode"
+              name="eventPerformer"
               onChange={this.onInputChange}
-              value={this.state.venueZipCode}
+              value={this.state.eventPerformer}
             />
           </div>
           <div className="add-btns">
@@ -63,4 +63,4 @@ class SearchAddVenue extends Component {
   }
 }
 
-export default SearchAddVenue;
+export default SearchAddEvent;

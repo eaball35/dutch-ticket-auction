@@ -1,14 +1,8 @@
 package com.TicketTime.TicketTime.controller;
 
-import com.TicketTime.TicketTime.model.Category;
-import com.TicketTime.TicketTime.model.City;
-import com.TicketTime.TicketTime.model.Venue;
-import com.TicketTime.TicketTime.repository.CategoryRepository;
-import com.TicketTime.TicketTime.repository.CityRepository;
-import com.TicketTime.TicketTime.repository.VenueRepository;
+import com.TicketTime.TicketTime.model.*;
+import com.TicketTime.TicketTime.repository.*;
 import com.TicketTime.TicketTime.service.Service;
-import com.TicketTime.TicketTime.model.TicketListing;
-import com.TicketTime.TicketTime.repository.TicketListingRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -22,13 +16,15 @@ public class ServiceController {
     private CategoryRepository categoryRepository;
     private CityRepository cityRepository;
     private VenueRepository venueRepository;
+    private EventRepository eventRepository;
     private Service service = new Service();
 
-    public ServiceController(TicketListingRepository ticketListingRepository, CategoryRepository categoryRepository, CityRepository cityRepository, VenueRepository venueRepository) {
+    public ServiceController(TicketListingRepository ticketListingRepository, CategoryRepository categoryRepository, CityRepository cityRepository, VenueRepository venueRepository, EventRepository eventRepository) {
         this.ticketListingRepository = ticketListingRepository;
         this.categoryRepository = categoryRepository;
         this.cityRepository = cityRepository;
         this.venueRepository = venueRepository;
+        this.eventRepository = eventRepository;
     }
 
     @GetMapping("/price/{ticketListingId}")
@@ -91,7 +87,7 @@ public class ServiceController {
     }
 
     @GetMapping("/findVenue")
-    public List<Venue> venueExist(@RequestParam (value="title") String title, @RequestParam (value="zipCode") String zipCode) {
+    public List<Venue> findVenue(@RequestParam (value="title") String title, @RequestParam (value="zipCode") String zipCode) {
         if(title.equals("") && zipCode.equals("")) {
             return null;
         }
@@ -108,4 +104,21 @@ public class ServiceController {
         return outputs;
     }
 
+    @GetMapping("/findEvent")
+    public List<Event> findEvent(@RequestParam (value="title") String title, @RequestParam (value="performer") String performer) {
+        if(title.equals("") && performer.equals("")) {
+            return null;
+        }
+        List<Event> events = this.eventRepository.findAll();
+
+        List<Event> outputs = new ArrayList<Event>();
+        for(int i = 0; i < events.size(); i++) {
+            String eventTitle = events.get(i).getTitle().toUpperCase();
+            String eventPerformer = events.get(i).getPerformer().get(0).getName().toUpperCase();
+            if (eventTitle.contains(title.toUpperCase()) && eventPerformer.contains((performer.toUpperCase())) ) {
+                outputs.add(events.get(i));
+            }
+        }
+        return outputs;
+    }
 }

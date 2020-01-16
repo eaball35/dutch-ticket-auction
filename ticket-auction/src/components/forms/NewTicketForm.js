@@ -1,33 +1,25 @@
 import React, { Component } from 'react';
-import Ticket from '../listings/Ticket'
+import { BrowserRouter as Router, Link, NavLink, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import DateTimePicker from 'react-datetime-picker';
 import '../../css/NewTicketForm.css';
 import NewTicketFormEvent from './NewTicketFormEvent';
 import NewTicketFormVenue from './NewTicketFormVenue';
 import NewTicketFormAuction from './NewTicketFormAuction';
+import SPRING_SECURITY from '../../config_spring_keys.js'
+const base_url = 'http://localhost:8080'
+const username = `${SPRING_SECURITY.username}`
+const password = `${SPRING_SECURITY.password}`
 
 class NewTicket extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      eventTitle: "",
-      eventDescription: "",
-      eventStart: "",
-      eventEnd: "",
-      performer: "",
-      eventAllDay: "",
-      performerImgUrls: [],
-      eventImgUrls: [],
-      eventCategoryTypes: [],
-      eventCategoryGenres: [],
+      event: undefined,
       showEventForm: false,
       
-      
-      venue: "",
+      venue: undefined,
       showVenueForm: true,
-      
       
       auctionStart: "",
       auctionEnd: "",
@@ -35,7 +27,8 @@ class NewTicket extends Component {
       endTotalPrice: "",
       auctionDetails: "",
       overview: "",
-      showAuctionForm: false
+      showAuctionForm: false,
+      redirect: undefined,
     };
   }
   
@@ -49,7 +42,6 @@ class NewTicket extends Component {
     }
   }
   
-  
   onInputChange = (event) => {
     const updatedState = {};
     const field = event.target.name;
@@ -61,40 +53,50 @@ class NewTicket extends Component {
 
   onSubmitTicket = (event) => {
     event.preventDefault();
-    const params = {
-      
+    const url = `${base_url}/tickets`
+    const headers = { headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) }}
+    const data = {
+      user: this.props.currentUser,
+      event: this.state.event,
+      venue: this.state.venue,
+
+      auctionStart: this.state.auctionStart,
+      auctionEnd: this.state.auctionEnd,
+      startTotalPrice: this.state.startTotalPrice,
+      endTotalPrice: this.state.endTotalPrice,
+      auctionDetails: this.state.auctionDetails,
+      overview: this.state.overview,
     }
 
-    axios.post(`http://localhost:8080/tickets`, params)
+    axios.post(url, data, headers)
       .then((response) => {
-        console.log(response);
+        this.setState({redirect: `/tickets/${response.data.id}`})
       })
       .catch((error) => {
         console.log(error.response);
       });
   }
 
-
-  lookupVenue = (title) => {
-    
+  submitVenue = (inputVenue) => {
+    this.setState({venue: inputVenue})
   }
 
-  submitVenue = (inputVenue) => {
-    
+  submitEvent = (inputEvent) => {
+    this.setState({venue: inputEvent})
   }
 
   showTicketForms = () => {
     if (this.state.showVenueForm) {
       return <NewTicketFormVenue updateShowForm={this.updateShowForm} submitVenue={this.submitVenue}/>
     } else if (this.state.showEventForm) {
-      return <NewTicketFormEvent updateShowForm={this.updateShowForm}/>
+      return <NewTicketFormEvent updateShowForm={this.updateShowForm} submitEvent={this.submitEvent}/>
     } else if (this.state.showAuctionForm) {
       return (
         <div>
-          <NewTicketFormAuction updateShowForm={this.updateShowForm}/>
+          <NewTicketFormAuction updateShowForm={this.updateShowForm} onInputChange={this.onInputChange}/>
           <form onSubmit={this.onSubmitTicket}>
             <div>
-              <input type="submit" value="Submit New Ticket"/>
+              <input type="submit" value="Submit New Ticket" className="btn btn-success"/>
             </div>
           </form>  
         </div>
@@ -118,6 +120,10 @@ class NewTicket extends Component {
 
   
   render() {
+    const { redirect  } = this.state;
+    if (redirect !== undefined) {
+      return <Redirect to={redirect}/>;
+    }
     return (
       <section className="new-ticket-container">
         <h1>3 Easy Steps to Start Selling on TicketClock</h1>
