@@ -31,7 +31,7 @@ public class EventController {
     @GetMapping("/{id}")
     public Optional<Event> getById(@PathVariable("id") String id) {
         Optional<Event> event = this.eventRepository.findById(id);
-        if (event.isEmpty()) {
+        if (event.equals(null)) {
             throw new NotFoundException("Event Not Found");
         }
         return event;

@@ -45,7 +45,7 @@ public class AddressController {
     @GetMapping("/{id}")
     public Optional<Address> getById(@PathVariable("id") String id) {
         Optional<Address> ticket = this.addressRepository.findById(id);
-        if (ticket.isEmpty()) {
+        if (ticket.equals(null)) {
             throw new NotFoundException("Address Not Found");
         }
         return ticket;

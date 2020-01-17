@@ -45,7 +45,7 @@ public class OrderController {
     @GetMapping("/{id}")
     public Optional<Order> getById(@PathVariable("id") String id) {
         Optional<Order> order = this.orderRepository.findById(id);
-        if (order.isEmpty()) {
+        if (order.equals(null)) {
             throw new NotFoundException("Order Not Found");
         }
         return order;

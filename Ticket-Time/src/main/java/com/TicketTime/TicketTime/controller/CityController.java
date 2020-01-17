@@ -31,7 +31,7 @@ public class CityController {
     @GetMapping("/{id}")
     public Optional<City> getById(@PathVariable("id") String id) {
         Optional<City> city = this.cityRepository.findById(id);
-        if (city.isEmpty()) {
+        if (city.equals(null)) {
             throw new NotFoundException("City Not Found");
         }
         return city;
@@ -52,7 +52,7 @@ public class CityController {
     @GetMapping("/name/{name}")
     public Optional<City> getByName(@PathVariable("name") String name) {
         Optional<City> city = this.cityRepository.findByName(name);
-        if (city.isEmpty()) {
+        if (city.equals(null)) {
             throw new NotFoundException("City Not Found");
         }
         return city;
@@ -68,7 +68,7 @@ public class CityController {
     @GetMapping("/state/{state}")
     public List<City> getByState(@PathVariable("state") String state) {
         List<City> cities = this.cityRepository.findByState(state);
-        if (cities.isEmpty()) {
+        if (cities.equals(null)) {
             throw new NotFoundException("State Not Found");
         }
         return cities;

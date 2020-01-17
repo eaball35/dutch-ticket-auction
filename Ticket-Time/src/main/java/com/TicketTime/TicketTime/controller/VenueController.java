@@ -45,7 +45,7 @@ public class VenueController {
     @GetMapping("/{id}")
     public Optional<Venue> getById(@PathVariable("id") String id) {
         Optional<Venue> venue = this.venueRepository.findById(id);
-        if (venue.isEmpty()) {
+        if (venue.equals(null)) {
             throw new NotFoundException("Venue Not Found");
         }
         return venue;

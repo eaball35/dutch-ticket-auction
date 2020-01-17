@@ -6,7 +6,7 @@ import SPRING_SECURITY from '../../config_spring_keys.js'
 var zipcodes = require('zipcodes');
 
 
-const base_url = 'http://localhost:8080'
+const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 
@@ -82,7 +82,7 @@ class PurchaseForm extends Component {
   }
   
   createOrder = (data) => {
-    const url = "http://localhost:8080/orders"
+    const url = `${base_url}/orders`
     const headers = { headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) }}
 
     axios.post(url, data, headers)
@@ -95,7 +95,7 @@ class PurchaseForm extends Component {
   }
 
   fetchCity = (city) => {
-    const url = `http://localhost:8080/cities/name/${city}`
+    const url = `${base_url}/cities/name/${city}`
     const headers = { headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) }}
 
     axios.get(url, headers)
