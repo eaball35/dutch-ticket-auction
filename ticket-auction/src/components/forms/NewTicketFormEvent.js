@@ -44,8 +44,10 @@ class NewTicketFormEvent extends Component {
     event.preventDefault();
     this.props.submitEvent(this.state.selectedEvent);
     
-    this.props.updateShowForm("event");
-    this.props.updateShowForm("auction");
+    if (this.props.updateShowForm) {
+      this.props.updateShowForm("event");
+      this.props.updateShowForm("auction");
+    }
   }
 
   onSearch = (query) => {

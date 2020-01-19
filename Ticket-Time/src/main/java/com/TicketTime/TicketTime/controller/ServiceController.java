@@ -121,4 +121,23 @@ public class ServiceController {
         }
         return outputs;
     }
+
+
+    @GetMapping("/findCity")
+    public List<City> findCity(@RequestParam (value="name") String name, @RequestParam (value="state") String state) {
+        if(name.equals("") && state.equals("")) {
+            return null;
+        }
+        List<City> cities = this.cityRepository.findAll();
+
+        List<City> outputs = new ArrayList<City>();
+        for(int i = 0; i < cities.size(); i++) {
+            String cityName = cities.get(i).getName().toUpperCase();
+            String cityState = cities.get(i).getState().toUpperCase();
+            if (cityName.contains(name.toUpperCase()) && cityState.contains((state.toUpperCase())) ) {
+                outputs.add(cities.get(i));
+            }
+        }
+        return outputs;
+    }
 }

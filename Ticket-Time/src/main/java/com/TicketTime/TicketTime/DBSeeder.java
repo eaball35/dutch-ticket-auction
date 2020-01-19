@@ -1,8 +1,11 @@
 package com.TicketTime.TicketTime;
 
+import com.TicketTime.TicketTime.controller.EventfulAPIController;
 import com.TicketTime.TicketTime.model.*;
 import com.TicketTime.TicketTime.repository.*;
+import net.minidev.json.JSONObject;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -19,8 +22,10 @@ public class DBSeeder implements CommandLineRunner {
     private CityRepository cityRepository;
     private PerformerRepository performerRepository;
 
+    private EventfulAPIController eventfulAPIController;
 
-    public DBSeeder(TicketListingRepository ticketListingRepository, UserRepository userRepository, VenueRepository venueRepository, EventRepository eventRepository, CategoryRepository categoryRepository, OrderRepository orderRepository, AddressRepository addressRepository, CityRepository cityRepository, PerformerRepository performerRepository) {
+
+    public DBSeeder(TicketListingRepository ticketListingRepository, UserRepository userRepository, VenueRepository venueRepository, EventRepository eventRepository, CategoryRepository categoryRepository, OrderRepository orderRepository, AddressRepository addressRepository, CityRepository cityRepository, PerformerRepository performerRepository, EventfulAPIController eventfulAPIController) {
         this.ticketListingRepository = ticketListingRepository;
         this.userRepository = userRepository;
         this.venueRepository = venueRepository;
@@ -30,10 +35,15 @@ public class DBSeeder implements CommandLineRunner {
         this.addressRepository = addressRepository;
         this.cityRepository = cityRepository;
         this.performerRepository = performerRepository;
+
+        this.eventfulAPIController = eventfulAPIController;
     }
 
     @Override
     public void run(String... args) throws Exception {
+//        EventfulAPI seattleEvents = eventfulAPIController.searchEventInfo("music", "Seattle");
+
+
         City bainbridgeIsland = new City("Bainbridge Island", "WA");
         City chicago = new City("Chicago", "IL");
         City sanDiego = new City("San Diego", "CA");

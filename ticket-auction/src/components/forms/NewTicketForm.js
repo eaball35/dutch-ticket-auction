@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, NavLink, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import '../../css/NewTicketForm.css';
+import NewTicketFormCity from './NewTicketFormCity';
 import NewTicketFormEvent from './NewTicketFormEvent';
 import NewTicketFormVenue from './NewTicketFormVenue';
 import NewTicketFormAuction from './NewTicketFormAuction';
@@ -15,11 +16,14 @@ class NewTicket extends Component {
     super(props);
 
     this.state = {
-      event: undefined,
-      showEventForm: false,
+      city: undefined,
+      showCityForm: true,
       
       venue: undefined,
-      showVenueForm: true,
+      showVenueForm: false,
+      
+      event: undefined,
+      showEventForm: false,
       
       auctionStart: "",
       auctionEnd: "",
@@ -33,7 +37,9 @@ class NewTicket extends Component {
   }
   
   updateShowForm = (form) => {
-    if(form === "venue") {
+    if (form === "city") {
+      this.setState({showCityForm: !this.state.showCityForm})
+    } else if(form === "venue") {
       this.setState({showVenueForm: !this.state.showVenueForm})
     } else if (form === "event") {
       this.setState({showEventForm: !this.state.showEventForm})
@@ -76,20 +82,25 @@ class NewTicket extends Component {
       });
   }
 
+  submitCity = (inputCity) => {
+    this.setState({city: inputCity})
+  }
+
   submitVenue = (inputVenue) => {
     this.setState({venue: inputVenue})
   }
 
   submitEvent = (inputEvent) => {
-    console.log("I got here" + inputEvent)
     this.setState({event: inputEvent})
   }
 
   showTicketForms = () => {
-    if (this.state.showVenueForm) {
-      return <NewTicketFormVenue updateShowForm={this.updateShowForm} submitVenue={this.submitVenue}/>
+    if(this.state.showCityForm) {
+      return <NewTicketFormCity updateShowForm={this.updateShowForm} submitCity={this.submitCity}/>
+    } else if (this.state.showVenueForm) {
+      return <NewTicketFormVenue updateShowForm={this.updateShowForm} submitVenue={this.submitVenue} selectedCity={this.state.city}/>
     } else if (this.state.showEventForm) {
-      return <NewTicketFormEvent updateShowForm={this.updateShowForm} submitEvent={this.submitEvent}/>
+      return <NewTicketFormEvent updateShowForm={this.updateShowForm} submitEvent={this.submitEvent} selectedVenue={this.state.venue}/>
     } else if (this.state.showAuctionForm) {
       return (
         <div>
@@ -107,7 +118,9 @@ class NewTicket extends Component {
   }
 
   placeClassName = (tab) => {
-    if (tab === "venue" && this.state.showVenueForm) {
+    if (tab === "city" && this.state.showCityForm) {
+      return "new-ticket-place active"
+    } else if (tab === "venue" && this.state.showVenueForm) {
       return "new-ticket-place active"
     } else if (tab === "event" && this.state.showEventForm) {
       return "new-ticket-place active"
@@ -126,11 +139,12 @@ class NewTicket extends Component {
     }
     return (
       <section className="new-ticket-container">
-        <h1>3 Easy Steps to Start Selling on TicketClock</h1>
+        <h1>4 Easy Steps to List on TicketClock</h1>
         <div className="new-ticket-place-container">
-          <span className={this.placeClassName("venue")}>1</span>
-          <span className={this.placeClassName("event")}>2</span>
-          <span className={this.placeClassName("auction")}>3</span>
+        <span className={this.placeClassName("city")}>1</span>
+          <span className={this.placeClassName("venue")}>2</span>
+          <span className={this.placeClassName("event")}>3</span>
+          <span className={this.placeClassName("auction")}>4</span>
         </div>
         {this.showTicketForms()}
       </section>

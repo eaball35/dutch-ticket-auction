@@ -1,8 +1,7 @@
 package com.TicketTime.TicketTime.controller;
 
-import com.TicketTime.TicketTime.model.*;
+import com.TicketTime.TicketTime.model.EventfulAPI.EventfulWrapper;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,16 +25,16 @@ public class EventfulAPIController {
         return response;
     }
 
-    @RequestMapping("/search/{keyword}/{location}")
-    public Object searchEventInfo(@PathVariable("keyword") String keyword, @PathVariable("location") String location) {
+    @RequestMapping("/search")
+    public EventfulWrapper searchEventInfo(@RequestParam( value = "category") String category, @RequestParam( value = "location") String location) {
         String base = "http://api.eventful.com/json/events/search?";
-        String kw = "q=title:" + keyword + "+||+description:" + keyword;
-        String loc = "&l=" + location;
+        String cat = "category=" + category;
+        String loc = "&location=" + location;
+        String sort = "&sort_order=popularity";
 
-        String url = base + kw + loc + "&app_key=" + apiKey;
-        Object response = restTemplate.getForObject(url, Object.class);
+        String url = base + cat + loc + sort + "&app_key=" + apiKey;
+        EventfulWrapper response = restTemplate.getForObject(url, EventfulWrapper.class);
         return response;
     }
-
 }
 

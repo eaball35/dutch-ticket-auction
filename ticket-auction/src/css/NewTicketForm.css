@@ -98,3 +98,7 @@
   flex-direction: column;
   justify-content: flex-start;
 }
+
+.new-ticket-auction-container {
+  margin: auto
+}

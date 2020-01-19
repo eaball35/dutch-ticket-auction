@@ -38,26 +38,25 @@ public class CityController {
     }
 
     @PutMapping
-    public String insert(@RequestBody City city) {
-        City newCategory = this.cityRepository.insert(city);
-        return newCategory.getId();
+    public City insert(@RequestBody City city) {
+        City newCity = this.cityRepository.insert(city);
+        return newCity;
     }
 
     @PostMapping
-    public String update(@RequestBody City city) {
-        City newCategory = this.cityRepository.save(city);
-        return newCategory.getId();
+    public City update(@RequestBody City city) {
+        City newCity = this.cityRepository.save(city);
+        return newCity;
     }
 
-    @GetMapping("/name/{name}")
-    public Optional<City> getByName(@PathVariable("name") String name) {
-        Optional<City> city = this.cityRepository.findByName(name);
+    @GetMapping
+    public Optional<City> getByName(@RequestParam(value = "name") String name) {
+        Optional<City> city = this.cityRepository.findByName(name.toUpperCase());
         if (city.equals(null)) {
             throw new NotFoundException("City Not Found");
         }
         return city;
     }
-
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id) {

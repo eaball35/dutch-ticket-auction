@@ -1,28 +1,22 @@
 import React, { Component } from 'react';
 import '../../css/NewTicketForm.css';
-import SearchAddVenue from './SearchAddVenue';
+import SearchAddCity from './SearchAddCity';
 import axios from 'axios';
 import SPRING_SECURITY from '../../config_spring_keys.js'
 const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 
-class NewTicketFormVenue extends Component {
+class NewTicketFormCity extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      venueTitle: "",
-      venueDescription: "",
-      venueDetails: "",
-      venueAddress1: "",
-      venueAddress2: "",
-      venueCity: "",
-      venueState: "",
-      venueZipCode: "",
+      cityName: "",
+      cityState: "",
       collection: [],
-      addNewVenue: false,
-      selectedVenue: undefined,
+      addNewCity: false,
+      selectedCity: undefined,
     };
   }
   
@@ -37,14 +31,14 @@ class NewTicketFormVenue extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    this.props.submitVenue(this.state.selectedVenue);
+    this.props.submitCity(this.state.selectedCity);
     
+    this.props.updateShowForm("city");
     this.props.updateShowForm("venue");
-    this.props.updateShowForm("event");
   }
 
   onSearch = (query) => {
-    const url = `${base_url}/findVenue?title=${query.venueTitle}&zipCode=${query.venueZipCode}`
+    const url = `${base_url}/findCity?name=${query.cityName}&state=${query.cityState}`
     const headers = { headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) }}
     
     axios.get(url, headers)
@@ -56,36 +50,29 @@ class NewTicketFormVenue extends Component {
       });
   }
 
-  addSelectedVenue = (venue) => {
+  addSelectedCity = (city) => {
     this.setState({
-      selectedVenue: venue,
+      selectedCity: city,
     })
   }
 
-  addNewVenue = () => {
-    this.setState({addNewVenue: !this.state.addNewVenue})
+  addNewCity = () => {
+    this.setState({addNewCity: !this.state.addNewCity})
   }
 
-  createNewVenue = (event) => {
+  createNewCity = (event) => {
     event.preventDefault();
-    const url = `${base_url}/venues`
+    const url = `${base_url}/cities`
     const headers = { headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) }}
     
     const data = {
-      "title": this.state.venueTitle,
-      "description": this.state.venueDescription,
-      "details": this.state.venueDetails,
-      "address": {
-        "address1": this.state.venueAddress1,
-        "address2": this.state.venueAddress2,
-        "city": this.props.selectedCity,
-        "zipCode": this.state.venueZipCode,
-      }
+      "name": this.state.cityName,
+      "state": this.state.cityState,
     }
-    
+
     axios.post(url, data, headers)
       .then((response) => {
-        this.setState({selectedVenue: response.data})
+        this.setState({selectedCity: response.data})
       })
       .catch((error) => {
         console.log(error.response);
@@ -96,20 +83,20 @@ class NewTicketFormVenue extends Component {
   bottomDisplay = () => {
     let results;
     if (this.state.collection.length > 0) {
-      results = this.state.collection.map((venue, i) => {
+      results = this.state.collection.map((city, i) => {
         return (
           <div key={i} className="search-results">
-            <button onClick={() => this.addSelectedVenue(venue)} className="btn btn-secondary">+</button>
-            <div>
-              <p><strong>{venue.title}</strong> ({venue.address.city.name}, {venue.address.city.state})</p>
-              <p> </p>
+            <button onClick={() => this.addSelectedCity(city)} className="btn btn-secondary">+</button>
+            <div className='search-event-details'>
+              <p>{city.name}, {city.state}</p>
             </div>
           </div>
+          
         )
       })
       results = (
         <section className="search-results-container">
-          <h4> Venue Search Results <small>(click '+' to select)</small></h4>
+          <h4> City Search Results <small>(click '+' to select)</small></h4>
           {results}
         </section>
         )
@@ -118,7 +105,7 @@ class NewTicketFormVenue extends Component {
           <div>
             <p className="center-or">OR</p>
             <div className="add-btns">
-              <button className="btn btn-secondary" onClick={this.addNewVenue}>Add New Venue</button>
+              <button className="btn btn-secondary" onClick={this.addNewCity}>Add New City</button>
             </div>
           </div>
         )
@@ -127,15 +114,14 @@ class NewTicketFormVenue extends Component {
   }
 
 
-  showSelectedVenue = () => {
-    if (this.state.selectedVenue) {
+  showSelectedCity = () => {
+    if (this.state.selectedCity) {
       return (
         <section>
-          <h2>Selected Event Venue:</h2>
+          <h2>Selected City:</h2>
           <p>Click 'next' to continue with selected.</p>
           <section className="selected-venue-details">
-            <h4>{this.state.selectedVenue.title} - {this.state.selectedVenue.address.city.name}, {this.state.selectedVenue.address.city.state}</h4>
-            <p>{this.state.selectedVenue.description}</p>
+            <h4>{this.state.selectedCity.name}, {this.state.selectedCity.state} </h4>
           </section>
 
           <form onSubmit={this.onSubmit}>
@@ -149,8 +135,8 @@ class NewTicketFormVenue extends Component {
   }
   
   render() {
-    const venueStates = ["venueTitle", "venueDescription", "venueDetails", "venueAddress1", "venueAddress2", "venueCity", "venueState", "venueZipCode"]
-    const venueLabels = ["Title", "Description", "Details", "Address 1", "Address 2", "City", "State", "Zip Code"]
+    const cityStates = ["cityName", "cityState"]
+    const cityLabels = ["City", "State"]
     const stateInputs = [ " ", "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "MD", "MA", "MI", "MN", "MS", "MO", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", ]
 
     const inputOptions = (list) => list.map((item, i) => {
@@ -159,7 +145,7 @@ class NewTicketFormVenue extends Component {
     
     const inputs = (states, labels, index = -1) => states.map((state) => {
         index++;
-        if (state === "venueState") {
+        if (state === "cityState") {
           return( 
             <div>
               <label htmlFor={state}> {labels[index]}: </label>
@@ -168,37 +154,37 @@ class NewTicketFormVenue extends Component {
               </select>
             </div>)
         } else {
-          return (
-            <div>
-              <label htmlFor={state}> {labels[index]}: </label>
-              <input
-                name={state}
-                onChange={this.onInputChange}
-                value={this.state[state]}
-              />
-            </div>
-          )}
+            return (
+              <div>
+                <label htmlFor={state}> {labels[index]}: </label>
+                <input
+                  name={state}
+                  onChange={this.onInputChange}
+                  value={this.state[state]}
+                />
+              </div>
+            )
+        }
     })
 
 
     const displaySection = () => {
-      if(this.state.addNewVenue) {
+      if (this.state.addNewCity) {
         return (
           <section className="venue-form-details">
-            <h2>Event Venue Details</h2>
-            <form onSubmit={this.createNewVenue}>
-              {inputs(venueStates, venueLabels)}
+            <h2>City Details</h2>
+            <form onSubmit={this.createNewCity}>
+              {inputs(cityStates, cityLabels)}
               <div>
-                <input type="submit" value="Add New Venue" className="btn btn-primary"/>
+                <input type="submit" value="Add New City" className="btn btn-primary"/>
               </div>
             </form>
-            
-        </section>
+          </section>
         )
       } else {
         return (
           <section>
-            <SearchAddVenue onSearch={this.onSearch}/>
+            <SearchAddCity onSearch={this.onSearch}/>
             {this.bottomDisplay()}
           </section>
         )
@@ -208,10 +194,10 @@ class NewTicketFormVenue extends Component {
     return (
       <section className="new-ticket-venue-container">
         {displaySection()}
-        {this.showSelectedVenue()}      
+        {this.showSelectedCity()}
       </section>
     )
   }
 }
 
-export default NewTicketFormVenue;
+export default NewTicketFormCity;

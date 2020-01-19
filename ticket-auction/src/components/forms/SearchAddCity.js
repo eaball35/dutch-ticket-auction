@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import '../../css/NewTicketForm.css';
 
-class SearchAddEvent extends Component {
+class SearchAddCity extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      eventTitle: "",
-      eventPerformer: "",
+      cityName: "",
+      cityState: "",
     };
   }
   
@@ -23,35 +23,35 @@ class SearchAddEvent extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     this.props.onSearch({
-      eventTitle: this.state.eventTitle,
-      eventPerformer: this.state.eventPerformer,
+      cityName: this.state.cityName,
+      cityState: this.state.cityState,
     })
     this.setState({
-      eventTitle: "",
-      eventPerformer: "",
+      cityName: "",
+      cityState: "",
     })
   }
   
   render() {
     return (
       <section className="venue-search">
-        <h2>Step 3: Search to Add Event</h2>
-        <p>Enter title <strong>and/or</strong> performer, click search, and select event.</p>
+        <h2>Step 1: Search to Add City</h2>
+        <p>Enter city <strong>and/or</strong> state, click search, and select city.</p>
         <form onSubmit={this.onSubmit}>
           <div>
-            <label htmlFor="eventTitle"> Event Title: </label>
+            <label htmlFor="cityName"> City: </label>
             <input
-              name="eventTitle"
+              name="cityName"
               onChange={this.onInputChange}
-              value={this.state.eventTitle}
+              value={this.state.cityName}
             />
           </div>
           <div>
-            <label htmlFor="eventPerformer"> Event Performer: </label>
+            <label htmlFor="cityState"> State: </label>
             <input
-              name="eventPerformer"
+              name="cityState"
               onChange={this.onInputChange}
-              value={this.state.eventPerformer}
+              value={this.state.cityState}
             />
           </div>
           <div className="add-btns">
@@ -63,4 +63,4 @@ class SearchAddEvent extends Component {
   }
 }
 
-export default SearchAddEvent;
+export default SearchAddCity;
