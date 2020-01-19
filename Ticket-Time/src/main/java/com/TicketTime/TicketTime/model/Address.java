@@ -1,12 +1,11 @@
 package com.TicketTime.TicketTime.model;
 
-import com.TicketTime.TicketTime.controller.GeoCodeAPIController;
-import com.TicketTime.TicketTime.model.City;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.Optional;
 
 @Document
 public class Address {
@@ -18,13 +17,12 @@ public class Address {
     @NotBlank
     private final String address1;
     private final String address2;
-    @NotBlank
     private final City city;
     private final String zipCode;
     private final String lat;
     private final String lng;
 
-    public Address(@NotBlank String address1, String address2, @NotBlank City city, String zipCode, String lat, String lng) {
+    public Address(@NotBlank String address1, String address2, City city, String zipCode, String lat, String lng) {
         this.address1 = address1;
         this.address2 = address2;
         this.city = city;

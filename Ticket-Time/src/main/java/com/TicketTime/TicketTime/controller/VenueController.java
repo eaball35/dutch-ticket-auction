@@ -50,5 +50,14 @@ public class VenueController {
         }
         return venue;
     }
+
+    @GetMapping
+    public Optional<Venue> getByEventfulId(@RequestParam("eventfulId") String eventfulId) {
+        Optional<Venue> venue = this.venueRepository.findByEventfulId(eventfulId);
+        if (venue.equals(null)) {
+            throw new NotFoundException("Venue Not Found");
+        }
+        return venue;
+    }
 }
 

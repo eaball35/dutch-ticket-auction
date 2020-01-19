@@ -69,7 +69,8 @@ public class ServiceController {
             } else if (tickets.get(i).getEvent().getPerformer().get(0).getName().toUpperCase().contains(q.toUpperCase()) || tickets.get(i).getEvent().getPerformer().get(0).getDescription().toUpperCase().contains(q.toUpperCase())) {
                 returnListings.add(tickets.get(i));
                 continue;
-            } else if (tickets.get(i).getEvent().getVenue().getTitle().toUpperCase().contains(q.toUpperCase()) || tickets.get(i).getEvent().getVenue().getDescription().toUpperCase().contains(q.toUpperCase()) || tickets.get(i).getEvent().getVenue().getAddress().getCity().getName().toUpperCase().contains(q.toUpperCase())) {
+            } else if (tickets.get(i).getEvent().getVenue().getTitle().toUpperCase().contains(q.toUpperCase()) || tickets.get(i).getEvent().getVenue().getDescription().toUpperCase().contains(q.toUpperCase()) || tickets.get(i).getEvent().getVenue()
+                    .getAddress().getCity().getName().toUpperCase().contains(q.toUpperCase())) {
                 returnListings.add(tickets.get(i));
                 continue;
             } else {

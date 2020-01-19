@@ -13,6 +13,7 @@ import java.util.Optional;
 @Repository
 public interface EventRepository extends MongoRepository <Event, String> {
     Optional<Event> findById(String id);
+    Optional<Event> findByEventfulId(String eventfulId);
 
     @Query("{'Categories.type':?0 , 'Categories.genre':?1}")
     List<Event> findByCategoriesByTypeAndGenre(String type, String genre);

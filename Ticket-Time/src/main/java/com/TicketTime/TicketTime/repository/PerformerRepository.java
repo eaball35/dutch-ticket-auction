@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface PerformerRepository extends MongoRepository <Performer, String> {
     Optional<Performer> findById(String id);
+    Optional<Performer> findByEventfulId(String eventfulId);
 }

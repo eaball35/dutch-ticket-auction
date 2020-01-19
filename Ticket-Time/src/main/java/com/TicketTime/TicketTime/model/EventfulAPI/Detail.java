@@ -15,6 +15,8 @@ public class Detail {
     String description;
 //    event start
     String start_time;
+//    event end
+    String stop_time;
 
 //    venue title
     String venue_name;
@@ -34,6 +36,11 @@ public class Detail {
 
 //    0 or 1
     String all_day;
+
+//   event image url
+    Image image;
+
+    Performers performers;
 
     public Detail() {
     }
@@ -76,6 +83,14 @@ public class Detail {
 
     public void setStart_time(String start_time) {
         this.start_time = start_time;
+    }
+
+    public String getStop_time() {
+        return stop_time;
+    }
+
+    public void setStop_time(String stop_time) {
+        this.stop_time = stop_time;
     }
 
     public String getVenue_name() {
@@ -142,6 +157,22 @@ public class Detail {
         this.all_day = all_day;
     }
 
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public Performers getPerformers() {
+        return performers;
+    }
+
+    public void setPerformers(Performers performers) {
+        this.performers = performers;
+    }
+
     @Override
     public String toString() {
         return "Detail{" +
@@ -150,6 +181,7 @@ public class Detail {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", start_time='" + start_time + '\'' +
+                ", stop_time='" + stop_time + '\'' +
                 ", venue_name='" + venue_name + '\'' +
                 ", venue_address='" + venue_address + '\'' +
                 ", city_name='" + city_name + '\'' +
@@ -158,6 +190,8 @@ public class Detail {
                 ", latitude='" + latitude + '\'' +
                 ", longitude='" + longitude + '\'' +
                 ", all_day='" + all_day + '\'' +
+                ", image=" + image +
+                ", performers=" + performers +
                 '}';
     }
 }
