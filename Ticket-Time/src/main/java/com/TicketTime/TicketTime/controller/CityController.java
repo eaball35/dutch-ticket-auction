@@ -31,33 +31,32 @@ public class CityController {
     @GetMapping("/{id}")
     public Optional<City> getById(@PathVariable("id") String id) {
         Optional<City> city = this.cityRepository.findById(id);
-        if (city.isEmpty()) {
+        if (city.equals(null)) {
             throw new NotFoundException("City Not Found");
         }
         return city;
     }
 
     @PutMapping
-    public String insert(@RequestBody City city) {
-        City newCategory = this.cityRepository.insert(city);
-        return newCategory.getId();
+    public City insert(@RequestBody City city) {
+        City newCity = this.cityRepository.insert(city);
+        return newCity;
     }
 
     @PostMapping
-    public String update(@RequestBody City city) {
-        City newCategory = this.cityRepository.save(city);
-        return newCategory.getId();
+    public City update(@RequestBody City city) {
+        City newCity = this.cityRepository.save(city);
+        return newCity;
     }
 
-    @GetMapping("/name/{name}")
-    public Optional<City> getByName(@PathVariable("name") String name) {
-        Optional<City> city = this.cityRepository.findByName(name);
-        if (city.isEmpty()) {
+    @GetMapping
+    public Optional<City> getByName(@RequestParam(value = "name") String name) {
+        Optional<City> city = this.cityRepository.findByName(name.toUpperCase());
+        if (city.equals(null)) {
             throw new NotFoundException("City Not Found");
         }
         return city;
     }
-
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id) {
@@ -68,11 +67,12 @@ public class CityController {
     @GetMapping("/state/{state}")
     public List<City> getByState(@PathVariable("state") String state) {
         List<City> cities = this.cityRepository.findByState(state);
-        if (cities.isEmpty()) {
+        if (cities.equals(null)) {
             throw new NotFoundException("State Not Found");
         }
         return cities;
     }
+
 }
 
 

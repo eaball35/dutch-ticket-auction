@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface VenueRepository extends MongoRepository <Venue, String> {
     Optional<Venue> findById(String id);
+
+    Optional<Venue> findByEventfulId(String eventfulId);
 }

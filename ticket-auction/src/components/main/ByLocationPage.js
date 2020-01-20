@@ -9,7 +9,7 @@ import '../../css/ByLocationPage.css'
 
 import SPRING_SECURITY from '../../config_spring_keys.js'
 
-const base_url = 'http://localhost:8080'
+const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 
@@ -21,9 +21,10 @@ class ByLocation extends Component {
     this.state = {
       redirect: undefined,
       selectedState: "WA",
-      topCity: "Seattle",
+      topCity: {name: "Seattle", state: "WA"},
       selectedVenue: undefined,
       collection: undefined,
+      zoom: 10,
     };
   }
 
@@ -43,15 +44,17 @@ class ByLocation extends Component {
 
 
   fetchTopCity = (state) => {
-    const url = `${base_url}/topcity/${state}`
+    const url = `${base_url}/topcity?state=${state}`
     const headers = { 
       headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
     }
     
     axios.get( url, headers).then((response) => {
-        this.setState({topCity: response.data})
+      console.log("I got here " + response.data)  
+      this.setState({topCity: response.data})
       })
       .catch((error) => {
+        console.log("No I got here " + error)  
         this.setState({error: error})
       });
   }
@@ -59,7 +62,8 @@ class ByLocation extends Component {
   mapHandler = (event) => {
     this.setState({
       selectedState: event.target.dataset.name,
-      selectedVenue: undefined 
+      selectedVenue: undefined,
+      zoom: 10,
     })
     this.fetchTopCity(event.target.dataset.name)
   };
@@ -95,9 +99,9 @@ class ByLocation extends Component {
             <div className="google-map-container">
               <GMap
                 google={this.props.google}
-                zoom={5}
-                initialCenter = "Seattle"
-                center={this.state.topCity}
+                zoom={this.state.zoom}
+                initialCenter = {`${this.state.topCity.name}, ${this.state.topCity.state} `}
+                center={`${this.state.topCity.name}, ${this.state.topCity.state} `}
                 collectionURL="/venues/all"
                 className="google-map"
                 setSelectedVenue={this.setSelectedVenue}

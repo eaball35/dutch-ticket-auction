@@ -28,7 +28,7 @@ public class CategoryController {
     @GetMapping("/{id}")
     public Optional<Category> getById(@PathVariable("id") String id) {
         Optional<Category> category = this.categoryRepository.findById(id);
-        if (category.isEmpty()) {
+        if (category.equals(null)) {
             throw new NotFoundException("Category Not Found");
         }
         return category;
@@ -55,7 +55,7 @@ public class CategoryController {
     @GetMapping("type/{type}")
     public List<Category> getByType(@PathVariable("type") String type) {
         List<Category> categories = this.categoryRepository.findByType(type);
-        if (categories.isEmpty()) {
+        if (categories.equals(null)) {
             throw new NotFoundException("Categories Not Found");
         }
         return categories;

@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 
 @Document
 public class Event {
@@ -16,24 +17,19 @@ public class Event {
     private Date updatedAt = new Date();
     private ArrayList<Category> categories;
 
-    @NotBlank
+
     private final Venue venue;
     private final String eventfulId;
-    @NotBlank
     private final String title;
     private final ArrayList<Performer> performer;
-    @NotBlank
     private final String description;
-    @NotBlank
-    private final Date start;
-    @NotBlank
-    private final Date end;
+    private final String start;
+    private final String end;
     private final ArrayList<String> imageUrls;
-    @NotBlank
-    private final Boolean allDay;
+    private final String allDay;
     private final String eventDetails;
 
-    public Event(ArrayList<Category> categories, @NotBlank Venue venue, String eventfulId, @NotBlank String title, ArrayList<Performer> performer, @NotBlank String description, @NotBlank Date start, @NotBlank Date end, ArrayList<String> imageUrls, @NotBlank Boolean allDay, String eventDetails) {
+    public Event(ArrayList<Category> categories, Venue venue, String eventfulId, String title, ArrayList<Performer> performer, String description, String start, String end, ArrayList<String> imageUrls, String allDay, String eventDetails) {
         this.categories = categories;
         this.venue = venue;
         this.eventfulId = eventfulId;
@@ -51,16 +47,32 @@ public class Event {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Date getUpdatedAt() {
         return updatedAt;
     }
 
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public ArrayList<Category> getCategories() {
         return categories;
+    }
+
+    public void setCategories(ArrayList<Category> categories) {
+        this.categories = categories;
     }
 
     public Venue getVenue() {
@@ -83,11 +95,11 @@ public class Event {
         return description;
     }
 
-    public Date getStart() {
+    public String getStart() {
         return start;
     }
 
-    public Date getEnd() {
+    public String getEnd() {
         return end;
     }
 
@@ -95,7 +107,7 @@ public class Event {
         return imageUrls;
     }
 
-    public Boolean getAllDay() {
+    public String getAllDay() {
         return allDay;
     }
 
@@ -103,20 +115,24 @@ public class Event {
         return eventDetails;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public void setCategories(ArrayList<Category> categories) {
-        this.categories = categories;
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id='" + id + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", categories=" + categories +
+                ", venue=" + venue +
+                ", eventfulId='" + eventfulId + '\'' +
+                ", title='" + title + '\'' +
+                ", performer=" + performer +
+                ", description='" + description + '\'' +
+                ", start='" + start + '\'' +
+                ", end='" + end + '\'' +
+                ", imageUrls=" + imageUrls +
+                ", allDay='" + allDay + '\'' +
+                ", eventDetails='" + eventDetails + '\'' +
+                '}';
     }
 }
 

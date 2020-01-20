@@ -1,5 +1,6 @@
 package com.TicketTime.TicketTime.controller;
 
+import com.TicketTime.TicketTime.exception.NotFoundException;
 import com.TicketTime.TicketTime.model.*;
 import com.TicketTime.TicketTime.repository.*;
 import com.TicketTime.TicketTime.service.Service;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 
-@CrossOrigin(origins = { "http://localhost:3000"})
+@CrossOrigin
 @RestController
 @RequestMapping
 public class ServiceController {
@@ -40,50 +41,79 @@ public class ServiceController {
         return this.service.listUniqueCategory(categories);
     }
 
-    @GetMapping("/topcity/{state}")
-    public String getTopTicketCityByState (@PathVariable String state) {
+    @GetMapping("/topcity")
+    public City getTopCity(@RequestParam(value = "state") String state) {
         List<City> cities = cityRepository.findByState(state);
 
         int max = 0;
-        String topCity = null;
+        City topCity = cities.get(0);
+
         for(int i = 0; i < cities.size(); i++) {
             String city = cities.get(i).getName();
-            List<TicketListing> tickets = ticketListingRepository.findByCity(city);
-            if (tickets.size() > max) {
-                max = tickets.size();
-                topCity = cities.get(i).getName();
+            List<Event> events = eventRepository.findByVenueAddressCityName(city);
+            if (events.size() > max) {
+                max = events.size();
+                topCity = cities.get(i);
             }
         }
+
         return topCity;
     }
 
     @GetMapping("/search")
-    public List<TicketListing> searchTicketListings(@RequestParam (value="q") String q) {
-        List<TicketListing> tickets = this.ticketListingRepository.findAll();
+    public List<Event> searchTicketListings(@RequestParam (value="q") String q) {
+        String query = q.toUpperCase();
+        List<Event> events = this.eventRepository.findAll();
 
-        List<TicketListing> returnListings = new ArrayList<>();
-        for(int i=0; i < tickets.size(); i++) {
-            if(tickets.get(i).getEvent().getTitle().toUpperCase().contains(q.toUpperCase()) || tickets.get(i).getEvent().getDescription().toUpperCase().contains(q.toUpperCase())) {
-                returnListings.add(tickets.get(i));
-                continue;
-            } else if (tickets.get(i).getEvent().getPerformer().get(0).getName().toUpperCase().contains(q.toUpperCase()) || tickets.get(i).getEvent().getPerformer().get(0).getDescription().toUpperCase().contains(q.toUpperCase())) {
-                returnListings.add(tickets.get(i));
-                continue;
-            } else if (tickets.get(i).getEvent().getVenue().getTitle().toUpperCase().contains(q.toUpperCase()) || tickets.get(i).getEvent().getVenue().getDescription().toUpperCase().contains(q.toUpperCase()) || tickets.get(i).getEvent().getVenue().getAddress().getCity().getName().toUpperCase().contains(q.toUpperCase())) {
-                returnListings.add(tickets.get(i));
-                continue;
-            } else {
-                for (int ind = 0; ind <tickets.get(i).getEvent().getCategories().size();
-                ind++){
-                    List<Category> categories = tickets.get(i).getEvent().getCategories();
-                    if (categories.get(ind).getType().toUpperCase().contains(q.toUpperCase()) || categories.get(ind).getGenre().toUpperCase().contains(q.toUpperCase())) {
-                        returnListings.add(tickets.get(i));
+        List<Event> returnEvents = new ArrayList<>();
+        for(int i=0; i < events.size(); i++) {
+            if(events.get(i).getTitle() != null) {
+                if(events.get(i).getTitle().toUpperCase().contains(query)) {
+                    returnEvents.add(events.get(i));
+                    continue;
+                }
+            } else if(events.get(i).getDescription() != null) {
+                if(events.get(i).getDescription().toUpperCase().contains(query)) {
+                    returnEvents.add(events.get(i));
+                    continue;
+                }
+            } else if(events.get(i).getVenue() != null && events.get(i).getVenue().getTitle() != null) {
+                if(events.get(i).getVenue().getTitle().toUpperCase().contains(query)) {
+                    returnEvents.add(events.get(i));
+                    continue;
+                }
+            } else if(events.get(i).getVenue() != null && events.get(i).getVenue().getDescription() != null) {
+                if(events.get(i).getVenue().getDescription().toUpperCase().contains(query)) {
+                    returnEvents.add(events.get(i));
+                    continue;
+                }
+            } else if(events.get(i).getVenue() != null && events.get(i).getVenue().getAddress() != null && events.get(i).getVenue().getAddress().getCity() != null ) {
+                if (events.get(i).getVenue().getAddress().getCity().getName().toUpperCase().contains(query) || events.get(i).getVenue().getAddress().getCity().getState().toUpperCase().contains(query)) {
+                    returnEvents.add(events.get(i));
+                    continue;
+                }
+
+            } else if (events.get(i).getPerformer() != null && !events.get(i).getPerformer().isEmpty()) {
+                List<Performer> performers = events.get(i).getPerformer();
+                for (int pI = 0; pI < performers.size(); pI++) {
+                    if (performers.get(pI).getName().toUpperCase().contains(query)) {
+                        returnEvents.add(events.get(i));
                         continue;
+                    }
+                }
+            } else if (events.get(i).getCategories() != null && !events.get(i).getCategories().isEmpty()) {
+                List<Category> categories = events.get(i).getCategories();
+                for (int cI = 0; cI < categories.size(); cI++) {
+                    if (categories.get(i).getType() != null && categories.get(i).getGenre() != null ) {
+                        if (categories.get(cI).getType().toUpperCase().contains(query) || categories.get(cI).getGenre().toUpperCase().contains(query)) {
+                            returnEvents.add(events.get(i));
+                            continue;
+                        }
                     }
                 }
             }
         }
-        return returnListings;
+        return returnEvents;
     }
 
     @GetMapping("/findVenue")
@@ -120,5 +150,41 @@ public class ServiceController {
             }
         }
         return outputs;
+    }
+
+
+    @GetMapping("/findCity")
+    public City findCity(@RequestParam (value="name") String name, @RequestParam (value="state") String state) {
+        if(name.equals("") && state.equals("")) {
+            return null;
+        }
+        List<City> cities = this.cityRepository.findAll();
+
+        for(int i = 0; i < cities.size(); i++) {
+            String cityName = cities.get(i).getName().toUpperCase();
+            String cityState = cities.get(i).getState().toUpperCase();
+            if (cityName.contains(name.toUpperCase()) && cityState.contains((state.toUpperCase())) ) {
+                return cities.get(i);
+            }
+        }
+        return null;
+    }
+
+
+    @GetMapping("/findCategory")
+    public Category findCategory(@RequestParam (value="type") String type, @RequestParam (value="genre") String genre) {
+        if(type.equals("") && genre.equals("")) {
+            return null;
+        }
+        List<Category> categories = this.categoryRepository.findAll();
+
+        for(int i = 0; i < categories.size(); i++) {
+            String catType = categories.get(i).getType().toUpperCase();
+            String catGenre = categories.get(i).getGenre().toUpperCase();
+            if (catType.contains(type.toUpperCase()) && catGenre.contains((genre.toUpperCase())) ) {
+                return categories.get(i);
+            }
+        }
+        return null;
     }
 }

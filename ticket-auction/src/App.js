@@ -8,6 +8,7 @@ import Ticket from './components/listings/Ticket'
 import Event from './components/listings/Event'
 import Order from './components/listings/Order'
 import NewTicket from './components/forms/NewTicketForm';
+import EventTicketForm from './components/forms/EventTicketForm';
 import List from './components/main/List';
 import ByLocationPage from './components/main/ByLocationPage';
 import ManageMyTickets from './components/main/ManageMyTickets';
@@ -16,6 +17,7 @@ import RegisterForm from './components/forms/RegisterForm.js';
 import EditAccountForm from './components/forms/EditAccountForm.js';
 import SignInForm from './components/forms/SignInForm.js';
 import PurchaseForm from './components/forms/PurchaseForm.js';
+import Data from './components/cards/Data.js'
 import Map from './components/main/Map.js';
 import Checkout from './components/main/Checkout.js';
 import GMap from './components/main/GoogleMap.js';
@@ -183,21 +185,27 @@ class App extends Component {
             }
           />
 
+          <Route path ='/test' 
+            exact strict 
+            render = {
+              (props) => 
+              <main >
+                <Data/>
+              </main>
+            }
+          />
+
   {/* Create Pages */}
           <Route path ='/new-ticket' exact strict>
             <main>
               
-              { (this.state.currentUser)
-                ? <section>
+              <section>
                     <header>
                       <h1>Create New Ticket Listing</h1>
                     </header>
-                    <NewTicket 
-                      exampleTicket={exampleTicket} 
-                      currentUser = {this.state.currentUser} />
+                    <EventTicketForm currentUser = {this.state.currentUser} />
+                    {/* <NewTicket currentUser = {this.state.currentUser} /> */}
                   </section> 
-                : <h2 className="no-access-msg">Sorry, you can't access this page</h2>
-              }
             </main>
           </Route>
 
@@ -218,7 +226,7 @@ class App extends Component {
                 <header>
                   <h1>Search : "{props.match.params.query}"</h1>
                 </header>
-                <List url={`/search?q=${props.match.params.query}`} cardType="ticket"/>
+                <List url={`/search?q=${props.match.params.query}`} cardType="event"/>
               </main>
             }
           />

@@ -51,7 +51,7 @@ public class TicketListingController {
     @GetMapping("/{id}")
     public Optional<TicketListing> getById(@PathVariable("id") String id) {
         Optional<TicketListing> ticket = this.ticketListingRepository.findById(id);
-        if (ticket.isEmpty()) {
+        if (ticket.equals(null)) {
             throw new NotFoundException("Ticket Not Found");
         }
         return ticket;

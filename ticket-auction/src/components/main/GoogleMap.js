@@ -6,7 +6,7 @@ import Geocode from "react-geocode";
 import axios from 'axios';
 import SPRING_SECURITY from '../../config_spring_keys.js'
 
-const base_url = 'http://localhost:8080'
+const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 
@@ -28,6 +28,7 @@ export class MapContainer extends Component {
       collection: undefined,
       initialCenter: undefined,
       center: undefined,
+      zoom: this.props.zoom,
       
       selectedVenue: undefined,
     }
@@ -48,6 +49,7 @@ export class MapContainer extends Component {
   componentWillReceiveProps(nextProps) {
     if(this.props !== nextProps){
       this.geocodeLocation(nextProps.center)
+      this.setState({zoom: nextProps.zoom})
     }
   }
 
@@ -69,7 +71,7 @@ export class MapContainer extends Component {
       Geocode.fromAddress(location).then(
         response => {
           this.setState({
-            initialCenter: response.results[0].geometry.location,
+            initialCenter: response.results[0].geometry.location, 
             center: response.results[0].geometry.location  
           })
         },
@@ -89,20 +91,24 @@ export class MapContainer extends Component {
   displayMarkers = () => {    
     if(this.state.collection) {
         return this.state.collection.map((venue, index) => {
-          return (
-            <Marker 
-              title={venue.title}
-              name={venue.title}
-              key={index} 
-              id={index} 
-              position= {{ 
-                lat: venue.address.lat,
-                lng: venue.address.lng
-              }}
-              visible={true}
-              onClick={() => this.onMarkerClick(venue)}>
-            </Marker>
-          )
+          if (venue.address && venue.address.lat && venue.address.lng) {
+            return (
+              <Marker 
+                title={venue.title}
+                name={venue.title}
+                key={index} 
+                id={index} 
+                position= {{ 
+                  lat: venue.address.lat,
+                  lng: venue.address.lng
+                }}
+                visible={true}
+                onClick={() => this.onMarkerClick(venue)}>
+              </Marker>
+            )
+          } else {
+            return null;
+          }
         })
     } else {
       return "";
@@ -124,7 +130,7 @@ export class MapContainer extends Component {
           <section>
             <Map
               google={this.props.google}
-              zoom={10}
+              zoom={this.state.zoom}
               style={mapStyles}
               initialCenter={this.state.initialCenter}
               center={this.state.center}

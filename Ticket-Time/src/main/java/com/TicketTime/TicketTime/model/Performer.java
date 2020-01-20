@@ -15,11 +15,13 @@ public class Performer {
     private Date updatedAt = new Date();
     private final String name;
     private final String description;
+    private final String eventfulId;
     private final ArrayList<String> imageUrls;
 
-    public Performer(String name, String description, ArrayList<String> imageUrls) {
+    public Performer(String name, String description, String eventfulId, ArrayList<String> imageUrls) {
         this.name = name;
         this.description = description;
+        this.eventfulId = eventfulId;
         this.imageUrls = imageUrls;
     }
 
@@ -55,6 +57,10 @@ public class Performer {
         return description;
     }
 
+    public String getEventfulId() {
+        return eventfulId;
+    }
+
     public ArrayList<String> getImageUrls() {
         return imageUrls;
     }
@@ -67,6 +73,7 @@ public class Performer {
                 ", updatedAt=" + updatedAt +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", eventfulId='" + eventfulId + '\'' +
                 ", imageUrls=" + imageUrls +
                 '}';
     }

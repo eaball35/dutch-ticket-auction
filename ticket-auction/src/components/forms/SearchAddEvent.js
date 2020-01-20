@@ -35,7 +35,7 @@ class SearchAddEvent extends Component {
   render() {
     return (
       <section className="venue-search">
-        <h2>Step 2: Search to Add Event</h2>
+        <h2>Step 3: Search to Add Event</h2>
         <p>Enter title <strong>and/or</strong> performer, click search, and select event.</p>
         <form onSubmit={this.onSubmit}>
           <div>

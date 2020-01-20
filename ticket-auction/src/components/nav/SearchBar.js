@@ -32,7 +32,7 @@ class SearchBar extends Component {
             <input 
               className='large-search-bar'
               type='text' 
-              placeholder='Search tickets...' 
+              placeholder='Search events...' 
               value={this.state.query}
               onChange={this.onChange} 
             />
@@ -53,7 +53,7 @@ class SearchBar extends Component {
           <input 
             className='large-search-bar'
             type='text' 
-            placeholder='Search tickets...' 
+            placeholder='Search events...' 
             value={this.state.query}
             onChange={this.onChange} 
           />

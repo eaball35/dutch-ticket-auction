@@ -18,8 +18,8 @@ public class City {
     private final String state;
 
     public City(String name, String state) {
-        this.name = name;
-        this.state = state;
+        this.name = name.toUpperCase();
+        this.state = state.toUpperCase();
     }
 
     public String getId() {

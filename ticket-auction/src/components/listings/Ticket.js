@@ -10,7 +10,7 @@ var dateFormat = require('dateformat');
 TimeAgo.addLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
-const base_url = 'http://localhost:8080'
+const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 

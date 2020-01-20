@@ -9,7 +9,7 @@ import '../../css/TicketTable.css';
 TimeAgo.addLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
-const base_url = 'http://localhost:8080'
+const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 
@@ -18,7 +18,7 @@ class TicketTable extends Component {
     super(props);
 
     this.state = {
-      tickets: undefined,
+      tickets: [],
       error: ""
     };
   }
@@ -44,9 +44,9 @@ class TicketTable extends Component {
   }
 
   render() {
-      let ticketTable = "";
+      let ticketTable;
       
-      if (this.state.tickets !== undefined) {
+      if (this.state.tickets !== []) {
         ticketTable = this.state.tickets.map((ticket, i) => {
           return (
             <tr key={i}>

@@ -46,7 +46,16 @@ public class PerformerController {
     @GetMapping("/{id}")
     public Optional<Performer> getById(@PathVariable("id") String id) {
         Optional<Performer> performer = this.performerRepository.findById(id);
-        if (performer.isEmpty()) {
+        if (performer.equals(null)) {
+            throw new NotFoundException("Performer Not Found");
+        }
+        return performer;
+    }
+
+    @GetMapping
+    public Optional<Performer> getByEventfulId(@RequestParam("eventfuId") String eventfuId) {
+        Optional<Performer> performer = this.performerRepository.findByEventfulId(eventfuId);
+        if (performer.equals(null)) {
             throw new NotFoundException("Performer Not Found");
         }
         return performer;

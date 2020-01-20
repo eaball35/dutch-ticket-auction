@@ -4,7 +4,7 @@ import SearchAddEvent from './SearchAddEvent';
 import DateTimePicker from 'react-datetime-picker';
 import axios from 'axios';
 import SPRING_SECURITY from '../../config_spring_keys.js'
-const base_url = 'http://localhost:8080'
+const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 var dateFormat = require('dateformat');
@@ -44,8 +44,10 @@ class NewTicketFormEvent extends Component {
     event.preventDefault();
     this.props.submitEvent(this.state.selectedEvent);
     
-    this.props.updateShowForm("event");
-    this.props.updateShowForm("auction");
+    if (this.props.updateShowForm) {
+      this.props.updateShowForm("event");
+      this.props.updateShowForm("auction");
+    }
   }
 
   onSearch = (query) => {

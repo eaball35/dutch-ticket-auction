@@ -35,7 +35,7 @@ class SearchAddVenue extends Component {
   render() {
     return (
       <section className="venue-search">
-        <h2>Step 1: Search to Add Venue</h2>
+        <h2>Step 2: Search to Add Venue</h2>
         <p>Enter title <strong>and/or</strong> zip code, click search, and select venue.</p>
         <form onSubmit={this.onSubmit}>
           <div>

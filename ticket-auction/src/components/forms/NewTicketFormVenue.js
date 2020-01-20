@@ -3,7 +3,7 @@ import '../../css/NewTicketForm.css';
 import SearchAddVenue from './SearchAddVenue';
 import axios from 'axios';
 import SPRING_SECURITY from '../../config_spring_keys.js'
-const base_url = 'http://localhost:8080'
+const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 
@@ -71,7 +71,6 @@ class NewTicketFormVenue extends Component {
     const url = `${base_url}/venues`
     const headers = { headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) }}
     
-    // should get city & lookup or create address -> Then post the data with correct objs
     const data = {
       "title": this.state.venueTitle,
       "description": this.state.venueDescription,
@@ -79,10 +78,7 @@ class NewTicketFormVenue extends Component {
       "address": {
         "address1": this.state.venueAddress1,
         "address2": this.state.venueAddress2,
-        "city": {
-          "name": this.state.venueCity,
-          "state": this.state.venueState,
-        },
+        "city": this.props.selectedCity,
         "zipCode": this.state.venueZipCode,
       }
     }
