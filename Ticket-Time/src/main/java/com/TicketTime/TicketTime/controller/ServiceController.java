@@ -28,11 +28,14 @@ public class ServiceController {
         this.eventRepository = eventRepository;
     }
 
-    @GetMapping("/price/{ticketListingId}")
-    public HashMap<String, Object> getCurrentPrice(@PathVariable String ticketListingId) {
+    @GetMapping("/price")
+    public HashMap<String, Object> getCurrentPrice(@RequestParam(value="id") String ticketListingId) {
         Optional<TicketListing> getTicket = this.ticketListingRepository.findById(ticketListingId);
         TicketListing ticket = getTicket.get();
-        return ticket.calculatePrice();
+        if (ticket != null) {
+            return ticket.calculatePrice();
+        }
+        return null;
     }
 
     @GetMapping("/list/category")

@@ -10,13 +10,14 @@ import com.TicketTime.TicketTime.model.EventfulAPI.EventfulWrapper;
 import com.TicketTime.TicketTime.model.EventfulAPI.Performers;
 import com.TicketTime.TicketTime.repository.*;
 import net.minidev.json.JSONObject;
-import org.joda.time.DateTime;
+import org.joda.time.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Array;
 import java.util.*;
+
 
 @Component
 public class DBSeeder implements CommandLineRunner {
@@ -54,7 +55,9 @@ public class DBSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        List<Event> events = this.eventRepository.findByCategoriesGenre("r&b/soul");
+//        Optional<TicketListing> ticket = this.ticketListingRepository.findById("5e2623e48bcc2c77ef784d3a");
+
+        //        List<Event> events = this.eventRepository.findByCategoriesGenre("r&b/soul");
 //            for(int i =0; i< events.size(); i++) {
 //                events.get(i).getCategories().get(0).setGenre("rnb");
 //                this.eventRepository.save(events.get(i));

@@ -30,7 +30,7 @@ class Ticket extends Component {
 
   componentDidMount = () => {
       const ticketUrl = `${base_url}/tickets/${this.props.match.params.id}` 
-      const priceUrl = `${base_url}/price/${this.props.match.params.id}`
+      const priceUrl = `${base_url}/price?id=${this.props.match.params.id}`
       const headers = { 
         headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
       }
@@ -52,10 +52,9 @@ class Ticket extends Component {
   fetchCurrentPrice(url, headers) {
     axios.get(url, headers)
       .then((response) => {
-        const lastUpdated = new Date()
         this.setState({
           currentPrice: response.data.currentPrice,
-          lastUpdated: lastUpdated.toString()
+          lastUpdated: new Date().toString()
         })
       })
       .catch((error) => {
@@ -96,7 +95,7 @@ class Ticket extends Component {
   }
   
   strikePrice = () => {
-    const priceUrl = `${base_url}/price/${this.props.ticketId}`
+    const priceUrl = `${base_url}/price?id=${this.props.ticketId}`
     const headers = { 
       headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
     }
@@ -130,13 +129,13 @@ class Ticket extends Component {
         const performer = listingDetails.event.performer[0].name
         const title = listingDetails.event.title
         const user = listingDetails.user.username
-        const start = dateFormat(listingDetails.event.start, "dddd, mmmm dS, yyyy, h:MM TT")
+        const eventStart = dateFormat(listingDetails.event.start, "dddd, mmmm dS, yyyy, h:MM TT")
         const ticketQuantity = listingDetails.ticketQuantity
         const ticketGrouping = listingDetails.ticketGrouping
         const venue = listingDetails.event.venue.title
         const city = listingDetails.event.venue.address.city.name
         const state = listingDetails.event.venue.address.city.state
-        const createdAt = timeAgo.format(new Date(listingDetails.createdAt))
+        const listedAt = timeAgo.format(new Date(listingDetails.auctionStart))
         const price = (listingDetails.startTotalPrice).toFixed(2);
         const priceEa = (listingDetails.startTotalPrice/ticketQuantity).toFixed(2);
         const pitch = listingDetails.pitch
@@ -152,19 +151,19 @@ class Ticket extends Component {
                 
               <section className="ticket-info-sect details-sect">
                 <h6>TICKET LISTING {listingDetails.id.slice(-6).toUpperCase()}</h6>
-                <h4>{start}</h4>
+                <h4>{eventStart}</h4>
                 <h1>{title}</h1>
                 <h2>{performer}</h2>
                 <h4>{ticketQuantity} {ticketGrouping}</h4>
                 <h2>@ {venue}  |  {city}, {state} </h2>
-                <h6>Listed {createdAt} by {user} for <strong>${price} total</strong> <span> - ${priceEa} ea</span></h6>
+                <h6>Listed {listedAt} by {user} for <strong>${price} total</strong> <span> - ${priceEa} ea</span></h6>
                 <p>{pitch}</p>
               </section>
 
               <section className= "ticket-info-sect price-sect">
                 <h4>Current Price</h4>
                 <h2> ${currentPriceEa} <span>ea</span> </h2>
-                <p>Total ${currentPrice} + tax/fees</p>
+                <p>Total <strong>${currentPrice}</strong> + tax/fees</p>
                 <p> last updated {lastUpdated} </p>
                 <button className='btn btn-success' onClick={this.strikePrice}> Strike Price </button>
               </section>
