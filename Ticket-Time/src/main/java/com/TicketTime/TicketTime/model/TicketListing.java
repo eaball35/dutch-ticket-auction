@@ -1,10 +1,12 @@
 package com.TicketTime.TicketTime.model;
+import org.joda.time.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.HashMap;
+import org.joda.time.DateTime;
 
 @Document
 public class TicketListing {
@@ -26,9 +28,9 @@ public class TicketListing {
     @NotBlank
     private final String ticketGrouping;
     @NotBlank
-    private final Date auctionStart;
+    private final DateTime auctionStart;
     @NotBlank
-    private final Date auctionEnd;
+    private final DateTime auctionEnd;
     @NotBlank
     private final Double startTotalPrice;
     @NotBlank
@@ -38,19 +40,19 @@ public class TicketListing {
     @NotBlank
     private final String pitch;
 
-    public TicketListing(@NotBlank User user, @NotBlank Event event, @NotBlank Integer ticketQuantity, @NotBlank String ticketGrouping, @NotBlank Date auctionStart , @NotBlank Date auctionEnd, @NotBlank Double startTotalPrice, @NotBlank Double endTotalPrice, @NotBlank String auctionDetails, @NotBlank String pitch) {
+    public TicketListing(@NotBlank User user, @NotBlank Event event, @NotBlank Integer ticketQuantity, @NotBlank String ticketGrouping, @NotBlank DateTime auctionStart , @NotBlank DateTime auctionEnd, @NotBlank Double startTotalPrice, @NotBlank Double endTotalPrice, @NotBlank String auctionDetails, @NotBlank String pitch) {
         this.user = user;
         this.event = event;
         this.ticketQuantity = ticketQuantity;
         this.ticketGrouping = ticketGrouping;
 
         if (auctionEnd == null) {
-            this.auctionEnd = new Date();
+            this.auctionEnd = new DateTime();
         } else {
             this.auctionEnd = auctionEnd;
         }
         if (auctionStart == null) {
-            this.auctionStart = new Date();
+            this.auctionStart = new DateTime();
         } else {
             this.auctionStart = auctionStart;
         }
@@ -108,11 +110,11 @@ public class TicketListing {
         return ticketGrouping;
     }
 
-    public Date getAuctionStart() {
+    public DateTime getAuctionStart() {
         return auctionStart;
     }
 
-    public Date getAuctionEnd() {
+    public DateTime getAuctionEnd() {
         return auctionEnd;
     }
 
@@ -133,18 +135,30 @@ public class TicketListing {
     }
 
     public HashMap<String, Object> calculatePrice() {
-        double totalTimeUnits = this.auctionEnd.getTime() - this.auctionStart.getTime();
-        Long currentTime = new Date(System.currentTimeMillis()).getTime();
-        double passedTimeUnits = this.auctionEnd.getTime() - currentTime;
+        HashMap<String, Object> resultTable = new HashMap<String, Object>();
+
+        double startPrice = this.startTotalPrice;
+        double endPrice = this.endTotalPrice;
+        Instant start = this.auctionStart.toInstant();
+        Instant end = this.auctionEnd.toInstant();
+        Instant currentTime = new DateTime().toInstant();
+        resultTable.put("strikeTime", currentTime);
+
+        int betweenHours = Hours.hoursBetween(start, end).getHours();
+        int betweenMinutes = Minutes.minutesBetween(start, end).getMinutes() % 60;
+        double totalTimeUnits = betweenHours + (betweenMinutes/60.00);
+
+        int passHours = Hours.hoursBetween(start, currentTime).getHours();
+        int passMinutes = Minutes.minutesBetween(start, currentTime).getMinutes() % 60;
+        double passedTimeUnits = passHours + (passMinutes/60.00);
         double leftTimeUnits = totalTimeUnits - passedTimeUnits;
-        double pricePerUnit = (this.startTotalPrice - this.endTotalPrice) / totalTimeUnits;
-        Double currentPrice = leftTimeUnits * pricePerUnit;
 
-        HashMap<String, Object> returnTable = new HashMap<>();
-        returnTable.put("strikeTime", currentTime);
-        returnTable.put("currentPrice", currentPrice);
+        double totalCost = startPrice - endPrice;
+        double pricePerTimeUnit = totalCost/totalTimeUnits;
+        double currentCost = leftTimeUnits * pricePerTimeUnit;
+        resultTable.put("currentPrice", currentCost);
 
-        return returnTable;
+        return resultTable;
     }
 
     @Override

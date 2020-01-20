@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Link, NavLink, Redirect } from 'react-router-dom';
 import SPRING_SECURITY from '../../config_spring_keys.js'
+import '../../css/SignInForm.css'
 
 
 const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
@@ -69,15 +70,17 @@ class SignInForm extends Component {
         <form onSubmit={this.onSubmit}>
 
           <div>
-          <label htmlFor="email"> email  </label>
+          <label htmlFor="email"> Email:  </label>
           <input
             name="email"
             onChange={this.onInputChange}
             value={this.state.email}
+            placeholder="user123@mail.com"
+            className="login-input"
           />
         </div>
-        <div>
-          <input type="submit" value="Sign In"/>
+        <div className="login-submit-btn">
+          <input type="submit" value="Sign In" className="btn btn-primary"/>
         </div>
       </form>
     </section>

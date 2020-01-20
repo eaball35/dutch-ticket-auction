@@ -1,0 +1,17 @@
+.login-form {
+  margin-left: 4em;
+  width: 20vw
+}
+
+label {
+  margin-right: 2em;
+  margin-top: 1em;
+}
+
+.login-submit-btn {
+  margin-top: 1em;
+}
+
+.login-input {
+  width: 100%;
+}
