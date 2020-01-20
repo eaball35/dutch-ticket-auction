@@ -14,6 +14,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 @Component
@@ -50,65 +51,120 @@ public class DBSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-                this.cityRepository.deleteAll();
-                this.addressRepository.deleteAll();
-                this.userRepository.deleteAll();
-                this.venueRepository.deleteAll();
-                this.categoryRepository.deleteAll();
-                this.performerRepository.deleteAll();;
-                this.eventRepository.deleteAll();
-                this.ticketListingRepository.deleteAll();
-                this.orderRepository.deleteAll();
-
-        List<Detail> eventList = eventfulAPIController.searchEventInfo("music", "Seattle").getEvents().getEvent();
-
-         for (int i=0; i < eventList.size(); i++){
-             Detail event = eventList.get(i);
-
-             Optional<Event> newEvent;
-             newEvent = this.eventRepository.findByEventfulId(event.getId());
-
-             if(!newEvent.isPresent()) {
-                 Optional<Venue> venue;
-                 venue = this.venueRepository.findByEventfulId(event.getId());
-                 if (!venue.isPresent()) {
-                     Optional<City> city;
-                     city = this.cityController.getByName(event.getCity_name());
-                     if (!city.isPresent()) {
-                         city = Optional.of(new City(event.getCity_name(), event.getRegion_abbr()));
-                     }
-                     this.cityRepository.save(city.get());
+//        this.cityRepository.deleteAll();
+//        this.addressRepository.deleteAll();
+//        this.userRepository.deleteAll();
+//        this.venueRepository.deleteAll();
+//        this.categoryRepository.deleteAll();
+//        this.performerRepository.deleteAll();;
+//        this.eventRepository.deleteAll();
+//        this.ticketListingRepository.deleteAll();
+//        this.orderRepository.deleteAll();
 
 
-                     Address address = new Address(event.getVenue_address(),"", city.get(), event.getPostal_code(), event.getLatitude(), event.getLongitude());
-                     this.addressRepository.save(address);
 
-                     venue = Optional.of(new Venue(event.getId(), event.getVenue_name(), "Venue Description", "Venue Details", address));
-                     this.venueRepository.save(venue.get());
-                 }
-
-
-                 ArrayList<com.TicketTime.TicketTime.model.Performer> performers = new ArrayList<>();
-
-                 ArrayList<com.TicketTime.TicketTime.model.EventfulAPI.Performer> performersAPI = (ArrayList<com.TicketTime.TicketTime.model.EventfulAPI.Performer>) event.getPerformers().getPerformer();
-
-                 for( int ind = 0; ind < performersAPI.size(); ind++) {
-                     com.TicketTime.TicketTime.model.EventfulAPI.Performer perAPI  = performersAPI.get(ind);
-
-                     Optional<com.TicketTime.TicketTime.model.Performer> per;
-                     per = this.performerController.getByEventfulId(performersAPI.get(ind).getId());
-                     if (!per.isPresent()) {
-                        per = Optional.of(new com.TicketTime.TicketTime.model.Performer(perAPI.getName(), perAPI.getShort_bio(), perAPI.getId(), new ArrayList<>()));
-                     }
-                     this.performerRepository.save(per.get());
-                     performers.add(per.get());
-                 }
-
-                 newEvent = Optional.of(new Event(venue.get(), event.getId(), event.getTitle(), performers, event.getDescription(), event.getStart_time(), event.getStop_time(), new ArrayList<String>(Arrays.asList(event.getImage().getMedium().getUrl())), event.getAll_day(), "Event Details"));
-                 this.eventRepository.save(newEvent.get());
-             }
-
-         }
+//        ArrayList<String> locations = new ArrayList<String>(Arrays.asList(
+//                "Alaska", "Alabama", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
+//                "Delaware", "District of Columbia", "Florida", "Georgia", "Hawaii", "Idaho",
+//                "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+//                "Louisiana", "Maine", "Montana",
+//                "Nebraska", "Nevada", "New Hampshire", "New Jersey",
+//                "New Mexico", "New York",
+//                "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Maryland",
+//                "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Pennsylvania",
+//                "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah",
+//                "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+//                ));
+//
+//
+//        for( int locI = 0; locI < locations.size(); locI++) {
+//
+//            System.out.println("location:" + locations.get(locI));
+//            List<Detail> eventList = eventfulAPIController.searchEventInfo("music", locations.get(locI)).getEvents().getEvent();
+//
+//             for (int i=0; i < eventList.size(); i++){
+//                 System.out.println("event: " + (i+1));
+//                 Detail event = eventList.get(i);
+//
+//                 Optional<Event> newEvent;
+//                 newEvent = this.eventRepository.findByEventfulId(event.getId());
+//
+//                 if(!newEvent.isPresent()) {
+//                     Optional<Venue> venue;
+//                     venue = this.venueRepository.findByEventfulId(event.getVenue_id());
+//                     if (!venue.isPresent()) {
+//                         Optional<City> city;
+//                         if(event.getCity_name() != null) {
+//                             city = this.cityController.getByName(event.getCity_name());
+//                             if (!city.isPresent()) {
+//                                 city = Optional.of(new City(event.getCity_name(), event.getRegion_abbr()));
+//                             }
+//                             this.cityRepository.save(city.get());
+//                             System.out.println("added city" + city.get().getName());
+//                         } else {
+//                             city = null;
+//                         }
+//
+//                         Address address;
+//                         if (event.getVenue_address() != null) {
+//                             address = new Address(event.getVenue_address(), "", city.get(), event.getPostal_code(), event.getLatitude(), event.getLongitude());
+//                             this.addressRepository.save(address);
+//                             System.out.println("added address" + address.getAddress1());
+//                         } else {
+//                             address = null;
+//                         }
+//
+//                         if (event.getVenue_name() != null) {
+//                             venue = Optional.of(new Venue(event.getVenue_id(), event.getVenue_name(), "Venue Description", "Venue Details", address));
+//                             this.venueRepository.save(venue.get());
+//                             System.out.println("added venue" + venue.get().getTitle());
+//                         } else {
+//                             venue = null;
+//                         }
+//                     }
+//
+//                     ArrayList<com.TicketTime.TicketTime.model.Performer> performers = new ArrayList<Performer>();
+//
+//                     if(event.getPerformers() != null) {
+//                         ArrayList<com.TicketTime.TicketTime.model.EventfulAPI.Performer> performersAPI = (ArrayList<com.TicketTime.TicketTime.model.EventfulAPI.Performer>) event.getPerformers().getPerformer();
+//
+//                         for (int ind = 0; ind < performersAPI.size(); ind++) {
+//                             com.TicketTime.TicketTime.model.EventfulAPI.Performer perAPI = performersAPI.get(ind);
+//
+//                             Optional<com.TicketTime.TicketTime.model.Performer> per;
+//                             per = this.performerController.getByEventfulId(performersAPI.get(ind).getId());
+//                             if (!per.isPresent()) {
+//                                 per = Optional.of(new com.TicketTime.TicketTime.model.Performer(perAPI.getName(), perAPI.getShort_bio(), perAPI.getId(), new ArrayList<>()));
+//                             }
+//                             this.performerRepository.save(per.get());
+//                             System.out.println("added performer" + per.get().getName());
+//                             performers.add(per.get());
+//                         }
+//                     } else {
+//                         performers = null;
+//                     }
+//
+//                     ArrayList<String> eventImg = new ArrayList<String>();
+//
+//                     if (event.getImage() == null) {
+//                         eventImg = null;
+//                     } else if (event.getImage().getMedium().getUrl() != null) {
+//                         eventImg.add(event.getImage().getMedium().getUrl());
+//                     }
+//
+//                     Category newCat = new Category("music", null, null);
+//                     this.categoryRepository.save(newCat);
+//                     System.out.println("added category" + newCat.getType());
+//                     ArrayList<Category> categories = new ArrayList<Category>();
+//                     categories.add(newCat);
+//
+//                     newEvent = Optional.of(new Event(categories, venue.get(), event.getId(), event.getTitle(), performers, event.getDescription(), event.getStart_time(), event.getStop_time(), eventImg, event.getAll_day(), "Event Details"));
+//                     this.eventRepository.save(newEvent.get());
+//                     System.out.println("added event" + newEvent.get().getTitle());
+//                 }
+//
+//             }
+//        }
 
 
 //        City bainbridgeIsland = new City("Bainbridge Island", "WA");

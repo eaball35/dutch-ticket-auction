@@ -43,15 +43,17 @@ class ByLocation extends Component {
 
 
   fetchTopCity = (state) => {
-    const url = `${base_url}/topcity/${state}`
+    const url = `${base_url}/topcity?state=${state}`
     const headers = { 
       headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) } 
     }
     
     axios.get( url, headers).then((response) => {
-        this.setState({topCity: response.data})
+      console.log("I got here " + response.data)  
+      this.setState({topCity: response.data})
       })
       .catch((error) => {
+        console.log("No I got here " + error)  
         this.setState({error: error})
       });
   }
@@ -96,7 +98,7 @@ class ByLocation extends Component {
               <GMap
                 google={this.props.google}
                 zoom={5}
-                initialCenter = "Seattle"
+                initialCenter = {this.state.topCity}
                 center={this.state.topCity}
                 collectionURL="/venues/all"
                 className="google-map"

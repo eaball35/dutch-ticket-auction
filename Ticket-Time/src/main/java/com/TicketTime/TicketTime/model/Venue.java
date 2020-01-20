@@ -14,7 +14,6 @@ public class Venue {
     private Date updatedAt = new Date();
     private String eventfulId;
 
-    @NotBlank
     private final String title;
     private final String description;
     private final String venueDetails;

@@ -16,14 +16,12 @@ public class Category {
     @NotBlank
     private Date updatedAt = new Date();
 
-    @NotBlank
     private final String type;
     private final String genre;
 
-    @NotBlank
     private final ArrayList<String> imageUrls;
 
-    public Category(@NotBlank String type, String genre, ArrayList<String> imageUrls) {
+    public Category(String type, String genre, ArrayList<String> imageUrls) {
         this.type = type;
         this.genre = genre;
         this.imageUrls = imageUrls;

@@ -51,12 +51,16 @@ class EventCard extends Component  {
       }
 
 
+
       return (
         <section className="eventCard-wrapper" >
           <section className="eventCard-container">
             <h4 className="eventCard-start">{start}</h4>
             <div className="eventCard-icon-img">
-              <img src={this.props.event.imageUrls[0]} alt={title} onClick={this.onClick} />
+              { (this.props.event.imageUrls)
+                ?<img src={this.props.event.imageUrls[0]} alt={title} onClick={this.onClick} />
+                : null
+              }
             </div>
             <div className="eventCard-details">
               <h2 onClick={this.onClick}> {title} </h2>

@@ -69,7 +69,7 @@ export class MapContainer extends Component {
       Geocode.fromAddress(location).then(
         response => {
           this.setState({
-            initialCenter: response.results[0].geometry.location,
+            initialCenter: response.results[0].geometry.location, 
             center: response.results[0].geometry.location  
           })
         },
@@ -124,7 +124,7 @@ export class MapContainer extends Component {
           <section>
             <Map
               google={this.props.google}
-              zoom={10}
+              zoom={7}
               style={mapStyles}
               initialCenter={this.state.initialCenter}
               center={this.state.center}

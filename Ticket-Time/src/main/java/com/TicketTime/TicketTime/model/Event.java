@@ -17,24 +17,20 @@ public class Event {
     private Date updatedAt = new Date();
     private ArrayList<Category> categories;
 
-    @NotBlank
+
     private final Venue venue;
     private final String eventfulId;
-    @NotBlank
     private final String title;
     private final ArrayList<Performer> performer;
-    @NotBlank
     private final String description;
-    @NotBlank
     private final String start;
-    @NotBlank
     private final String end;
     private final ArrayList<String> imageUrls;
-    @NotBlank
     private final String allDay;
     private final String eventDetails;
 
-    public Event(@NotBlank Venue venue, String eventfulId, @NotBlank String title, ArrayList<Performer> performer, @NotBlank String description, @NotBlank String start, @NotBlank String end, ArrayList<String> imageUrls, @NotBlank String allDay, String eventDetails) {
+    public Event(ArrayList<Category> categories, Venue venue, String eventfulId, String title, ArrayList<Performer> performer, String description, String start, String end, ArrayList<String> imageUrls, String allDay, String eventDetails) {
+        this.categories = categories;
         this.venue = venue;
         this.eventfulId = eventfulId;
         this.title = title;

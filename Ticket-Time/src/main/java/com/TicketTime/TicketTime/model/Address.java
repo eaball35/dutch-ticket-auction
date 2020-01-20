@@ -14,7 +14,6 @@ public class Address {
     private Date createdAt = new Date();
     private Date updatedAt = new Date();
 
-    @NotBlank
     private final String address1;
     private final String address2;
     private final City city;
@@ -22,7 +21,7 @@ public class Address {
     private final String lat;
     private final String lng;
 
-    public Address(@NotBlank String address1, String address2, City city, String zipCode, String lat, String lng) {
+    public Address( String address1, String address2, City city, String zipCode, String lat, String lng) {
         this.address1 = address1;
         this.address2 = address2;
         this.city = city;
