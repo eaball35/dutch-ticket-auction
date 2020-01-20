@@ -21,9 +21,10 @@ class ByLocation extends Component {
     this.state = {
       redirect: undefined,
       selectedState: "WA",
-      topCity: "Seattle",
+      topCity: {name: "Seattle", state: "WA"},
       selectedVenue: undefined,
       collection: undefined,
+      zoom: 10,
     };
   }
 
@@ -61,7 +62,8 @@ class ByLocation extends Component {
   mapHandler = (event) => {
     this.setState({
       selectedState: event.target.dataset.name,
-      selectedVenue: undefined 
+      selectedVenue: undefined,
+      zoom: 10,
     })
     this.fetchTopCity(event.target.dataset.name)
   };
@@ -97,9 +99,9 @@ class ByLocation extends Component {
             <div className="google-map-container">
               <GMap
                 google={this.props.google}
-                zoom={5}
-                initialCenter = {this.state.topCity}
-                center={this.state.topCity}
+                zoom={this.state.zoom}
+                initialCenter = {`${this.state.topCity.name}, ${this.state.topCity.state} `}
+                center={`${this.state.topCity.name}, ${this.state.topCity.state} `}
                 collectionURL="/venues/all"
                 className="google-map"
                 setSelectedVenue={this.setSelectedVenue}

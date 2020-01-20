@@ -18,7 +18,7 @@ class TicketTable extends Component {
     super(props);
 
     this.state = {
-      tickets: undefined,
+      tickets: [],
       error: ""
     };
   }
@@ -44,9 +44,9 @@ class TicketTable extends Component {
   }
 
   render() {
-      let ticketTable = "";
+      let ticketTable;
       
-      if (this.state.tickets !== undefined) {
+      if (this.state.tickets !== []) {
         ticketTable = this.state.tickets.map((ticket, i) => {
           return (
             <tr key={i}>

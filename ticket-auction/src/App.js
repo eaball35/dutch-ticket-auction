@@ -226,7 +226,7 @@ class App extends Component {
                 <header>
                   <h1>Search : "{props.match.params.query}"</h1>
                 </header>
-                <List url={`/search?q=${props.match.params.query}`} cardType="ticket"/>
+                <List url={`/search?q=${props.match.params.query}`} cardType="event"/>
               </main>
             }
           />

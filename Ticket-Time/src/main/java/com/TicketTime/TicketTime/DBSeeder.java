@@ -3,6 +3,7 @@ package com.TicketTime.TicketTime;
 import com.TicketTime.TicketTime.controller.CityController;
 import com.TicketTime.TicketTime.controller.EventfulAPIController;
 import com.TicketTime.TicketTime.controller.PerformerController;
+import com.TicketTime.TicketTime.controller.ServiceController;
 import com.TicketTime.TicketTime.model.*;
 import com.TicketTime.TicketTime.model.EventfulAPI.Detail;
 import com.TicketTime.TicketTime.model.EventfulAPI.EventfulWrapper;
@@ -32,9 +33,10 @@ public class DBSeeder implements CommandLineRunner {
     private EventfulAPIController eventfulAPIController;
     private CityController cityController;
     private PerformerController performerController;
+    private ServiceController serviceController;
 
 
-    public DBSeeder(TicketListingRepository ticketListingRepository, UserRepository userRepository, VenueRepository venueRepository, EventRepository eventRepository, CategoryRepository categoryRepository, OrderRepository orderRepository, AddressRepository addressRepository, CityRepository cityRepository, PerformerRepository performerRepository, EventfulAPIController eventfulAPIController, CityController cityController, PerformerController performerController) {
+    public DBSeeder(TicketListingRepository ticketListingRepository, UserRepository userRepository, VenueRepository venueRepository, EventRepository eventRepository, CategoryRepository categoryRepository, OrderRepository orderRepository, AddressRepository addressRepository, CityRepository cityRepository, PerformerRepository performerRepository, EventfulAPIController eventfulAPIController, CityController cityController, PerformerController performerController, ServiceController serviceController) {
         this.ticketListingRepository = ticketListingRepository;
         this.userRepository = userRepository;
         this.venueRepository = venueRepository;
@@ -47,11 +49,19 @@ public class DBSeeder implements CommandLineRunner {
         this.eventfulAPIController = eventfulAPIController;
         this.cityController = cityController;
         this.performerController = performerController;
+        this.serviceController = serviceController;
     }
 
     @Override
     public void run(String... args) throws Exception {
-//        this.cityRepository.deleteAll();
+//        List<Event> events = this.eventRepository.findByCategoriesGenre("r&b/soul");
+//            for(int i =0; i< events.size(); i++) {
+//                events.get(i).getCategories().get(0).setGenre("rnb");
+//                this.eventRepository.save(events.get(i));
+//            }
+
+
+        //        this.cityRepository.deleteAll();
 //        this.addressRepository.deleteAll();
 //        this.userRepository.deleteAll();
 //        this.venueRepository.deleteAll();
@@ -64,106 +74,154 @@ public class DBSeeder implements CommandLineRunner {
 
 
 //        ArrayList<String> locations = new ArrayList<String>(Arrays.asList(
-//                "Alaska", "Alabama", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
-//                "Delaware", "District of Columbia", "Florida", "Georgia", "Hawaii", "Idaho",
-//                "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+//                "Seattle", "Los Angeles", "New York, New York", "Chicago", "Portland, OR",
+//                "Alaska",
+//                "Alabama", "Arizona", "Arkansas",
+//                "California", "Colorado", "Connecticut", "Delaware",
+//                "District of Columbia", "Florida", "Georgia", "Hawaii",
+//                "Idaho", "Illinois", "Indiana",
+//                "Iowa", "Kansas", "Kentucky",
 //                "Louisiana", "Maine", "Montana",
-//                "Nebraska", "Nevada", "New Hampshire", "New Jersey",
-//                "New Mexico", "New York",
-//                "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Maryland",
-//                "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Pennsylvania",
-//                "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah",
-//                "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+//                "Nebraska", "Nevada",
+//                "New Hampshire", "New Jersey", "New Mexico",
+//                "New York", "North Carolina", "North Dakota",
+//                "Ohio", "Oklahoma", "Oregon", "Maryland", "Massachusetts",
+//                "Michigan", "Minnesota", "Mississippi", "Missouri", "Pennsylvania",
+//                "Rhode Island",
+//                "South Carolina", "South Dakota",
+//                "Tennessee", "Texas",
+//                "Utah",
+//                "Vermont", "Virginia", "Washington",
+//                "West Virginia",
+//                "Wisconsin",
+//                "Wyoming"
 //                ));
 //
+//        String choseCat = "music_alternative";
+//        String choseType = "music";
+//        String choseGenre = "alternative";
+//
+//        ArrayList<String> choseImg = new ArrayList<String>();
+//        choseImg.add("https://i.pinimg.com/originals/f0/8d/40/f08d400fa67e35a33d014457d5c886f5.jpg");
 //
 //        for( int locI = 0; locI < locations.size(); locI++) {
 //
+////            Get data from eventful API by category and location
 //            System.out.println("location:" + locations.get(locI));
-//            List<Detail> eventList = eventfulAPIController.searchEventInfo("music", locations.get(locI)).getEvents().getEvent();
+//            List<Detail> eventList = eventfulAPIController.searchEventInfo(choseCat, locations.get(locI)).getEvents().getEvent();
 //
-//             for (int i=0; i < eventList.size(); i++){
-//                 System.out.println("event: " + (i+1));
-//                 Detail event = eventList.get(i);
+////            Loop through list of events for given category/location combo
+//            if (!eventList.isEmpty()) {
+//                for (int i = 0; i < 1; i++) {
+//                    System.out.println("event: " + (i + 1));
+//                    Detail event = eventList.get(i);
 //
-//                 Optional<Event> newEvent;
-//                 newEvent = this.eventRepository.findByEventfulId(event.getId());
+//                    //             Check if event already exists
+//                    Optional<Event> newEvent;
+//                    newEvent = this.eventRepository.findByEventfulId(event.getId());
 //
-//                 if(!newEvent.isPresent()) {
-//                     Optional<Venue> venue;
-//                     venue = this.venueRepository.findByEventfulId(event.getVenue_id());
-//                     if (!venue.isPresent()) {
-//                         Optional<City> city;
-//                         if(event.getCity_name() != null) {
-//                             city = this.cityController.getByName(event.getCity_name());
-//                             if (!city.isPresent()) {
-//                                 city = Optional.of(new City(event.getCity_name(), event.getRegion_abbr()));
-//                             }
-//                             this.cityRepository.save(city.get());
-//                             System.out.println("added city" + city.get().getName());
-//                         } else {
-//                             city = null;
-//                         }
+//                    //             If event doesn't exist do the following'
+//                    if (!newEvent.isPresent()) {
+//                        //                     Check if venue exists
+//                        Optional<Venue> venue;
+//                        venue = this.venueRepository.findByEventfulId(event.getVenue_id());
+//                        if (!venue.isPresent()) {
+//                            //                         if venue doesn't exist, check if city exists'
+//                            Optional<City> city;
+//                            if (event.getCity_name() != null) {
+//                                city = Optional.ofNullable(this.serviceController.findCity(event.getCity_name(), event.getRegion_abbr()));
+//                                if (!city.isPresent()) {
+//                                    //                                 if city doesn't exist - create city
+//                                    city = Optional.of(new City(event.getCity_name(), event.getRegion_abbr()));
+//                                    this.cityRepository.save(city.get());
+//                                    System.out.println("added city" + city.get().getName());
+//                                }
+//                            } else {
+//                                city = null;
+//                            }
 //
-//                         Address address;
-//                         if (event.getVenue_address() != null) {
-//                             address = new Address(event.getVenue_address(), "", city.get(), event.getPostal_code(), event.getLatitude(), event.getLongitude());
-//                             this.addressRepository.save(address);
-//                             System.out.println("added address" + address.getAddress1());
-//                         } else {
-//                             address = null;
-//                         }
+//                            //                         Create new address for venue if there is one
+//                            Address address;
+//                            if (event.getVenue_address() != null) {
+//                                address = new Address(event.getVenue_address(), "", city.get(), event.getPostal_code(), event.getLatitude(), event.getLongitude());
+//                                this.addressRepository.save(address);
+//                                System.out.println("added address" + address.getAddress1());
+//                            } else {
+//                                address = null;
+//                            }
 //
-//                         if (event.getVenue_name() != null) {
-//                             venue = Optional.of(new Venue(event.getVenue_id(), event.getVenue_name(), "Venue Description", "Venue Details", address));
-//                             this.venueRepository.save(venue.get());
-//                             System.out.println("added venue" + venue.get().getTitle());
-//                         } else {
-//                             venue = null;
-//                         }
-//                     }
+//                            //                         Create new venue using city &  address you just got/created
+//                            if (event.getVenue_name() != null) {
+//                                venue = Optional.of(new Venue(event.getVenue_id(), event.getVenue_name(), "Venue Description", "Venue Details", address));
+//                                this.venueRepository.save(venue.get());
+//                                System.out.println("added venue" + venue.get().getTitle());
+//                            } else {
+//                                venue = null;
+//                            }
+//                        }
 //
-//                     ArrayList<com.TicketTime.TicketTime.model.Performer> performers = new ArrayList<Performer>();
+//                        //                     Get performers
+//                        ArrayList<com.TicketTime.TicketTime.model.Performer> performers = new ArrayList<Performer>();
+//                        if (event.getPerformers() != null) {
+//                            ArrayList<com.TicketTime.TicketTime.model.EventfulAPI.Performer> performersAPI = (ArrayList<com.TicketTime.TicketTime.model.EventfulAPI.Performer>) event.getPerformers().getPerformer();
 //
-//                     if(event.getPerformers() != null) {
-//                         ArrayList<com.TicketTime.TicketTime.model.EventfulAPI.Performer> performersAPI = (ArrayList<com.TicketTime.TicketTime.model.EventfulAPI.Performer>) event.getPerformers().getPerformer();
+//                            //                         Iterate throgh performers from API
+//                            for (int ind = 0; ind < performersAPI.size(); ind++) {
+//                                //                             performer from api
+//                                com.TicketTime.TicketTime.model.EventfulAPI.Performer perAPI = performersAPI.get(ind);
 //
-//                         for (int ind = 0; ind < performersAPI.size(); ind++) {
-//                             com.TicketTime.TicketTime.model.EventfulAPI.Performer perAPI = performersAPI.get(ind);
+//                                //                             new performer in my db
+//                                Optional<com.TicketTime.TicketTime.model.Performer> per;
+//                                //                             check if performer already exists
+//                                per = this.performerController.getByEventfulId(performersAPI.get(ind).getId());
+//                                if (!per.isPresent()) {
+//                                    //                                 if they don't already exist - create new performer
+//                                    per = Optional.of(new com.TicketTime.TicketTime.model.Performer(perAPI.getName(), perAPI.getShort_bio(), perAPI.getId(), new ArrayList<>()));
+//                                    this.performerRepository.save(per.get());
+//                                    System.out.println("added performer" + per.get().getName());
+//                                }
+//                                //                             add received or new performer to ouput list
+//                                performers.add(per.get());
+//                            }
+//                        } else {
+//                            performers = null;
+//                        }
 //
-//                             Optional<com.TicketTime.TicketTime.model.Performer> per;
-//                             per = this.performerController.getByEventfulId(performersAPI.get(ind).getId());
-//                             if (!per.isPresent()) {
-//                                 per = Optional.of(new com.TicketTime.TicketTime.model.Performer(perAPI.getName(), perAPI.getShort_bio(), perAPI.getId(), new ArrayList<>()));
-//                             }
-//                             this.performerRepository.save(per.get());
-//                             System.out.println("added performer" + per.get().getName());
-//                             performers.add(per.get());
-//                         }
-//                     } else {
-//                         performers = null;
-//                     }
+//                        //                     Get event images urls and and them to array
+//                        ArrayList<String> eventImg = new ArrayList<String>();
 //
-//                     ArrayList<String> eventImg = new ArrayList<String>();
+//                        if (event.getImage() == null) {
+//                            eventImg = null;
+//                        } else if (event.getImage().getMedium().getUrl() != null) {
+//                            eventImg.add(event.getImage().getMedium().getUrl());
+//                        }
 //
-//                     if (event.getImage() == null) {
-//                         eventImg = null;
-//                     } else if (event.getImage().getMedium().getUrl() != null) {
-//                         eventImg.add(event.getImage().getMedium().getUrl());
-//                     }
 //
-//                     Category newCat = new Category("music", null, null);
-//                     this.categoryRepository.save(newCat);
-//                     System.out.println("added category" + newCat.getType());
-//                     ArrayList<Category> categories = new ArrayList<Category>();
-//                     categories.add(newCat);
+//                        ArrayList<Category> categories = new ArrayList<Category>();
 //
-//                     newEvent = Optional.of(new Event(categories, venue.get(), event.getId(), event.getTitle(), performers, event.getDescription(), event.getStart_time(), event.getStop_time(), eventImg, event.getAll_day(), "Event Details"));
-//                     this.eventRepository.save(newEvent.get());
-//                     System.out.println("added event" + newEvent.get().getTitle());
-//                 }
+//                        //                     Check if category already exists
+//                        Category cat = this.serviceController.findCategory(choseType, choseGenre);
+//                        if (cat == null) {
+//                            //                         if it doesn't already exist create new category
+//                            Category newCat = new Category(choseType, choseGenre, choseImg);
+//                            this.categoryRepository.save(newCat);
+//                            System.out.println("added category - type: " + newCat.getType() + ", genre: " + newCat.getGenre());
 //
-//             }
+//                            //                         add new category to ouput list
+//                            categories.add(newCat);
+//                        } else {
+//                            //                         add first found category to output list
+//                            categories.add(cat);
+//                        }
+//
+//                        //                     Create new event using received/created venue, categories. performers, etc
+//                        newEvent = Optional.of(new Event(categories, venue.get(), event.getId(), event.getTitle(), performers, event.getDescription(), event.getStart_time(), event.getStop_time(), eventImg, event.getAll_day(), "Event Details"));
+//                        this.eventRepository.save(newEvent.get());
+//                        System.out.println("added event" + newEvent.get().getTitle());
+//                    }
+//                }
+//                System.out.println("Completed Location :)");
+//            }
 //        }
 
 

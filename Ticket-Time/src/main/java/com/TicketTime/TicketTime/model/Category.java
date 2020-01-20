@@ -16,8 +16,8 @@ public class Category {
     @NotBlank
     private Date updatedAt = new Date();
 
-    private final String type;
-    private final String genre;
+    private String type;
+    private String genre;
 
     private final ArrayList<String> imageUrls;
 
@@ -31,36 +31,44 @@ public class Category {
         return id;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public ArrayList<String> getImageUrls() {
-        return imageUrls;
-    }
-
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public ArrayList<String> getImageUrls() {
+        return imageUrls;
     }
 
     @Override
