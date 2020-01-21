@@ -25,15 +25,15 @@ public class AddressController {
     }
 
     @PutMapping
-    public String insert(@RequestBody Address address) {
-        Address newUser = this.addressRepository.insert(address);
-        return newUser.getId();
+    public Address insert(@RequestBody Address address) {
+        Address newAddress = this.addressRepository.insert(address);
+        return newAddress;
     }
 
     @PostMapping
-    public String update(@RequestBody Address address) {
-        Address newUser = this.addressRepository.save(address);
-        return newUser.getId();
+    public Address update(@RequestBody Address address) {
+        Address newAddress = this.addressRepository.save(address);
+        return newAddress;
     }
 
     @DeleteMapping("/{id}")

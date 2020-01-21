@@ -35,6 +35,7 @@ class App extends Component {
       loggedIn: false,
       currentUser: undefined,
       cartTicket: undefined,
+      shippingAddress: undefined,
     };
   }
 
@@ -55,6 +56,10 @@ class App extends Component {
   
   addToCheckout = (cartTicket) => {
     this.setState({cartTicket})
+  }
+
+  updateShippingAddress = (shippingAddress) => {
+    this.setState({shippingAddress})
   }
 
 
@@ -162,7 +167,7 @@ class App extends Component {
               <header>
                 <h1>Checkout</h1>  
               </header>
-              <Checkout cartTicket={this.state.cartTicket} updateLoginUser={this.updateLoginUser} currentUser={this.state.currentUser} />
+              <Checkout cartTicket={this.state.cartTicket} updateLoginUser={this.updateLoginUser} currentUser={this.state.currentUser} updateShippingAddress={this.updateShippingAddress} />
             </main>
           </Route>
 
@@ -171,7 +176,7 @@ class App extends Component {
             <header>
               <h1>Purchase</h1>
             </header>
-            <PurchaseForm cartTicket={this.state.cartTicket} currentUser={this.state.currentUser}/>
+            <PurchaseForm cartTicket={this.state.cartTicket} currentUser={this.state.currentUser} shippingAddress={this.state.shippingAddress}/>
             </main>
           </Route>
 

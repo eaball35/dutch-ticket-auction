@@ -1,6 +1,6 @@
 .ticketCard-container {
   display: flex;
-  min-width: 100%;
+  max-width: 40vw;
   margin: 1em;
   margin-top: 0em;
   border: grey 1px solid;
@@ -8,6 +8,13 @@
   border-radius: 10px;
 }
 
+.ticketCard-container h6 {
+  border-bottom: 1px grey solid;
+}
+
 .ticketCard-icon-img {
   max-width: 15vw;
+  margin-left: 1em;
+  margin-right: 1em;
+  
 }
