@@ -1,0 +1,24 @@
+.performer-card-container {
+  max-width: 20vw;
+  max-height: 30vw;
+  border: none;
+  margin: auto;
+  text-align: center;
+}
+
+.performer-img {
+  height: 20vw;
+  width: 20vw;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.performer-card-container a {
+  text-decoration: none;
+}
+
+.performer-text {
+  font-size: 1.5em;
+  margin-top: 1em;
+}
+

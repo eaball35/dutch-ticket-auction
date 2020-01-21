@@ -1,0 +1,62 @@
+.event-img {
+  max-width: 20vw;
+  max-height: 20vw;
+  margin-right: 3em;
+  margin-left: 2em; 
+}
+
+.ticket-details-container {
+  display: flex;
+  flex-direction: row;
+  margin: 1em;
+}
+
+.ticket-info-sect {
+  margin-top: 2em;
+}
+
+.price-sect {
+  min-width: 25%;
+}
+
+.details-sect {
+  min-width: 50%;
+}
+
+.details-tabs {
+  margin-left: 4em;
+  margin-top: 2em;
+}
+
+
+.tab {
+  background-color: #3D5969;
+  color: white;
+  padding: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border-radius: 10px;
+}
+
+.tab-active {
+  background-color: rgb(20, 30, 36);
+}
+
+.tab-details {
+  padding-top: 1em;
+  padding-left: 1em;
+  border: 1px grey solid;
+  border-radius: 10px;
+  max-width: 60vw;
+  padding-bottom: 4em;
+  margin-left: 0.25em;
+}
+
+.details-sect h6 {
+  border-bottom: 1px solid grey;
+  padding-bottom: 0.25em
+}
+
+.details-sect {
+  margin-right: 2em;
+}

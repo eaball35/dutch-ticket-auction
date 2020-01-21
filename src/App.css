@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Varela+Round&display=swap');
+
+a, a:hover, a:visited, a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+header {
+  margin: 1.5em;
+  margin-left: 2em;
+}
+
+.app-header {
+  background-color: rgb(88, 155, 215);
+}
+
+.App {
+  font-family: 'Varela Round', sans-serif;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2em;
+}
+
+main {
+  min-height: 100vh;
+  padding-bottom: 2em;
+}
+
+footer {
+  height: 10vh;
+  background-color: rgb(88, 155, 215);
+}
+
+.no-access-msg {
+  text-align: center;
+  margin-top: 3em;
+}
+
+
+* {
+  /* border: solid 2px red */
+}

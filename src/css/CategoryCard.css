@@ -1,0 +1,24 @@
+.category-card-container {
+  max-width: 18vw;
+  max-height: 18vw;
+  border: none;
+  margin: auto;
+  margin-bottom: 1.5em;
+}
+
+.category-img {
+  height: 18vw;
+  width: 18vw;
+  border-radius: 50%;
+  filter: grayscale(50%);
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 3em;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}

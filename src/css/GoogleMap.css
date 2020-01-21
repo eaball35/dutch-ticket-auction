@@ -1,0 +1,11 @@
+.google-map {
+  max-width: 35vw;
+  max-height: 29vw;
+  border: 0.5em #3D5969 solid 
+}
+
+.google-map-container {
+  min-width: 40%;
+  float: right;
+  margin-right: 4em;
+}

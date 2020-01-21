@@ -1,0 +1,46 @@
+.top-header {
+  padding: 1em;
+  padding-top: .6em;
+  padding-bottom: .6em; 
+  color:white;
+}
+
+.welcome-message a {
+  color: rgb(61, 61, 89);
+}
+
+.welcome-message a:hover {
+  text-decoration: none;
+  color: rgb(32, 32, 69);
+}
+
+
+.sign-in-btn {
+  margin-right: .5em;
+}
+
+.guest-right-links a {
+  color: white;
+  font-size: 0.75em;
+}
+
+.sign-out-btn {
+  margin-left: 1rem;
+}
+
+.nav-logo {
+  max-width: 23vw;
+}
+
+.header-middle-sect {
+  margin-bottom: 1em;
+}
+
+.login-links {
+  margin-right: .5em;
+  margin-left: .5em;
+}
+
+.welcome-message {
+  font-size: 1.2em;
+}

@@ -1,0 +1,31 @@
+.checkout-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.checkout-container h2 {
+  max-width: 80%;
+  word-wrap: normal;
+  text-align: center;
+}
+
+.checkout-ticketCard {
+  margin-top: 2em;
+}
+
+.ready-to-checkout-container, .congrats-checkout-container {
+  max-width: 60%;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ready-to-checkout-container {
+  align-content: center;
+}
+
+
+.login-btn {
+  margin-right: 1em;
+}
+
