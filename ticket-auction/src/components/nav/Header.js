@@ -8,7 +8,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 class Header extends Component {
   render() {
     const leftWelcomeMessage = () => {
-      if (this.props.loggedIn) {
+      if (this.props.loggedIn && this.props.currentUser) {
         return (
           <p className="welcome-message">Hello {this.props.currentUser.username}! </p>
         )
