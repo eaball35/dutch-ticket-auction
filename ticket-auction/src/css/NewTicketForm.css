@@ -102,3 +102,14 @@
 .new-ticket-auction-container {
   margin: auto
 }
+
+.new-event-ticket-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.left-event-sect, .right-event-sect {
+  max-width: 45%;
+  margin: 2em;
+}

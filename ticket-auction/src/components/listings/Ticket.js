@@ -126,7 +126,7 @@ class Ticket extends Component {
         // Ticket Fields
         const listingDetails = this.state.ticket;
         const imageUrls = listingDetails.event.imageUrls
-        const performer = listingDetails.event.performer[0].name
+        const performer = listingDetails.event.performer
         const title = listingDetails.event.title
         const user = listingDetails.user.username
         const eventStart = dateFormat(listingDetails.event.start, "dddd, mmmm dS, yyyy, h:MM TT")
@@ -147,13 +147,20 @@ class Ticket extends Component {
         return (
           <section>
             <section className="ticket-details-container">
-              <img src={imageUrls} alt={title} className='event-img ticket-info-sect'/>
+              
+              { (imageUrls)
+                ? <img src={imageUrls[0]} alt={title} className='event-img ticket-info-sect'/>
+                :  <img src="https://images.squarespace-cdn.com/content/v1/57f0719c725e25e914a27b76/1476469701090-IYP1U1RNY0D3M72C5H3A/ke17ZwdGBToddI8pDm48kCIq0XyLJJk2FAWEONnCmDZZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzlBBQXEp281-O-7PPigqE00Dc4AsyuOsfxkxOwUQ9vmPojz-kpU2wdTDZ9661s8ZQ/events-heavenly-header.jpg?format=1500w" alt="default-event-img" className='event-img'/>
+              }
                 
               <section className="ticket-info-sect details-sect">
                 <h6>TICKET LISTING {listingDetails.id.slice(-6).toUpperCase()}</h6>
                 <h4>{eventStart}</h4>
                 <h1>{title}</h1>
-                <h2>{performer}</h2>
+                { (performer)
+                  ? <h2>{performer[0].name}</h2>
+                  : null
+                }
                 <h4>{ticketQuantity} {ticketGrouping}</h4>
                 <h2>@ {venue}  |  {city}, {state} </h2>
                 <h6>Listed {listedAt} by {user} for <strong>${price} total</strong> <span> - ${priceEa} ea</span></h6>
