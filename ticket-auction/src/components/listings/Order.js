@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import SPRING_SECURITY from '../../config_spring_keys.js'
 import TicketCard from '../cards/TicketCard'
+import '../../css/Order.css'
 
 const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
 const username = `${SPRING_SECURITY.username}`
@@ -42,14 +43,15 @@ render() {
     const showOrder = () => {
       if(this.state.order) {
         return (
-          <section>
+          <section className="order-container">
             <header>
               <h1> Congratulations your order was placed!</h1>
               <h2> {this.state.order.ticketListing.ticketQuantity} Tickets to {this.state.order.ticketListing.event.title}</h2>
               <h4>Order: {this.state.order.id} </h4>
-              <h4>Total Cost: ${(this.state.order.totalCost).toFixed(2)}</h4> 
+              <p>Please await an email for follow up details. Thank you for using TicketClock!</p>
             </header>
             <TicketCard ticket={this.state.order.ticketListing}/>
+            <h4>Total Cost: ${(this.state.order.totalCost).toFixed(2)} - paid</h4> 
           </section>
         )
         

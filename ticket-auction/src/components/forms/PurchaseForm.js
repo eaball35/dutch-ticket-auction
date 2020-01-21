@@ -3,7 +3,7 @@ import TicketCard from '../cards/TicketCard';
 import { BrowserRouter as Router, Link, NavLink, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import SPRING_SECURITY from '../../config_spring_keys.js'
-var zipcodes = require('zipcodes');
+import '../../css/PurchaseForm.css';
 
 
 const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
@@ -102,13 +102,17 @@ class PurchaseForm extends Component {
 
   render() {  
     if (this.props.cartTicket) {
+      const strikePrice = this.props.cartTicket.strikePrice
       const { redirect } = this.state;
       if (redirect !== undefined) {
         return <Redirect to={redirect}/>;
       }
       return (
-        <div>
+        <div className="purchase-container">
+          <h2> Everything look good? Click purchase to submit your order.</h2>
           <TicketCard ticket={this.props.cartTicket.ticket}/> 
+          <h4>Strike Price: ${strikePrice.toFixed(2)}</h4>
+          <h4>Total Cost w Tax & Fees: ${((strikePrice + (strikePrice * 0.02 )) * 1.1).toFixed(2)}</h4>
           <button className="btn btn-primary" onClick ={this.purchase}>Purchase</button>
         </div>
       )

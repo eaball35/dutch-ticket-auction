@@ -281,10 +281,13 @@ class Checkout extends Component {
     if (this.state.shippingAddress && this.state.shippingCity) {
       this.updateAddressCity()
       return (
-        <ul>
-          <li> Shipping Address: {this.state.shippingAddress.address1}</li>
-          <li> Shipping City: {this.state.shippingCity.name}</li>
-        </ul>
+        <div>
+          <h2>Shipping Details</h2>
+          <ul>
+            <li> Shipping Address: {this.state.shippingAddress.address1}</li>
+            <li> Shipping City: {this.state.shippingCity.name}</li>
+          </ul>
+        </div>
       )
     }
   }
@@ -313,6 +316,14 @@ class Checkout extends Component {
         <button className="btn btn-primary" onClick ={this.submitShippingDetails}>Submit Details</button>
       </div>
     )
+  }
+
+  endingS = (num) => {
+    if (num == 1) {
+      return ""
+    } else {
+      return "s"
+    }
   }
 
   render() {  
@@ -360,7 +371,7 @@ class Checkout extends Component {
           {console.log(this.state.shippingAddress)}
           {console.log(this.state.shippingCity)}
           <div className="congrats-checkout-container">
-            <h2>Congratulations you striked at a total price of ${strikePrice} for {ticketQuantity} tickets to {title}! </h2>
+            <h2>Congratulations you striked at a total price of ${strikePrice} for {ticketQuantity} ticket{this.endingS(ticketQuantity)} to {title}! </h2>
             <TicketCard ticket={ticket} className="checkout-ticketCard"/>
           </div>
 
