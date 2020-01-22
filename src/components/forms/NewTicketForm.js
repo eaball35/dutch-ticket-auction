@@ -7,7 +7,7 @@ import NewTicketFormEvent from './NewTicketFormEvent';
 import NewTicketFormVenue from './NewTicketFormVenue';
 import NewTicketFormAuction from './NewTicketFormAuction';
 import SPRING_SECURITY from '../../config_spring_keys.js'
-const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
+const base_url = `${SPRING_SECURITY.base_url}`
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 
