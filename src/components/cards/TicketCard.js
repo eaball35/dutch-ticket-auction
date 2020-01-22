@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, NavLink, Redirect } from 'react-router-dom';
 import '../../css/TicketCard.css'
-import { render } from '@testing-library/react';
 var dateFormat = require('dateformat');
 
 class TicketCard extends Component  {    
@@ -27,7 +26,7 @@ class TicketCard extends Component  {
       <section className="ticketCard-container">
         { (listingDetails.event.imageUrls)
           ? <img src={listingDetails.event.imageUrls[0]} alt={this.props.ticket.event.title} className="ticketCard-icon-img"/>
-          : <img src="https://images.squarespace-cdn.com/content/v1/57f0719c725e25e914a27b76/1476469701090-IYP1U1RNY0D3M72C5H3A/ke17ZwdGBToddI8pDm48kCIq0XyLJJk2FAWEONnCmDZZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzlBBQXEp281-O-7PPigqE00Dc4AsyuOsfxkxOwUQ9vmPojz-kpU2wdTDZ9661s8ZQ/events-heavenly-header.jpg?format=1500w" alt="default-event-img"/>
+          : <img src="https://images.squarespace-cdn.com/content/v1/57f0719c725e25e914a27b76/1476469701090-IYP1U1RNY0D3M72C5H3A/ke17ZwdGBToddI8pDm48kCIq0XyLJJk2FAWEONnCmDZZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzlBBQXEp281-O-7PPigqE00Dc4AsyuOsfxkxOwUQ9vmPojz-kpU2wdTDZ9661s8ZQ/events-heavenly-header.jpg?format=1500w" alt="default-event-img" className="ticketCard-icon-img"/>
         }
         <div className="ticketCard-details">
           <h6>TICKET LISTING {listingDetails.id.slice(-6).toUpperCase()}</h6>

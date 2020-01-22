@@ -22,6 +22,7 @@ class NewTicketFormAuction extends Component {
           if (state === "auctionStart") {
             return (
                   <div>
+                  <label htmlFor={state}> {labels[index]}: </label>
                   <DateTimePicker
                     onChange={this.props.onStartChange}
                     value={this.props.startDate}
@@ -31,6 +32,7 @@ class NewTicketFormAuction extends Component {
           }  else if (state === "auctionEnd") {
             return (
                   <div>
+                  <label htmlFor={state}> {labels[index]}: </label>
                   <DateTimePicker
                     onChange={this.props.onEndChange}
                     value={this.props.endDate}
