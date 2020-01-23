@@ -59,27 +59,30 @@ class NewTicket extends Component {
 
   onSubmitTicket = (event) => {
     event.preventDefault();
-    const url = `${base_url}/tickets`
-    const headers = { headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) }}
-    const data = {
-      user: this.props.currentUser,
-      event: this.state.event,
 
-      auctionStart: this.state.auctionStart,
-      auctionEnd: this.state.auctionEnd,
-      startTotalPrice: this.state.startTotalPrice,
-      endTotalPrice: this.state.endTotalPrice,
-      auctionDetails: this.state.auctionDetails,
-      overview: this.state.overview,
+    if (isNaN(this.state.endTotalPrice) && isNaN(this.state.startTotalPrice)) {
+      const url = `${base_url}/tickets`
+      const headers = { headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) }}
+      const data = {
+        user: this.props.currentUser,
+        event: this.state.event,
+
+        auctionStart: this.state.auctionStart,
+        auctionEnd: this.state.auctionEnd,
+        startTotalPrice: this.state.startTotalPrice,
+        endTotalPrice: this.state.endTotalPrice,
+        auctionDetails: this.state.auctionDetails,
+        overview: this.state.overview,
+      }
+
+      axios.post(url, data, headers)
+        .then((response) => {
+          this.setState({redirect: `/tickets/${response.data.id}`})
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
     }
-
-    axios.post(url, data, headers)
-      .then((response) => {
-        this.setState({redirect: `/tickets/${response.data.id}`})
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
   }
 
   submitCity = (inputCity) => {
