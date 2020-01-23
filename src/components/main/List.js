@@ -58,7 +58,11 @@ class List extends Component {
         });
       } else if (this.props.cardType === "event") {
         containerClass = "eventsContainer"
-        collection = this.state.collection.map((event, i) => {
+        let group = this.state.collection
+        if (group.length > 50) {
+          group = group.slice(0, 50)
+        }
+        collection = group.map((event, i) => {
             return (<EventCard event={event} key={i}/>)
           });
       } else if (this.props.cardType === "category") {

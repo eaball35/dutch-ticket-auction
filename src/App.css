@@ -43,3 +43,7 @@ footer {
 * {
   /* border: solid 2px red */
 }
+
+.unavailable {
+  text-align: center;
+}

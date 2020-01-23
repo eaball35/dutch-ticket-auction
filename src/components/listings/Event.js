@@ -84,7 +84,7 @@ render() {
 
             <section className ="ticket-table-container">
               <h2>Browse Ticket Listings</h2>
-              <TicketTable url={`/tickets/event/${this.props.match.params.id}`}/>
+              <TicketTable url={`/tickets/event/${this.props.match.params.id}`} show={false}/>
             </section>
 
           </section>

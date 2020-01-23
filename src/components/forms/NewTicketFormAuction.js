@@ -13,8 +13,14 @@ class NewTicketFormAuction extends Component {
   
 
   render() {
-    const auctionStates = ["ticketQuantity", "ticketGrouping", "auctionStart", "auctionEnd", "startTotalPrice", "endTotalPrice", "auctionDetails", "pitch"]
-    const auctionLabels = ["Ticket Quantity", "Ticket Grouping", "Auction Start", "Auction End", "Start Total Price: $", "End Total Price: $", "Details", "Auction Pitch"]
+    const auctionStates = ["ticketQuantity", "ticketGrouping", "auctionStart", "auctionEnd", "startTotalPrice", "endTotalPrice", "auctionDetails"]
+    const auctionLabels = ["Ticket Quantity", "Ticket Grouping", "Auction Start", "Auction End", "Start Total Price: $", "End Total Price: $", "Details"]
+
+    const ticketGroupings = ["", "general admission", "together", "lawn", "tier1", "tier2", "balcony",]
+
+    const inputOptions = (list) => list.map((item, i) => {
+      return <option value={item} key={i}>{item}</option>
+    });
 
     
     const inputs = (states, labels, index = -1) => states.map((state) => {
@@ -39,6 +45,14 @@ class NewTicketFormAuction extends Component {
                   />
                 </div>
             )
+          } else if (state === "ticketGrouping") {
+            return( 
+              <div>
+                <label htmlFor={state}> {labels[index]}: </label>
+                <select name={state} onChange={this.props.onInputChange} value={this.props.ticketGrouping}>
+                  {inputOptions(ticketGroupings)}
+                </select>
+              </div>)
           } else {
           return (
             <div>

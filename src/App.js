@@ -23,9 +23,9 @@ import Checkout from './components/main/Checkout.js';
 import GMap from './components/main/GoogleMap.js';
 import TopCities from './components/main/TopCities';
 import { GoogleMap, GoogleApiWrapper, Marker } from 'google-maps-react';
+import axios from 'axios';
 import MyAccount from './components/main/MyAccount';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 class App extends Component {
   constructor(props) {
@@ -38,7 +38,6 @@ class App extends Component {
       shippingAddress: undefined,
     };
   }
-
 
   updateLoginUser = (user = 123) => {
     if(this.state.loggedIn) {

@@ -9,7 +9,7 @@ class ManageMyTickets extends Component {
       return (
         <section>
           <h1>Manage Your Tickets</h1>
-          <TicketTable url={`/tickets/user/${this.props.currentUser.id}`}/>
+          <TicketTable url={`/tickets/user/${this.props.currentUser.id}`} show={true}/>
         </section>
       )
     } 

@@ -28,16 +28,6 @@ class ByLocation extends Component {
     };
   }
 
-  fetchCollection(url, headers) {
-    axios.get( url, headers).then((response) => {
-        this.setState({collection: response.data})
-      })
-      .catch((error) => {
-        console.log("No collection")
-        // this.setState({errors: error})
-      });
-  }
-
   setSelectedVenue = (venue) => {
     this.setState({selectedVenue: venue})
   }

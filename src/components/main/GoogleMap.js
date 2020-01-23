@@ -6,7 +6,7 @@ import Geocode from "react-geocode";
 import axios from 'axios';
 import SPRING_SECURITY from '../../config_spring_keys.js'
 
-const base_url = `${SPRING_SECURITY.base_url}`
+const base_url = 'http://localhost:5000'
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 
@@ -28,7 +28,6 @@ export class MapContainer extends Component {
       collection: undefined,
       initialCenter: undefined,
       center: undefined,
-      zoom: this.props.zoom,
       
       selectedVenue: undefined,
     }
@@ -49,16 +48,16 @@ export class MapContainer extends Component {
   componentWillReceiveProps(nextProps) {
     if(this.props !== nextProps){
       this.geocodeLocation(nextProps.center)
-      this.setState({zoom: nextProps.zoom})
     }
   }
 
   fetchCollection(url, headers) {
+    console.log(url)
     axios.get( url, headers).then((response) => {
       if (this.props.singleCollection) {
         this.setState({collection: [response.data]})
       } else {
-      this.setState({collection: response.data})
+        this.setState({collection: response.data})
       }
       })
       .catch((error) => {
@@ -71,7 +70,7 @@ export class MapContainer extends Component {
       Geocode.fromAddress(location).then(
         response => {
           this.setState({
-            initialCenter: response.results[0].geometry.location, 
+            initialCenter: response.results[0].geometry.location,
             center: response.results[0].geometry.location  
           })
         },
@@ -91,24 +90,20 @@ export class MapContainer extends Component {
   displayMarkers = () => {    
     if(this.state.collection) {
         return this.state.collection.map((venue, index) => {
-          if (venue.address && venue.address.lat && venue.address.lng) {
-            return (
-              <Marker 
-                title={venue.title}
-                name={venue.title}
-                key={index} 
-                id={index} 
-                position= {{ 
-                  lat: venue.address.lat,
-                  lng: venue.address.lng
-                }}
-                visible={true}
-                onClick={() => this.onMarkerClick(venue)}>
-              </Marker>
-            )
-          } else {
-            return null;
-          }
+          return (
+            <Marker 
+              title={venue.title}
+              name={venue.title}
+              key={index} 
+              id={index} 
+              position= {{ 
+                lat: venue.address.lat,
+                lng: venue.address.lng
+              }}
+              visible={true}
+              onClick={() => this.onMarkerClick(venue)}>
+            </Marker>
+          )
         })
     } else {
       return "";
@@ -130,7 +125,7 @@ export class MapContainer extends Component {
           <section>
             <Map
               google={this.props.google}
-              zoom={this.state.zoom}
+              zoom={10}
               style={mapStyles}
               initialCenter={this.state.initialCenter}
               center={this.state.center}

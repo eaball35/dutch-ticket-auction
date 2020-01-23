@@ -115,7 +115,7 @@ class EventTicketForm extends Component {
           </section>
 
           <form onSubmit={this.onSubmitTicket}>
-            <NewTicketFormAuction onStartChange={this.onStartChange} onEndChange={this.onEndChange} endDate={this.state.auctionEnd} startDate={this.state.auctionStart} onInputChange={this.onInputChange}/>
+            <NewTicketFormAuction onStartChange={this.onStartChange} onEndChange={this.onEndChange} endDate={this.state.auctionEnd} startDate={this.state.auctionStart} onInputChange={this.onInputChange} ticketGrouping={this.state.ticketGrouping}/>
             <div className="venue-btn-container">
               <input type="submit" value="Submit Ticket" className="btn btn-primary"/>
             </div>
