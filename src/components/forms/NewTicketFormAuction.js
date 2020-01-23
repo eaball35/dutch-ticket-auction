@@ -10,8 +10,6 @@ class NewTicketFormAuction extends Component {
     };
   }
 
-  
-
   render() {
     const auctionStates = ["ticketQuantity", "ticketGrouping", "auctionStart", "auctionEnd", "startTotalPrice", "endTotalPrice", "auctionDetails"]
     const auctionLabels = ["Ticket Quantity", "Ticket Grouping", "Auction Start", "Auction End", "Start Total Price: $", "End Total Price: $", "Details"]
