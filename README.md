@@ -1,2 +1,2 @@
-<img src="https://live.staticflickr.com/65535/49431447621_814bd1b3da_w.jpg"
+<img src="https://live.staticflickr.com/65535/49431678272_11fda6a894_w.jpg"
      alt="TicketClock Logo" />
