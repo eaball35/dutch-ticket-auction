@@ -121,6 +121,10 @@ Spring Boot Starter Security default username is user and a generated security p
 4. Start server locally with `npm start`
 
 
+## Demo
+![By Location Demo](https://gfycat.com/speedydecimalborer)
+
+
 
 
 
