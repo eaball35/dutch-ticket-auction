@@ -3,7 +3,7 @@
           alt="TicketClock Logo"/>
 </p>
 
-[TicketClock.com](http://ticketclock.com?target=_blank) is a web-based ticket auction app which allows sellers to list tickets at whatever price and that price will reduce until a buyer is found OR the time of the event. This model is also know as a 'dutch' or 'time-based' auction. The project, created entirely by Emily Ball, was developed for her Ada Developers Academy Capstone project. 
+<a href="http://ticketclock.com" target="_blank">TicketClock.com</a> is a web-based ticket auction app which allows sellers to list tickets at whatever price and that price will reduce until a buyer is found OR the time of the event. This model is also know as a 'dutch' or 'time-based' auction. The project, created entirely by Emily Ball, was developed for her Ada Developers Academy Capstone project. 
 
 ## About Capstone
 Capstone is the largest undertaking while at Ada Developers Academy. Given roughly 3 weeks, students will take on roles of both the product owner and developer of their concepts. It is up to students to decide what and how things get built, given the added challenge of incorporating at least 3 new learned technologies. For additional information on Ada Capstone, vist Ada project repo [here](https://github.com/Ada-C12/capstone).
