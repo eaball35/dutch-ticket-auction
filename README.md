@@ -19,8 +19,6 @@ The project, created entirely by Emily Ball, was developed for her Ada Developer
 ## Demo
 ###### Search By Location
 ![By Location Demo](https://thumbs.gfycat.com/SpeedyDecimalBorer-size_restricted.gif)
-###### Category/Genre & Custom Query Search
-![Category Search Demo](https://thumbs.gfycat.com/SpeedyDecimalBorer-size_restricted.gif)
 
 ## Technologies
 Backend
