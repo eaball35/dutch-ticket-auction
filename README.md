@@ -61,17 +61,25 @@ Deployment
 <p align="center"> 
      <img src="https://live.staticflickr.com/65535/49445828106_8c8dc2f842_z.jpg"
           alt="TicketClock wireframe headers"
-          width="400"/>
+          width="350"/>
      <img src="https://live.staticflickr.com/65535/49445828026_930fc5d467_c.jpg"
           alt="TicketClock wireframe myaccount"
-          width="400"/>
+          width="350"/>
      <img src="https://live.staticflickr.com/65535/49445349983_45054c51cb_c.jpg"
           alt="TicketClock wireframe ticket"
-          width="400"/>
+          width="350"/>
      <img src="https://live.staticflickr.com/65535/49445828051_40dfd0bf5c_c.jpg"
           alt="TicketClock wireframe new ticket"
-          width="400"/>
+          width="350"/>
 </p>
+###### Entity Relationship Diagram using [lucidchart.com](https://www.lucidchart.com)
+
+<p align="center"> 
+     <img src="https://live.staticflickr.com/65535/49445828156_297606e957_b.jpg"
+          alt="TicketClock ERD"
+          width="600"/>
+</p> 
+
 
 
 
