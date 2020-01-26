@@ -34,7 +34,7 @@ class App extends Component {
     this.state = {
       loggedIn: false,
       currentUser: undefined,
-      cartTicket: undefined,
+      cartTicket: "",
       shippingAddress: undefined,
     };
   }
@@ -53,12 +53,16 @@ class App extends Component {
     }
   }
   
-  addToCheckout = (cartTicket) => {
-    this.setState({cartTicket})
-  }
-
   updateShippingAddress = (shippingAddress) => {
     this.setState({shippingAddress})
+  }
+
+  logout = () => {
+    this.setState({})
+  }
+
+  addToCheckout = (cartTicket) => {
+    this.setState({cartTicket})
   }
 
 

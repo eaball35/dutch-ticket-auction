@@ -31,6 +31,10 @@ class Header extends Component {
               <Link to='/seller-stats/2' className='login-links'> Seller Stats</Link>  |  
               <Link to={`/myaccount/${this.props.currentUser.id}`} className='login-links'>  
               My TicketClock Account </Link>
+              <Link 
+              to='/'
+              className='btn btn-dark sign-in-btn' onClick={this.props.logInCallback}> Log Out 
+              </Link>
             </strong>
       
           </section>

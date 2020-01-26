@@ -52,9 +52,9 @@ class TicketTable extends Component {
       
       if (this.state.tickets !== []) {
         ticketTable = this.state.tickets.map((ticket, i) => {
-            if (ticket.statue !== "new" && !this.props.show) {
-              return (<div className="unavailable">No tickets available </div>)
-            } else if (ticket.statue === "new") {
+            if (ticket.status !== "new" && !this.props.show) {
+              return ("")
+            } else if (ticket.status === "new") {
               return (
                 <tr key={i}>
                   <td><Link to={`/tickets/${ticket.id}`}>Ticket ID ...{ticket.id.slice(-6)} </Link></td>
@@ -64,7 +64,7 @@ class TicketTable extends Component {
                   <td> ${(ticket.startTotalPrice/ ticket.ticketQuantity).toFixed(2)}</td>
                 </tr>
               )
-            } else if (ticket.statue !== "new" && this.props.show)  {
+            } else if (ticket.status !== "new" && this.props.show)  {
                 return (
                   <tr key={i}>
                     <td><Link to={`/tickets/${ticket.id}`}>Ticket ID ...{ticket.id.slice(-6)} - {ticket.status} </Link></td>

@@ -24,7 +24,7 @@ class EventTicketForm extends Component {
       startTotalPrice: "",
       endTotalPrice: "",
       auctionDetails: "",
-      ticketQuantity: "",
+      ticketQuantity: 1,
       ticketGrouping: "",
       pitch: "",
       
@@ -69,8 +69,8 @@ class EventTicketForm extends Component {
 
       auctionStart: this.state.auctionStart,
       auctionEnd: this.state.auctionEnd,
-      startTotalPrice: this.state.startTotalPrice,
-      endTotalPrice: this.state.endTotalPrice,
+      startTotalPrice: this.state.startTotalPrice * this.state.ticketQuantity,
+      endTotalPrice: this.state.endTotalPrice * this.state.ticketQuantity,
       auctionDetails: this.state.auctionDetails,
       ticketQuantity: this.state.ticketQuantity,
       ticketGrouping: this.state.ticketGrouping,

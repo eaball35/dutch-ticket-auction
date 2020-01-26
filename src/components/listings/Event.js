@@ -65,7 +65,10 @@ render() {
                     : null
                   }
                 </h2>
-                <h2>@ {eventDetails.venue.title}  |  {eventDetails.venue.address.city.name}, {eventDetails.venue.address.city.state} </h2>
+                {(eventDetails.venue && eventDetails.venue.address )
+                  ? <h2>@ {eventDetails.venue.title}  |  {eventDetails.venue.address.city.name}, {eventDetails.venue.address.city.state} </h2>
+                  : <h2></h2>
+                }
                 <p>{eventDetails.eventDetails}</p>
               </div>
 

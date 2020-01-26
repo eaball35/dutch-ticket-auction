@@ -12,7 +12,7 @@ class NewTicketFormAuction extends Component {
 
   render() {
     const auctionStates = ["ticketQuantity", "ticketGrouping", "auctionStart", "auctionEnd", "startTotalPrice", "endTotalPrice", "auctionDetails"]
-    const auctionLabels = ["Ticket Quantity", "Ticket Grouping", "Auction Start", "Auction End", "Start Total Price: $", "End Total Price: $", "Details"]
+    const auctionLabels = ["Ticket Quantity", "Ticket Grouping", "Auction Start", "Auction End", "Start Total Price (per unit): $", "End Total Price (per unit): $", "Details"]
 
     const ticketGroupings = ["", "general admission", "together", "lawn", "tier1", "tier2", "balcony",]
 

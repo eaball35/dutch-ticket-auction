@@ -6,7 +6,7 @@ import Geocode from "react-geocode";
 import axios from 'axios';
 import SPRING_SECURITY from '../../config_spring_keys.js'
 
-const base_url = 'http://localhost:5000'
+const base_url = `${SPRING_SECURITY.base_url}`
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 
@@ -90,6 +90,13 @@ export class MapContainer extends Component {
   displayMarkers = () => {    
     if(this.state.collection) {
         return this.state.collection.map((venue, index) => {
+          let lat = 0
+          let lng = 0
+          if (venue.address && venue.address.lat && venue.address.lng) {
+            lat = venue.address.lat;
+            lng = venue.address.lng;
+          }
+
           return (
             <Marker 
               title={venue.title}
@@ -97,8 +104,8 @@ export class MapContainer extends Component {
               key={index} 
               id={index} 
               position= {{ 
-                lat: venue.address.lat,
-                lng: venue.address.lng
+                lat: lat,
+                lng: lng
               }}
               visible={true}
               onClick={() => this.onMarkerClick(venue)}>

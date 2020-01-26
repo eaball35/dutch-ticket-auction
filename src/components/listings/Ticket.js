@@ -92,8 +92,8 @@ class Ticket extends Component {
           <p><strong>Auction Details: </strong> {this.state.ticket.auctionDetails}</p>
           <p><strong>Auction Start: </strong>{dateFormat(this.state.ticket.auctionStart, "dddd, mmmm dS, yyyy, h:MM TT")}</p>
           <p><strong>Auction End: </strong> {dateFormat(this.state.ticket.auctionEnd, "dddd, mmmm dS, yyyy, h:MM TT")}</p>
-          <p><strong>Start Price: </strong> ${(this.state.ticket.startTotalPrice/ this.state.ticket.ticketQuantity).toFixed(2)} ea - ${this.state.ticket.startTotalPrice} total </p>
-          <p><strong>End Price: </strong>${(this.state.ticket.endTotalPrice/ this.state.ticket.ticketQuantity).toFixed(2)} ea - ${this.state.ticket.endTotalPrice} total</p>
+          <p><strong>Start Price: </strong> ${(this.state.ticket.startTotalPrice/ this.state.ticket.ticketQuantity).toFixed(2)} ea - ${this.state.ticket.startTotalPrice.toFixed(2)} total </p>
+          <p><strong>End Price: </strong>${(this.state.ticket.endTotalPrice/ this.state.ticket.ticketQuantity).toFixed(2)} ea - ${this.state.ticket.endTotalPrice.toFixed(2)} total</p>
           { (this.state.timeLeft > 0)
             ? <p>{this.state.timeLeft} hours left!</p>
             : null
