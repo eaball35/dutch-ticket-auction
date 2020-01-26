@@ -71,14 +71,14 @@ This project has 3 layer of set up.
 ###### Install & Run
 1. Fork and clone project folder name 'ticket-clock-api'
 2. Set up your own [MongoDb Atlas cluster](https://cloud.mongodb.com/) and configure mongoDB 'URI' and 'database' name
-3. Configure [Eventful.com API key] (https://api.eventful.com/) and [Google GeoCoding API key](https://developers.google.com/maps/documentation/javascript/geocoding)
+3. Configure [Eventful.com API key](https://api.eventful.com/) and [Google GeoCoding API key](https://developers.google.com/maps/documentation/javascript/geocoding)
 4. Configure `@CrossOrigin(origins = "http://ticketclock.com")` annotation within controller classes to allow traffic from frontend URL
 5. Run Spring Boot application locally by executing the 'main' method in the 'com.TicketTime.TicketTime.TicketTimeApplication' class
 ###### Security
-`<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-security</artifactId>
-</dependency>`
+`<dependency>`
+  `<groupId>org.springframework.boot</groupId>`
+  `<artifactId>spring-boot-starter-security</artifactId>`
+`</dependency>`
 
 Spring Boot Starter Security default username is user and a generated security password is printed in the console like 'generated security password: 0123abc4-5678-9ef0-1g2h-i3456jklmno7'
 
