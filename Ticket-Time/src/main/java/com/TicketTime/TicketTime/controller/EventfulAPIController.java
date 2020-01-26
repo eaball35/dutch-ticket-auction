@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-@CrossOrigin(origins = { "http://localhost:3000"})
+@CrossOrigin(origins = "http://ticketclock.com")
 @RestController
 @RequestMapping("/eventful")
 public class EventfulAPIController {

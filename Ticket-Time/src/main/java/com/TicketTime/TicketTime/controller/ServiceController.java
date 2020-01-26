@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 
-@CrossOrigin
+@CrossOrigin(origins = "http://ticketclock.com")
 @RestController
 @RequestMapping
 public class ServiceController {
@@ -34,6 +34,16 @@ public class ServiceController {
         TicketListing ticket = getTicket.get();
         if (ticket != null) {
             return ticket.calculatePrice();
+        }
+        return null;
+    }
+
+    @GetMapping("/hoursLeft")
+    public Integer getHoursLeft(@RequestParam(value="id") String ticketListingId) {
+        Optional<TicketListing> getTicket = this.ticketListingRepository.findById(ticketListingId);
+        TicketListing ticket = getTicket.get();
+        if (ticket != null) {
+            return ticket.hoursLeft();
         }
         return null;
     }
@@ -138,17 +148,17 @@ public class ServiceController {
     }
 
     @GetMapping("/findEvent")
-    public List<Event> findEvent(@RequestParam (value="title") String title, @RequestParam (value="performer") String performer) {
+    public ArrayList<Event> findEvent(@RequestParam (value="title") String title, @RequestParam (value="performer") String performer) {
         if(title.equals("") && performer.equals("")) {
             return null;
         }
         List<Event> events = this.eventRepository.findAll();
 
-        List<Event> outputs = new ArrayList<Event>();
+        ArrayList<Event> outputs = new ArrayList<Event>();
         for(int i = 0; i < events.size(); i++) {
             String eventTitle = events.get(i).getTitle().toUpperCase();
             String eventPerformer = events.get(i).getPerformer().get(0).getName().toUpperCase();
-            if (eventTitle.contains(title.toUpperCase()) && eventPerformer.contains((performer.toUpperCase())) ) {
+            if (eventTitle.contains(title.toUpperCase()) || eventPerformer.contains((performer.toUpperCase())) ) {
                 outputs.add(events.get(i));
             }
         }
