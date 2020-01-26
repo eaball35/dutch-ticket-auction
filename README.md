@@ -72,8 +72,8 @@ Deployment
           alt="TicketClock wireframe new ticket"
           width="350"/>
 </p>
-###### Entity Relationship Diagram using [lucidchart.com](https://www.lucidchart.com)
 
+###### Entity Relationship Diagram using [lucidchart.com](https://www.lucidchart.com)
 <p align="center"> 
      <img src="https://live.staticflickr.com/65535/49445828156_297606e957_b.jpg"
           alt="TicketClock ERD"
