@@ -17,7 +17,7 @@ Checkout site demo at [ticketclock.com](http://ticketclock.com) or run locally b
 1. Fork and clone project folder name 'ticket-clock-api'
 2. Set up your own [MongoDb Atlas cluster](https://cloud.mongodb.com/) and configure mongoDB 'URI' and 'database' name
 3. Configure [Eventful.com API key](https://api.eventful.com/) and [Google GeoCoding API key](https://developers.google.com/maps/documentation/javascript/geocoding)
-4. Configure `@CrossOrigin(origins = "http://ticketclock.com")` annotation within controller classes to allow traffic from frontend URL
+4. Configure `@CrossOrigin(origins = "http://ticketclock.com")` annotation within controller classes to allow frontend URL
 5. Run Spring Boot application locally by executing the 'main' method in the 'com.TicketTime.TicketTime.TicketTimeApplication' class
 ###### Security
 ```
