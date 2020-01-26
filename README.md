@@ -63,10 +63,32 @@ This project has 3 layer to set up.
      3. React JS Front End Site 
 
 ### Backend API
+###### Requirments
+* [JDK 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* [Maven 4.0.0](https://maven.apache.org/)
+###### Install & Run
+1. Fork and clone project folder name 'ticket-clock-api'
+2. Run Spring Boot application locally by executing the 'main' method in the 'com.TicketTime.TicketTime.TicketTimeApplication' class
+###### Security
+`<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-security</artifactId>
+</dependency>`
+
+Spring Boot Starter Security default username is user and a generated security password is printed in the console like 'generated security password: 0123abc4-5678-9ef0-1g2h-i3456jklmno7'
 
 ### MongoDB Database
 
 ### Front End Site
+###### Requirments
+* [Node - npm](https://www.npmjs.com/get-npm)
+###### Install & Run
+1. Fork and clone project folder named 'ticket-clock-api'
+2. Install dependencies with `npm install`
+3. Configure Spring security username, password, and API baseURL
+4. Configure Google Maps API security key
+4. Start server locally with `npm start`
+
 
 ## Wireframes/Diagrams
 ###### Original Wireframes using [Figma.com](https://www.figma.com)
