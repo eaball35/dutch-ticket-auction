@@ -122,7 +122,7 @@ Spring Boot Starter Security default username is user and a generated security p
 
 
 ## Demo
-![By Location Demo](https://gfycat.com/speedydecimalborer)
+![By Location Demo](https://thumbs.gfycat.com/SpeedyDecimalBorer-size_restricted.gif)
 
 
 
