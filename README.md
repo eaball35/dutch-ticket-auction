@@ -46,7 +46,7 @@ Frontend
 External APIs
 * [Eventful.com api](https://api.eventful.com/) - Seed Databse with Events/Venues/Performers
 * [Google Maps api](https://developers.google.com/maps/documentation) - Frontend Map Components
-* [Google Geocoding api] (https://developers.google.com/maps/documentation/geocoding/start) - Get lat/lng for Maps
+* [Google Geocoding api](https://developers.google.com/maps/documentation/geocoding/start) - Location to Lat/Lng
 
 Deployment
 * MongoDB Atlas (Database)
