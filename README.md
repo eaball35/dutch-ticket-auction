@@ -36,14 +36,16 @@ My app targets concert goers and event attendenders. Both those who have extra t
 
 ## Technologies
 Backend
- * Lanuage - Java
- * Framework - Spring Boot
- * Database - MongoDB
+ * Lanuage - [Java](https://www.oracle.com/java/)
+ * Framework - [Spring Boot](https://spring.io/projects/spring-boot)
+ * Database - [MongoDB](https://www.mongodb.com/)
 
 Frontend
-* Languages - HTML/css/JavaSript
-* Framework - React JS
-* Library - Bootstrap
+* Languages - HTML/css/JavaScript
+* Framework - [React JS](https://reactjs.org/)
+* Library - [Bootstrap](https://react-bootstrap.github.io/)
+* [Google Maps Visual Component](https://www.npmjs.com/package/google-map-react)
+* [US States Visual Component](https://www.npmjs.com/package/react-usa-map)
 
 External APIs
 * [Eventful.com api](https://api.eventful.com/) - Seed Databse with Events/Venues/Performers
@@ -57,18 +59,21 @@ Deployment
 * AWS Route 53 - Domain
 
 ## Getting Started
-This project has 3 layer to set up.
-     1. Java/Spring Boot Backend API
-     2. MongoDB Database
-     3. React JS Front End Site 
+This project has 3 layer of set up.
+1. Java/Spring Boot Backend API
+2. MongoDB Database
+3. React JS Front End Site 
 
-### Backend API
+### Backend API Setup
 ###### Requirments
 * [JDK 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 * [Maven 4.0.0](https://maven.apache.org/)
 ###### Install & Run
 1. Fork and clone project folder name 'ticket-clock-api'
-2. Run Spring Boot application locally by executing the 'main' method in the 'com.TicketTime.TicketTime.TicketTimeApplication' class
+2. Set up your own [MongoDb Atlas cluster](https://cloud.mongodb.com/) and configure mongoDB 'URI' and 'database' name
+3. Configure [Eventful.com API key] (https://api.eventful.com/) and [Google GeoCoding API key](https://developers.google.com/maps/documentation/javascript/geocoding)
+4. Configure `@CrossOrigin(origins = "http://ticketclock.com")` annotation within controller classes to allow traffic from frontend URL
+5. Run Spring Boot application locally by executing the 'main' method in the 'com.TicketTime.TicketTime.TicketTimeApplication' class
 ###### Security
 `<dependency>
   <groupId>org.springframework.boot</groupId>
@@ -77,9 +82,7 @@ This project has 3 layer to set up.
 
 Spring Boot Starter Security default username is user and a generated security password is printed in the console like 'generated security password: 0123abc4-5678-9ef0-1g2h-i3456jklmno7'
 
-### MongoDB Database
-
-### Front End Site
+### Front End Site Setup
 ###### Requirments
 * [Node - npm](https://www.npmjs.com/get-npm)
 ###### Install & Run
