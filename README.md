@@ -51,10 +51,26 @@ External APIs
 * [Google Geocoding api](https://developers.google.com/maps/documentation/geocoding/start) - Location to Lat/Lng
 
 Deployment
-* MongoDB Atlas (Database)
-* AWS Elastic Beanstalk + EC2 (Backend API)
-* AWS S3 (Frontend Site)
-* AWS Route 53 (Domain)
+* MongoDB Atlas - Database
+* AWS Elastic Beanstalk + EC2 - Backend API
+* AWS S3 - Frontend Site
+* AWS Route 53 - Domain
+
+## Wireframes/Diagrams
+(https://live.staticflickr.com/65535/49445828106_8c8dc2f842_z.jpg)
+
+Original Wireframes using [Figma.com](https://www.figma.com)
+<p align="center"> 
+     <img src="https://live.staticflickr.com/65535/49445828106_8c8dc2f842_z.jpg"
+          alt="TicketClock wireframe headers"/>
+     <img src="https://live.staticflickr.com/65535/49445349983_45054c51cb_c.jpg"
+          alt="TicketClock wireframe ticket"/>
+     <img src="https://live.staticflickr.com/65535/49445828051_40dfd0bf5c_c.jpg"
+          alt="TicketClock wireframe new ticket"/>
+     <img src="https://live.staticflickr.com/65535/49445828026_930fc5d467_c.jpg"
+          alt="TicketClock wireframe myaccount"/>
+</p>
+
 
 
 
