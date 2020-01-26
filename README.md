@@ -61,16 +61,16 @@ Deployment
 <p align="center"> 
      <img src="https://live.staticflickr.com/65535/49445828106_8c8dc2f842_z.jpg"
           alt="TicketClock wireframe headers"
-          width="200"/>
+          width="400"/>
      <img src="https://live.staticflickr.com/65535/49445349983_45054c51cb_c.jpg"
           alt="TicketClock wireframe ticket"
-          width="200"/>
+          width="400"/>
      <img src="https://live.staticflickr.com/65535/49445828051_40dfd0bf5c_c.jpg"
           alt="TicketClock wireframe new ticket"
-          width="200"/>
+          width="400"/>
      <img src="https://live.staticflickr.com/65535/49445828026_930fc5d467_c.jpg"
           alt="TicketClock wireframe myaccount"
-          width="200"/>
+          width="400"/>
 </p>
 
 
