@@ -9,7 +9,7 @@ import '../../css/ByLocationPage.css'
 
 import SPRING_SECURITY from '../../config_spring_keys.js'
 
-const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
+const base_url = `${SPRING_SECURITY.base_url}`
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 
@@ -26,16 +26,6 @@ class ByLocation extends Component {
       collection: undefined,
       zoom: 10,
     };
-  }
-
-  fetchCollection(url, headers) {
-    axios.get( url, headers).then((response) => {
-        this.setState({collection: response.data})
-      })
-      .catch((error) => {
-        console.log("No collection")
-        // this.setState({errors: error})
-      });
   }
 
   setSelectedVenue = (venue) => {

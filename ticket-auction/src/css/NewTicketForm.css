@@ -103,6 +103,11 @@
   margin: auto
 }
 
+.new-ticket-auction-container form {
+  margin:auto
+}
+
+
 .new-event-ticket-container {
   display: flex;
   justify-content: center;

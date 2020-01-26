@@ -10,18 +10,23 @@ class NewTicketFormAuction extends Component {
     };
   }
 
-  
-
   render() {
-    const auctionStates = ["ticketQuantity", "ticketGrouping", "auctionStart", "auctionEnd", "startTotalPrice", "endTotalPrice", "auctionDetails", "pitch"]
-    const auctionLabels = ["Ticket Quantity", "Ticket Grouping", "Auction Start", "Auction End", "Start Total Price: $", "End Total Price: $", "Details", "Auction Pitch"]
+    const auctionStates = ["ticketQuantity", "ticketGrouping", "auctionStart", "auctionEnd", "startTotalPrice", "endTotalPrice", "auctionDetails"]
+    const auctionLabels = ["Ticket Quantity", "Ticket Grouping", "Auction Start", "Auction End", "Start Total Price (per unit): $", "End Total Price (per unit): $", "Details"]
+
+    const ticketGroupings = ["", "general admission", "together", "lawn", "tier1", "tier2", "balcony",]
+
+    const inputOptions = (list) => list.map((item, i) => {
+      return <option value={item} key={i}>{item}</option>
+    });
 
     
     const inputs = (states, labels, index = -1) => states.map((state) => {
         index++;
           if (state === "auctionStart") {
             return (
-                  <div>
+                <div>
+                  <label> {labels[index]}: </label>
                   <DateTimePicker
                     onChange={this.props.onStartChange}
                     value={this.props.startDate}
@@ -30,13 +35,22 @@ class NewTicketFormAuction extends Component {
             )
           }  else if (state === "auctionEnd") {
             return (
-                  <div>
+                <div>
+                  <label> {labels[index]}: </label>
                   <DateTimePicker
                     onChange={this.props.onEndChange}
                     value={this.props.endDate}
                   />
                 </div>
             )
+          } else if (state === "ticketGrouping") {
+            return( 
+              <div>
+                <label htmlFor={state}> {labels[index]}: </label>
+                <select name={state} onChange={this.props.onInputChange} value={this.props.ticketGrouping}>
+                  {inputOptions(ticketGroupings)}
+                </select>
+              </div>)
           } else {
           return (
             <div>

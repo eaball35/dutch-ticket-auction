@@ -8,7 +8,7 @@ import SPRING_SECURITY from '../../config_spring_keys.js'
 
 var dateFormat = require('dateformat');
 
-const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
+const base_url = `${SPRING_SECURITY.base_url}`
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 
@@ -65,7 +65,10 @@ render() {
                     : null
                   }
                 </h2>
-                <h2>@ {eventDetails.venue.title}  |  {eventDetails.venue.address.city.name}, {eventDetails.venue.address.city.state} </h2>
+                {(eventDetails.venue && eventDetails.venue.address )
+                  ? <h2>@ {eventDetails.venue.title}  |  {eventDetails.venue.address.city.name}, {eventDetails.venue.address.city.state} </h2>
+                  : <h2></h2>
+                }
                 <p>{eventDetails.eventDetails}</p>
               </div>
 
@@ -84,7 +87,7 @@ render() {
 
             <section className ="ticket-table-container">
               <h2>Browse Ticket Listings</h2>
-              <TicketTable url={`/tickets/event/${this.props.match.params.id}`}/>
+              <TicketTable url={`/tickets/event/${this.props.match.params.id}`} show={false}/>
             </section>
 
           </section>

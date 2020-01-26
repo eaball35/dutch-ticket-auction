@@ -6,7 +6,7 @@ import SPRING_SECURITY from '../../config_spring_keys.js'
 import NewTicketFormEvent from './NewTicketFormEvent';
 import SearchAddEvent from './SearchAddEvent';
 import NewTicketFormAuction from './NewTicketFormAuction';
-const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
+const base_url = `${SPRING_SECURITY.base_url}`
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 var dateFormat = require('dateformat');
@@ -24,7 +24,7 @@ class EventTicketForm extends Component {
       startTotalPrice: "",
       endTotalPrice: "",
       auctionDetails: "",
-      ticketQuantity: "",
+      ticketQuantity: 1,
       ticketGrouping: "",
       pitch: "",
       
@@ -69,8 +69,8 @@ class EventTicketForm extends Component {
 
       auctionStart: this.state.auctionStart,
       auctionEnd: this.state.auctionEnd,
-      startTotalPrice: this.state.startTotalPrice,
-      endTotalPrice: this.state.endTotalPrice,
+      startTotalPrice: this.state.startTotalPrice * this.state.ticketQuantity,
+      endTotalPrice: this.state.endTotalPrice * this.state.ticketQuantity,
       auctionDetails: this.state.auctionDetails,
       ticketQuantity: this.state.ticketQuantity,
       ticketGrouping: this.state.ticketGrouping,
@@ -115,7 +115,7 @@ class EventTicketForm extends Component {
           </section>
 
           <form onSubmit={this.onSubmitTicket}>
-            <NewTicketFormAuction onStartChange={this.onStartChange} onEndChange={this.onEndChange} endDate={this.state.auctionEnd} startDate={this.state.auctionStart} onInputChange={this.onInputChange}/>
+            <NewTicketFormAuction onStartChange={this.onStartChange} onEndChange={this.onEndChange} endDate={this.state.auctionEnd} startDate={this.state.auctionStart} onInputChange={this.onInputChange} ticketGrouping={this.state.ticketGrouping}/>
             <div className="venue-btn-container">
               <input type="submit" value="Submit Ticket" className="btn btn-primary"/>
             </div>

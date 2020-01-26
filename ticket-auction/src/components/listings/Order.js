@@ -4,7 +4,7 @@ import SPRING_SECURITY from '../../config_spring_keys.js'
 import TicketCard from '../cards/TicketCard'
 import '../../css/Order.css'
 
-const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
+const base_url = `${SPRING_SECURITY.base_url}`
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 
