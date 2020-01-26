@@ -56,6 +56,18 @@ Deployment
 * AWS S3 - Frontend Site
 * AWS Route 53 - Domain
 
+## Getting Started
+This project has 3 layer to set up.
+     1. Java/Spring Boot Backend API
+     2. MongoDB Database
+     3. React JS Front End Site 
+
+### Backend API
+
+### MongoDB Database
+
+### Front End Site
+
 ## Wireframes/Diagrams
 ###### Original Wireframes using [Figma.com](https://www.figma.com)
 <p align="center"> 
