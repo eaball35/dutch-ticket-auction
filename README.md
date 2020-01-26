@@ -18,7 +18,7 @@ Checkout site demo at [ticketclock.com](http://ticketclock.com) or run locally b
 2. Set up your own [MongoDb Atlas cluster](https://cloud.mongodb.com/) and configure mongoDB 'URI' and 'database' name
 3. Configure [Eventful.com API key](https://api.eventful.com/) and [Google GeoCoding API key](https://developers.google.com/maps/documentation/javascript/geocoding)
 4. Configure `@CrossOrigin(origins = "http://ticketclock.com")` annotation within controller classes to allow frontend URL
-5. Run Spring Boot application locally by executing the 'main' method in the 'com.TicketTime.TicketTime.TicketTimeApplication' class
+5. Run Spring Boot application locally by executing the 'main' method in 'com.TicketTime.TicketTime.TicketTimeApplication'
 ###### Security
 ```
 <dependency>
@@ -35,7 +35,7 @@ Spring Boot Starter Security default username is user and a generated security p
 ###### Install & Run
 1. Fork and clone project folder named 'ticket-clock-api'
 2. Install dependencies with `npm install`
-3. Configure Spring security username, password, and API baseURL
+3. Configure Spring security username, password, and backend API base URL
 4. Configure Google Maps API security key
 4. Start server locally with `npm start`
 
@@ -85,10 +85,10 @@ External APIs
 * [Google Geocoding api](https://developers.google.com/maps/documentation/geocoding/start) - Location to Lat/Lng
 
 Deployment
-* MongoDB Atlas - Database
-* AWS Elastic Beanstalk + EC2 - Backend API
-* AWS S3 - Frontend Site
-* AWS Route 53 - Domain
+* [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) - Database
+* [AWS Elastic Beanstalk + EC2](https://aws.amazon.com/elasticbeanstalk/) - Backend API
+* [AWS S3](https://aws.amazon.com/s3/) - Frontend Site
+* [AWS Route 53](https://aws.amazon.com/route53/) - Domain
 
 ## Wireframes/Diagrams
 ###### Original Wireframes using [Figma.com](https://www.figma.com)
