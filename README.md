@@ -11,7 +11,7 @@ The project, created entirely by Emily Ball, was developed for her Ada Developer
 * [About Capstone](#about-capstone)
 * [Product Plan](#product-plan)
 * [Technologies](#technologies)
-* [Wireframes/Diagrams](#Wireframes/Diagrams)
+* [Wireframes/Diagrams](#wireframes-and-diagrams)
 
 
 
@@ -98,7 +98,7 @@ Deployment
 * [AWS S3](https://aws.amazon.com/s3/) - Frontend Site
 * [AWS Route 53](https://aws.amazon.com/route53/) - Domain
 
-## Wireframes/Diagrams
+## Wireframes and Diagrams
 ###### Original Wireframes using [Figma.com](https://www.figma.com)
 <p align="center"> 
      <img src="https://live.staticflickr.com/65535/49445828106_8c8dc2f842_z.jpg"
