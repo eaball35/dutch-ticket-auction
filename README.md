@@ -7,45 +7,11 @@
 
 The project, created entirely by Emily Ball, was developed for her Ada Developers Academy Capstone project. For additional information or questions, please reach out directly to Emily at eaball35@gmail.com.
 ## Table of Contents
-* [Getting Started](#getting-started)
 * [About Capstone](#about-capstone)
 * [Product Plan](#product-plan)
 * [Technologies](#technologies)
 * [Wireframes/Diagrams](#wireframes-and-diagrams)
-
-
-
-## Getting Started
-Checkout site demo at [ticketclock.com](http://ticketclock.com) or run locally by following setup instructions below.
-### Backend API Setup
-###### Requirments
-* [JDK 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-* [Maven 4.0.0](https://maven.apache.org/)
-###### Install & Run
-1. Fork and clone project folder name 'ticket-clock-api'
-2. Set up your own [MongoDb Atlas cluster](https://cloud.mongodb.com/) and configure mongoDB 'URI' and 'database' name
-3. Configure [Eventful.com API key](https://api.eventful.com/) and [Google GeoCoding API key](https://developers.google.com/maps/documentation/javascript/geocoding)
-4. Configure `@CrossOrigin(origins = "http://ticketclock.com")` annotation within controller classes to allow frontend URL
-5. Run Spring Boot application locally by executing the 'main' method in 'com.TicketTime.TicketTime.TicketTimeApplication'
-###### Security
-```
-<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-security</artifactId>
-</dependency>
-```
-
-Spring Boot Starter Security default username is user and a generated security password is printed in the console like 'generated security password: 0123abc4-5678-9ef0-1g2h-i3456jklmno7'
-
-### Front End Site Setup
-###### Requirments
-* [Node - npm](https://www.npmjs.com/get-npm)
-###### Install & Run
-1. Fork and clone project folder named 'ticket-clock-api'
-2. Install dependencies with `npm install`
-3. Configure Spring security username, password, and backend API base URL
-4. Configure Google Maps API security key
-4. Start server locally with `npm start`
+* [Getting Started](#getting-started)
 
 ## About Capstone
 Capstone is the largest undertaking while at Ada Developers Academy. Given roughly 3 weeks, students take on roles of both the product owner and developer for their own full stack concepts. It is up to students to decide what and how things get built, given the added challenge of incorporating at least 3 new learned technologies. Projects are demoed at the end of captsone during a science fair style celebration. For additional information on Ada Capstone, vist Ada's project repo [here](https://github.com/Ada-C12/capstone).
@@ -121,6 +87,39 @@ Deployment
           alt="TicketClock ERD"
           width="600"/>
 </p> 
+
+## Getting Started
+Checkout site demo at [ticketclock.com](http://ticketclock.com) or run locally by following setup instructions below.
+### Backend API Setup
+###### Requirments
+* [JDK 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* [Maven 4.0.0](https://maven.apache.org/)
+###### Install & Run
+1. Fork and clone project folder name 'ticket-clock-api'
+2. Set up your own [MongoDb Atlas cluster](https://cloud.mongodb.com/) and configure mongoDB 'URI' and 'database' name
+3. Configure [Eventful.com API key](https://api.eventful.com/) and [Google GeoCoding API key](https://developers.google.com/maps/documentation/javascript/geocoding)
+4. Configure `@CrossOrigin(origins = "http://ticketclock.com")` annotation within controller classes to allow frontend URL
+5. Run Spring Boot application locally by executing the 'main' method in 'com.TicketTime.TicketTime.TicketTimeApplication'
+###### Security
+```
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+```
+
+Spring Boot Starter Security default username is user and a generated security password is printed in the console like 'generated security password: 0123abc4-5678-9ef0-1g2h-i3456jklmno7'
+
+### Front End Site Setup
+###### Requirments
+* [Node - npm](https://www.npmjs.com/get-npm)
+###### Install & Run
+1. Fork and clone project folder named 'ticket-clock-api'
+2. Install dependencies with `npm install`
+3. Configure Spring security username, password, and backend API base URL
+4. Configure Google Maps API security key
+4. Start server locally with `npm start`
+
 
 
 
