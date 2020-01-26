@@ -1,5 +1,7 @@
 <img src="https://live.staticflickr.com/65535/49431678272_11fda6a894_w.jpg"
-     alt="TicketClock Logo" />
+     alt="TicketClock Logo" 
+     align="center"
+     />
 
 TicketClock is a web-based ticket auction app which allows sellers to list tickets at whatever price and that price will reduce until a buyer is found OR the time of the event. This model is also know as a 'dutch' or 'time-based' auction. The project, created entirely by Emily Ball, was developed for her Ada Developers Academy Capstone project. 
 
