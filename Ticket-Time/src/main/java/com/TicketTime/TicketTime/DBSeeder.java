@@ -15,7 +15,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Array;
+import java.sql.Array;
 import java.util.*;
 
 
@@ -55,17 +55,59 @@ public class DBSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        
+//        this.userRepository.deleteAll();
+//        this.ticketListingRepository.deleteAll();
+//
+//        Optional<Address> emilyAdd = this.addressRepository.findById("5e2654b7622ee82e9910d54d");
+//        User newUser = new User("eaball35@gmail.com", "eaball35", "Emily Ball", emilyAdd.get());
+//        this.userRepository.save(newUser);
+//
+//        User newUser2 = new User ("eball@test.com", "eball", "Emily B", emilyAdd.get());
+//        this.userRepository.save(newUser2);
+//
+//        List<Event> events = this.eventRepository.findAll();
+//
+//        for (int i = 0; i < events.size(); i++) {
+//            Event event = events.get(i);
+//            int ticketQuantity = (int)(Math.random()* 6 + 1);
+//            double startPrice = (Math.random()* 500 + 10);
+//            double endPrice = 0.1 * startPrice;
+//
+//            int daysAgo = (int)(Math.random()* 10 + 1);
+//            DateTime daysAgoDate = Instant.now().minus(Duration.standardDays(daysAgo)).toDateTime();
+//            int daysAhead = (int)(Math.random()* 20 + 3);
+//            DateTime daysAheadDate = daysAgoDate.toInstant().plus(Duration.standardDays(daysAhead)).toDateTime();
+//
+//            TicketListing newTicket = new TicketListing(newUser, event, ticketQuantity, "general admission", daysAgoDate,daysAheadDate, startPrice, endPrice, "Here are some details about this auction.", "Auction Pitch");
+//            this.ticketListingRepository.save(newTicket);
+//            System.out.println("Added ticket1: " + newTicket.getEvent().getTitle());
+//
+//            int ticketQuantity2 = (int)(Math.random()* 5 + 1);
+//            double startPrice2 = (Math.random()* 400 + 10);
+//            double endPrice2 = 0.05 * startPrice;
+//
+//            int daysAgo2 = (int)(Math.random()* 5 + 1);
+//            DateTime daysAgoDate2 = Instant.now().minus(Duration.standardDays(daysAgo2)).toDateTime();
+//            int daysAhead2 = (int)(Math.random()* 30 + 2);
+//            DateTime daysAheadDate2 = daysAgoDate.toInstant().plus(Duration.standardDays(daysAhead2)).toDateTime();
+//
+//            TicketListing newTicket2 = new TicketListing(newUser2, event, ticketQuantity2, "general admission", daysAgoDate2, daysAheadDate2, startPrice2, endPrice2, "Here are some details about this auction.", "Auction Pitch");
+//            this.ticketListingRepository.save(newTicket2);
+//            System.out.println("Added ticket2: " + newTicket2.getEvent().getTitle());
+//        }
+
+
+
+
 //        Optional<TicketListing> ticket = this.ticketListingRepository.findById("5e2623e48bcc2c77ef784d3a");
 
-        //        List<Event> events = this.eventRepository.findByCategoriesGenre("r&b/soul");
+//            List<Event> events = this.eventRepository.findByCategoriesGenre("Hip Hop/Rap");
 //            for(int i =0; i< events.size(); i++) {
-//                events.get(i).getCategories().get(0).setGenre("rnb");
+//                events.get(i).getCategories().get(0).setGenre("hiphop");
 //                this.eventRepository.save(events.get(i));
 //            }
 
-
-        //        this.cityRepository.deleteAll();
+//        this.cityRepository.deleteAll();
 //        this.addressRepository.deleteAll();
 //        this.userRepository.deleteAll();
 //        this.venueRepository.deleteAll();
@@ -74,7 +116,6 @@ public class DBSeeder implements CommandLineRunner {
 //        this.eventRepository.deleteAll();
 //        this.ticketListingRepository.deleteAll();
 //        this.orderRepository.deleteAll();
-
 
 
 //        ArrayList<String> locations = new ArrayList<String>(Arrays.asList(

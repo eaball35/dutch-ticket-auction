@@ -19,31 +19,25 @@ public class TicketListing {
     @NotBlank
     private String status = "new";
 
-    @NotBlank
     private final User user;
-    @NotBlank
     private final Event event;
-    @NotBlank
-    private final Integer ticketQuantity;
-    @NotBlank
+    private Integer ticketQuantity;
     private final String ticketGrouping;
-    @NotBlank
     private final DateTime auctionStart;
-    @NotBlank
     private final DateTime auctionEnd;
-    @NotBlank
     private final Double startTotalPrice;
-    @NotBlank
     private final Double endTotalPrice;
-    @NotBlank
     private final String auctionDetails;
-    @NotBlank
     private final String pitch;
 
-    public TicketListing(@NotBlank User user, @NotBlank Event event, @NotBlank Integer ticketQuantity, @NotBlank String ticketGrouping, @NotBlank DateTime auctionStart , @NotBlank DateTime auctionEnd, @NotBlank Double startTotalPrice, @NotBlank Double endTotalPrice, @NotBlank String auctionDetails, @NotBlank String pitch) {
+    public TicketListing(User user,  Event event, Integer ticketQuantity, String ticketGrouping, DateTime auctionStart , DateTime auctionEnd, Double startTotalPrice, Double endTotalPrice, String auctionDetails, String pitch) {
         this.user = user;
         this.event = event;
         this.ticketQuantity = ticketQuantity;
+        if (this.ticketQuantity < 1) {
+            this.ticketQuantity = 1;
+        }
+
         this.ticketGrouping = ticketGrouping;
 
         if (auctionEnd == null) {
@@ -106,6 +100,10 @@ public class TicketListing {
         return ticketQuantity;
     }
 
+    public void setTicketQuantity(Integer ticketQuantity) {
+        this.ticketQuantity = ticketQuantity;
+    }
+
     public String getTicketGrouping() {
         return ticketGrouping;
     }
@@ -139,10 +137,19 @@ public class TicketListing {
 
         double startPrice = this.startTotalPrice;
         double endPrice = this.endTotalPrice;
+
+        if(endTotalPrice > startTotalPrice) {
+            return null;
+        }
+
         Instant start = this.auctionStart.toInstant();
         Instant end = this.auctionEnd.toInstant();
         Instant currentTime = new DateTime().toInstant();
         resultTable.put("strikeTime", currentTime);
+
+        if(currentTime.isAfter(end)) {
+            return null;
+        }
 
         int betweenHours = Hours.hoursBetween(start, end).getHours();
         int betweenMinutes = Minutes.minutesBetween(start, end).getMinutes() % 60;
@@ -151,14 +158,25 @@ public class TicketListing {
         int passHours = Hours.hoursBetween(start, currentTime).getHours();
         int passMinutes = Minutes.minutesBetween(start, currentTime).getMinutes() % 60;
         double passedTimeUnits = passHours + (passMinutes/60.00);
-        double leftTimeUnits = totalTimeUnits - passedTimeUnits;
 
         double totalCost = startPrice - endPrice;
         double pricePerTimeUnit = totalCost/totalTimeUnits;
-        double currentCost = leftTimeUnits * pricePerTimeUnit;
+        double currentCost = startPrice - (passedTimeUnits * pricePerTimeUnit);
         resultTable.put("currentPrice", currentCost);
 
         return resultTable;
+    }
+
+    public Integer hoursLeft() {
+        Instant end = this.auctionEnd.toInstant();
+        Instant currentTime = new DateTime().toInstant();
+
+        if(currentTime.isAfter(end)) {
+            return 0;
+        }
+
+        int leftHours = Hours.hoursBetween(currentTime, end).getHours();
+        return leftHours;
     }
 
     @Override

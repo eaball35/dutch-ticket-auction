@@ -6,8 +6,7 @@ class SearchAddEvent extends Component {
     super(props);
 
     this.state = {
-      eventTitle: "",
-      eventPerformer: "",
+      query: "",
     };
   }
   
@@ -22,36 +21,24 @@ class SearchAddEvent extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    this.props.onSearch({
-      eventTitle: this.state.eventTitle,
-      eventPerformer: this.state.eventPerformer,
-    })
+    this.props.onSearch(this.state.query)
     this.setState({
-      eventTitle: "",
-      eventPerformer: "",
+      query: "",
     })
   }
   
   render() {
     return (
       <section className="venue-search">
-        <h2>Step 3: Search to Add Event</h2>
-        <p>Enter title <strong>and/or</strong> performer, click search, and select event.</p>
+        <h2>Search to Add Event</h2>
+        <p>Search events and select your ticket listing event.</p>
         <form onSubmit={this.onSubmit}>
           <div>
-            <label htmlFor="eventTitle"> Event Title: </label>
+            <label htmlFor="query"> Query: </label>
             <input
-              name="eventTitle"
+              name="query"
               onChange={this.onInputChange}
-              value={this.state.eventTitle}
-            />
-          </div>
-          <div>
-            <label htmlFor="eventPerformer"> Event Performer: </label>
-            <input
-              name="eventPerformer"
-              onChange={this.onInputChange}
-              value={this.state.eventPerformer}
+              value={this.state.query}
             />
           </div>
           <div className="add-btns">

@@ -6,7 +6,7 @@ import SPRING_SECURITY from '../../config_spring_keys.js'
 import NewTicketFormEvent from './NewTicketFormEvent';
 import SearchAddEvent from './SearchAddEvent';
 import NewTicketFormAuction from './NewTicketFormAuction';
-const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
+const base_url = `${SPRING_SECURITY.base_url}`
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 var dateFormat = require('dateformat');
@@ -18,22 +18,35 @@ class EventTicketForm extends Component {
     this.state = {
       event: undefined,
       
-      auctionStart: "",
-      auctionEnd: "",
+      
+      auctionStart: new Date(),
+      auctionEnd: new Date(),
       startTotalPrice: "",
       endTotalPrice: "",
       auctionDetails: "",
-      overview: "",
+      ticketQuantity: 1,
+      ticketGrouping: "",
+      pitch: "",
       
       collection: [],
       redirect: undefined,
     };
   }
 
+  onStartChange = auctionStart => this.setState({ auctionStart })
+  onEndChange = auctionEnd => this.setState({ auctionEnd })
+
   componentDidMount = () => {
     if (this.props.event) {
       this.setState({event: this.props.event})
     }
+  }
+
+  updateAuctionDetails = (dates) => {
+    this.setState({
+      startTotalPrice: dates.startDate,
+      endTotalPrice: dates.endDate
+    })
   }
   
   onInputChange = (event) => {
@@ -53,12 +66,15 @@ class EventTicketForm extends Component {
       user: this.props.currentUser,
       event: this.state.event,
 
+
       auctionStart: this.state.auctionStart,
       auctionEnd: this.state.auctionEnd,
-      startTotalPrice: this.state.startTotalPrice,
-      endTotalPrice: this.state.endTotalPrice,
+      startTotalPrice: this.state.startTotalPrice * this.state.ticketQuantity,
+      endTotalPrice: this.state.endTotalPrice * this.state.ticketQuantity,
       auctionDetails: this.state.auctionDetails,
-      overview: this.state.overview,
+      ticketQuantity: this.state.ticketQuantity,
+      ticketGrouping: this.state.ticketGrouping,
+      pitch: this.state.pitch,
     }
 
     axios.post(url, data, headers)
@@ -75,7 +91,7 @@ class EventTicketForm extends Component {
   }
 
   onSearch = (query) => {
-    const url = `${base_url}/findEvent?title=${query.eventTitle}&performer=${query.eventPerformer}`
+    const url = `${base_url}/search?q=${query}`
     const headers = { headers: { authorization: 'Basic ' + window.btoa( username + ":" + password) }}
     
     axios.get(url, headers)
@@ -88,11 +104,10 @@ class EventTicketForm extends Component {
   }
 
   showSelectedEvent = () => {
-    if (this.state.selectedEvent) {
+    if (this.state.event) {
       return (
         <section>
           <h2>Selected Event:</h2>
-          <p>Click 'next' to continue with selected.</p>
           <section className="selected-venue-details">
             <h4>{this.state.event.title} - {this.state.event.venue.address.city.name}, {this.state.event.venue.address.city.state}</h4>
             <p>{this.state.event.description}</p>
@@ -100,6 +115,7 @@ class EventTicketForm extends Component {
           </section>
 
           <form onSubmit={this.onSubmitTicket}>
+            <NewTicketFormAuction onStartChange={this.onStartChange} onEndChange={this.onEndChange} endDate={this.state.auctionEnd} startDate={this.state.auctionStart} onInputChange={this.onInputChange} ticketGrouping={this.state.ticketGrouping}/>
             <div className="venue-btn-container">
               <input type="submit" value="Submit Ticket" className="btn btn-primary"/>
             </div>
@@ -107,6 +123,10 @@ class EventTicketForm extends Component {
         </section>
       )
     }
+  }
+
+  addSelectedEvent = (event) => {
+    this.setState({event})
   }
 
 
@@ -118,9 +138,14 @@ class EventTicketForm extends Component {
           <div key={i} className="search-results">
             <button onClick={() => this.addSelectedEvent(event)} className="btn btn-secondary">+</button>
             <div className='search-event-details'>
-              <p><strong>{event.title}</strong> ({event.venue.address.city.name}, {event.venue.address.city.state})</p>
-              <p>{event.performer[0].name} </p>
               <p>{dateFormat(event.start, "mmm dS, yyyy, h:MM TT")}</p>
+              <p><strong>{event.title}</strong> 
+                { (event.venue.address)
+                  ?(event.venue.address.city.name, event.venue.address.city.state)
+                  : ""
+                }
+              </p>
+              <p>@{event.venue.title}</p> 
             </div>
           </div>
           
@@ -142,12 +167,15 @@ class EventTicketForm extends Component {
       return <Redirect to={redirect}/>;
     }
     return (
-      <section className="new-ticket-container">
-        <h1>Quick List on TicketClock</h1>
-        <SearchAddEvent onSearch={this.onSearch}/>
-        {this.bottomDisplay()}
-        <NewTicketFormAuction/>
-        {this.showSelectedEvent()}
+      <section className="new-event-ticket-container">
+        <div className="left-event-sect">
+          <h1>Quick List on TicketClock</h1>
+          <SearchAddEvent onSearch={this.onSearch}/>
+          {this.bottomDisplay()}
+        </div>
+        <div className="right-event-sect">
+          {this.showSelectedEvent()}
+        </div>
       </section>
     )
   }

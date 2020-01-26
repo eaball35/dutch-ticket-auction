@@ -9,7 +9,7 @@ import '../../css/TicketTable.css';
 TimeAgo.addLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
-const base_url = 'http://ticketclock.us-west-2.elasticbeanstalk.com'
+const base_url = `${SPRING_SECURITY.base_url}`
 const username = `${SPRING_SECURITY.username}`
 const password = `${SPRING_SECURITY.password}`
 
@@ -43,23 +43,43 @@ class TicketTable extends Component {
       });
   }
 
+  // showNotPaid = (ticket) => {
+  //   if (ticket.status !== "paid" && this.props.noshow)
+  // }
+
   render() {
       let ticketTable;
       
       if (this.state.tickets !== []) {
         ticketTable = this.state.tickets.map((ticket, i) => {
-          return (
-            <tr key={i}>
-              <td><Link to={`/tickets/${ticket.id}`}>Ticket ID ...{ticket.id.slice(-6)} </Link></td>
-              <td>{ticket.ticketQuantity}</td>
-              <td>{ticket.user.username}</td>
-              <td> {timeAgo.format(new Date(ticket.createdAt))}</td>
-              <td> ${(ticket.startTotalPrice/ ticket.ticketQuantity).toFixed(2)}</td>
-            </tr>
-          )
+            if (ticket.status !== "new" && !this.props.show) {
+              return ("")
+            } else if (ticket.status === "new") {
+              return (
+                <tr key={i}>
+                  <td><Link to={`/tickets/${ticket.id}`}>Ticket ID ...{ticket.id.slice(-6)} </Link></td>
+                  <td>{ticket.ticketQuantity}</td>
+                  <td>{ticket.user.username}</td>
+                  <td> {timeAgo.format(new Date(ticket.createdAt))}</td>
+                  <td> ${(ticket.startTotalPrice/ ticket.ticketQuantity).toFixed(2)}</td>
+                </tr>
+              )
+            } else if (ticket.status !== "new" && this.props.show)  {
+                return (
+                  <tr key={i}>
+                    <td><Link to={`/tickets/${ticket.id}`}>Ticket ID ...{ticket.id.slice(-6)} - {ticket.status} </Link></td>
+                    <td>{ticket.ticketQuantity}</td>
+                    <td>{ticket.user.username}</td>
+                    <td> {timeAgo.format(new Date(ticket.createdAt))}</td>
+                    <td> ${(ticket.startTotalPrice/ ticket.ticketQuantity).toFixed(2)}</td>
+                  </tr>
+                )
+            } else {
+              return (<div className="unavailable">No tickets available </div>)
+            }
         });
       } else {
-        return ticketTable;
+        ticketTable = <div className="unavailable">No tickets available </div>
       }
   
     return (

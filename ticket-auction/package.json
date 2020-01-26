@@ -12,11 +12,12 @@
     "dateformat": "^3.0.3",
     "formik": "^2.1.0",
     "google-maps-react": "^2.0.2",
+    "input-moment": "^0.4.0",
     "javascript-time-ago": "^2.0.6",
     "moment": "^2.24.0",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
-    "react-datepicker": "^2.10.1",
+    "react-datepicker": "^2.11.0",
     "react-datetime-picker": "^2.9.0",
     "react-dom": "^16.12.0",
     "react-geocode": "^0.2.1",
@@ -30,7 +31,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "aws s3 sync build/ s3://ticket-clock-1 --acl public-read"
   },
   "eslintConfig": {
     "extends": "react-app"
