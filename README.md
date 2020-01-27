@@ -20,6 +20,8 @@ The project, created entirely by Emily Ball, was developed for her Ada Developer
 ![By Location Demo](https://thumbs.gfycat.com/SpeedyDecimalBorer-size_restricted.gif)
 ![Search Demo](https://thumbs.gfycat.com/ShorttermAccurateFantail-size_restricted.gif)
 ![LoggedIn Checkout Demo](https://thumbs.gfycat.com/InfamousPotableBlesbok-size_restricted.gif)
+![NewTicket Demo](https://thumbs.gfycat.com/YellowishAbsoluteAmurstarfish-size_restricted.gif)
+
 
 
 ## Technologies
