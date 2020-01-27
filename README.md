@@ -20,16 +20,16 @@ The project, created entirely by Emily Ball, was developed for her Ada Developer
 <p align="center"> 
      <img src="https://thumbs.gfycat.com/SpeedyDecimalBorer-size_restricted.gif"
           alt="By Location Demo"
-          width="500"/>
+          width="400"/>
      <img src="https://thumbs.gfycat.com/ShorttermAccurateFantail-size_restricted.gif"
           alt="Search Demo"
-          width="500"/>
+          width="400"/>
      <img src="https://thumbs.gfycat.com/InfamousPotableBlesbok-size_restricted.gif"
           alt="LoggedIn Checkout Demo"
-          width="500"/>
+          width="400"/>
      <img src="https://thumbs.gfycat.com/YellowishAbsoluteAmurstarfish-size_restricted.gif"
           alt="NewTicket Demo"
-          width="500"/>
+          width="400"/>
 </p>
 
 
