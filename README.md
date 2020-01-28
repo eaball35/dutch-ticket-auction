@@ -61,7 +61,7 @@ Deployment
 ## Getting Started
 Checkout site demo at [ticketclock.com](http://ticketclock.com) or run locally by following setup instructions below.
 ### Backend API Setup
-###### Requirments
+###### Requirements
 * [JDK 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 * [Maven 4.0.0](https://maven.apache.org/)
 ###### Install & Run
@@ -81,7 +81,7 @@ Checkout site demo at [ticketclock.com](http://ticketclock.com) or run locally b
 Spring Boot Starter Security default username is user and a generated security password is printed in the console like 'generated security password: 0123abc4-5678-9ef0-1g2h-i3456jklmno7'
 
 ### Front End Site Setup
-###### Requirments
+###### Requirements
 * [Node - npm](https://www.npmjs.com/get-npm)
 ###### Install & Run
 1. Fork and clone project folder named 'ticket-clock-api'
