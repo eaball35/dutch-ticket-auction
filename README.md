@@ -36,7 +36,7 @@ The project, created entirely by Emily Ball, was developed for her Ada Developer
 
 ## Technologies
 Backend
- * Lanuage - [Java](https://www.oracle.com/java/)
+ * Language - [Java](https://www.oracle.com/java/)
  * Framework - [Spring Boot](https://spring.io/projects/spring-boot)
  * Database - [MongoDB](https://www.mongodb.com/)
 
