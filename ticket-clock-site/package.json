@@ -23,7 +23,7 @@
     "react-geocode": "^0.2.1",
     "react-moment": "^0.9.7",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.0",
+    "react-scripts": "5.0.1",
     "react-usa-map": "^1.4.0",
     "zipcodes": "^8.0.0"
   },
